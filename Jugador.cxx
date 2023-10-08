@@ -49,3 +49,6 @@ std::vector<Territorio*>& Jugador::getTerritorios() {
         territorios.push_back(nuevoTerritorio);
 
     }
+  int Jugador::contarTerritorios() {
+    return territorios.size();
+}

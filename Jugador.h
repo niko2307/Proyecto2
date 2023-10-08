@@ -25,10 +25,9 @@ public:
     void setTerritorio(Territorio* nuevoTerritorio);
     Ficha moverFicha();
     
-    
-    void asignarTerritorio(Territorio& territorio);
    
    Jugador& obtenerJugador(int indice);
+   int contarTerritorios();
 
    private:
     std::string color;
