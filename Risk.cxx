@@ -141,6 +141,7 @@ void Risk::turnoJugado(){
 
 
 
+
 //retorna el nombre de un continente disponible 
 std::string Risk::infoContinente(){
   std::string retorno ="";
@@ -359,6 +360,15 @@ bool Risk::esTurnoJugador(std::string nombreIngresado){
   return false;
 }
 
+void Risk::agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio ){
+for(int i =0; i<jugadores.size(); i++){
+    if(jugadores[i].obtenerNombreJugador()==nombreIngresado){
+      jugadores[turnoActual].setTerritorio(nuevoTerritorio);
+     
+    }
+  }
+}
+
 //busca los nombres de los jugadores y retorna true cuando el nombre del jugador existe
 //en la partida actual
 bool Risk::jugadorExiste(std::string nombreIngresado){
@@ -368,4 +378,83 @@ bool Risk::jugadorExiste(std::string nombreIngresado){
   }
   return false;
 }
+
+Territorio* Risk::buscarTerritorio(std::string nombreContinente, std::string nombreTerritorio) {
+    for (Continente& continente : continentes) {
+        if (continente.obtenerNombre() == nombreContinente) {
+           return continente.buscarTerritorio(nombreTerritorio);
+       
+        }
+
+    }
+    return nullptr;
+}
+Jugador* Risk::getJugador(std::string nombreJugador) {
+    for (Jugador& jugador : jugadores) {
+        if (jugador.obtenerNombreJugador() == nombreJugador) {
+            return &jugador;
+        }
+    }
+    return nullptr;
+}
+
+
+
+
+
+/*
+void Risk::NuevasFichas() {
+    // Obtener la cantidad de territorios ocupados por el jugador
+    int territoriosOcupados = risk->territoriosJugador();
+
+    // Calcular la cantidad de unidades adicionales por territorios
+    int unidadesPorTerritorios = territoriosOcupados / 3;
+
+    // Calcular la cantidad de unidades adicionales por continentes
+    int unidadesPorContinentes = 0;
+    for (int i = 0; i < continentes.size(); i++) {
+        std::string nombreContinente = continentes[i].obtenerNombre();
+        if (nombreContinente == "América del Sur" || nombreContinente == "Australia") {
+            if (continentes[i].reclamado(turnoActual) == "Sí") {
+                unidadesPorContinentes += 2;
+            }
+        } else if (nombreContinente == "África") {
+            if (continentes[i].reclamado(turnoActual) == "Sí") {
+                unidadesPorContinentes += 3;
+            }
+        } else if (nombreContinente == "América del Norte" || nombreContinente == "Europa") {
+            if (continentes[i].reclamado(turnoActual) == "Sí") {
+                unidadesPorContinentes += 5;
+            }
+        } else if (nombreContinente == "Asia") {
+            if (continentes[i].reclamado(turnoActual) == "Sí") {
+                unidadesPorContinentes += 7;
+            }
+        }
+    }
+
+    // Calcular la cantidad de unidades adicionales por cartas
+    int unidadesPorCartas = 0;
+    int gruposCartasIntercambiados = 0;
+
+    // Obtener la cantidad de grupos de cartas intercambiados por todos los jugadores
+    // ...
+
+    // Calcular la cantidad de unidades adicionales según la cantidad de grupos de cartas intercambiados
+    // ...
+
+    // Obtener la cantidad de territorios ocupados por el jugador que se incluyen en el intercambio de cartas
+    // ...
+
+    // Calcular la cantidad de unidades adicionales por territorios incluidos en el intercambio de cartas
+    // ...
+
+    // Calcular el total de unidades adicionales
+    int totalUnidadesAdicionales = unidadesPorTerritorios + unidadesPorContinentes + unidadesPorCartas;
+
+    // Asignar las nuevas unidades de ejército al jugador en turno
+    jugadores[turnoActual].obeterTotalFichas() += totalUnidadesAdicionales;
+}
+*/
+
 

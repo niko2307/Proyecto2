@@ -10,25 +10,35 @@
 class Jugador {
 public:
     Jugador(std::string nombre, std::string nColor);
+    //getters
     std::string obtenerColor() ;
-    std::string obtenerNombreJugador() ;
-    void agregarCarta(Carta carta); 
     //std::vector<Carta> obtenerCartas() ;
-    void agregarFicha(Ficha ficha); 
-    Ficha moverFicha();
-    std::vector<Ficha> obtenerFichas() ;
     int obeterTotalFichas();
-    void asignarTerritorioActual(Territorio& territorio);
-   Territorio obtenerTerritorioActual();
+    std::vector<Ficha> obtenerFichas() ;
+    std::vector<Territorio*>& getTerritorios();  
+    std::string obtenerNombreJugador() ;
+    
+
+
+    void agregarCarta(Carta carta); 
+    void agregarFicha(Ficha ficha); 
+    void setTerritorio(Territorio* nuevoTerritorio);
+    Ficha moverFicha();
+    
+    
+    void asignarTerritorio(Territorio& territorio);
+   
    Jugador& obtenerJugador(int indice);
 
    private:
     std::string color;
     std::vector<Carta> cartas;
     std::vector<Ficha> fichas;
+    std::vector<Territorio *>territorios;
     std::string nombreJugador;
-    Territorio* territorioActual;
-   std::vector<Jugador> jugadores;
+    //Territorio* territorioActual;
+
+   //std::vector<Jugador> jugadores;
 };
 
 #endif // JUGADOR_H

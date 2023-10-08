@@ -41,6 +41,7 @@ std::string Continente::getNombreTerritorio(int indice){
   return territorios[indice].getNombre();
 }
 
+
 //buscar el nombre de un territorio en un continente y si existe, retorna true
 bool Continente::territorioValido(std::string territorio){
   for(int i=0; i<territorios.size(); i++){
@@ -63,4 +64,13 @@ std::string Continente::reclamado(int indice){
 
 int Continente::getFichasEnTerritorio(int indice){
   return territorios[indice].GetQFichas();
+}
+
+Territorio* Continente::buscarTerritorio(std::string nombreTerritorio) {
+    for (Territorio& territorio : territorios) {
+        if (territorio.getNombre() == nombreTerritorio) {
+            return &territorio;
+        }
+    }
+    return nullptr;
 }

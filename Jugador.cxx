@@ -40,3 +40,12 @@ Ficha Jugador::moverFicha(){
   fichas.pop_back();
   return aux;
 }
+
+std::vector<Territorio*>& Jugador::getTerritorios() {
+        return territorios;
+    }
+
+ void Jugador::setTerritorio(Territorio* nuevoTerritorio) {
+        territorios.push_back(nuevoTerritorio);
+
+    }

@@ -27,6 +27,7 @@ public:
 
     std::string infoJug();
     std::string infoTerritorios(std::string nameContinente);
+    Territorio* getTerritorio(std::string nombreContinente, std::string nombreTerritorio) ;
     bool estadoTerritorio(std::string nameContinente, std::string nameTerritorio);
     void turnoJugado();
     
@@ -37,15 +38,17 @@ public:
     int indiceTerritorio(int iContinente, std::string territorio);
     bool territoriosLibres();
 
+    void NuevasFichas();
+
     std::string territoriosJugador();
+    void agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio );
     int getFichasJugadorEnTurno();
     std::string buscarContinenteTerritorio(std::string territorio);
     bool territorioJugador(std::string continente, std::string territorio);
-
-    bool estadoGanador();
+    Territorio* buscarTerritorio(std::string nombreContinente, std::string nombreTerritorio);    bool estadoGanador();
     bool esTurnoJugador(std::string nombreIngresado);
     bool jugadorExiste(std::string nombreIngresado);
-    
+    Jugador* getJugador(std::string nombreJugador);
     void turnosEnCero();
 
 

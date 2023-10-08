@@ -379,6 +379,10 @@ system("cls");
     //mueve una ficha de un jugador al territorio del continente ingresado
     cout<<risk->infoJug()<<endl;
 
+    //guardar el puntero hacia el territorio dentro del jugador para poder acceder a la informacion mas facil 
+    Territorio* Nterritorio = risk->buscarTerritorio(continente,territorio);
+    risk->agregarTerritorioaJugador(risk->getNameJugadorEnTurno(),Nterritorio);
+
     risk->moverFichasJugador(1, continente, territorio);
 
     cout<<risk->infoJug()<<endl;
@@ -432,12 +436,16 @@ void fortificar(Risk* risk, bool inicializar){
 
 
 void turno (Risk* risk){
-
-    if(risk->getFichasJugadorEnTurno()>0)
-        fortificar(risk, false);
-    else
+  //std::vector<Territorio*> territoriosJ =risk->getJugador(risk->getNameJugadorEnTurno())->getTerritorios();
+       
+    if(risk->getFichasJugadorEnTurno()>0){
+       
+       // fortificar(risk, false);
+    }else
         cout <<" ¡No se puede fortificar!\n  ¡Fichas insuficientes!";
 
 
     risk->turnoJugado();
 }
+
+
