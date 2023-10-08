@@ -21,6 +21,7 @@ public:
     bool territorioValido(std::string territorio);
     std::string reclamado(int indice);
     int getTerritoriosOcupados();
+    std::vector<Territorio> obtenerTerritorios();
 
     int getFichasEnTerritorio(int indice);
 

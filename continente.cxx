@@ -74,3 +74,6 @@ Territorio* Continente::buscarTerritorio(std::string nombreTerritorio) {
     }
     return nullptr;
 }
+std::vector<Territorio> Continente::obtenerTerritorios() {
+    return territorios;
+}

@@ -12,7 +12,7 @@ public:
     Jugador(std::string nombre, std::string nColor);
     //getters
     std::string obtenerColor() ;
-    //std::vector<Carta> obtenerCartas() ;
+    std::vector<Carta> obtenerCartas() ;
     int obeterTotalFichas();
     std::vector<Ficha> obtenerFichas() ;
     std::vector<Territorio*>& getTerritorios();  
@@ -28,6 +28,7 @@ public:
    
    Jugador& obtenerJugador(int indice);
    int contarTerritorios();
+
 
    private:
     std::string color;

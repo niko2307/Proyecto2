@@ -439,7 +439,8 @@ void turno (Risk* risk){
   //std::vector<Territorio*> territoriosJ =risk->getJugador(risk->getNameJugadorEnTurno())->getTerritorios();
        
     if(risk->getFichasJugadorEnTurno()>0){
-       
+
+       //risk->NuevasTropas(risk->getJugador(risk->getNameJugadorEnTurno())) ;
        // fortificar(risk, false);
     }else
         cout <<" ¡No se puede fortificar!\n  ¡Fichas insuficientes!";

@@ -25,6 +25,8 @@ public:
     void crearBatallon(int numeroJugadores);
     int qUnidades(int qJugadores);
 
+//GETTERS
+
     std::string infoJug();
     std::string infoTerritorios(std::string nameContinente);
     Territorio* getTerritorio(std::string nombreContinente, std::string nombreTerritorio) ;
@@ -38,7 +40,7 @@ public:
     int indiceTerritorio(int iContinente, std::string territorio);
     bool territoriosLibres();
 
-    void NuevasFichas();
+    void NuevasTropas(Jugador jugador) ;
 
     std::string territoriosJugador();
     void agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio );
