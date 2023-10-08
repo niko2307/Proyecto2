@@ -77,7 +77,9 @@ int main() {
                 }else if (risk.estadoGanador()){
                     cout<<"-** Esta partida ya tuvo un ganador **-\n";
                 }else if(risk.esTurnoJugador(turnoAux)){
+
                     turno (&risk);
+
                 }else if (risk.jugadorExiste(turnoAux)){
                     cout<<"-** No es el turno del jugador <"<< turnoAux<<"> **-\n"; 
                 }else
@@ -438,10 +440,14 @@ void fortificar(Risk* risk, bool inicializar){
 void turno (Risk* risk){
   //std::vector<Territorio*> territoriosJ =risk->getJugador(risk->getNameJugadorEnTurno())->getTerritorios();
        
+       int qtropas=risk->NuevasTropas(risk->getJugador(risk->getNameJugadorEnTurno())) ;
+     std::cout<<"jugador "<<risk->getNameJugadorEnTurno()<<"\n cantidad de tropas disponibles : "<<qtropas<<std::endl;
+
+
+
     if(risk->getFichasJugadorEnTurno()>0){
 
-       //risk->NuevasTropas(risk->getJugador(risk->getNameJugadorEnTurno())) ;
-       // fortificar(risk, false);
+         // fortificar(risk, false);
     }else
         cout <<" ¡No se puede fortificar!\n  ¡Fichas insuficientes!";
 

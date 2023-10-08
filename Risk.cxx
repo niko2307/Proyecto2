@@ -403,23 +403,21 @@ Jugador* Risk::getJugador(std::string nombreJugador) {
 
 
 
-void Risk::NuevasTropas(Jugador jugador) {
+int Risk::NuevasTropas(Jugador* jugador) {
     int unidades = 0;
-    int territoriosOcupados = jugador.contarTerritorios();
+    int territoriosOcupados = jugador->contarTerritorios();
     int continentesOcupados = 0;
     int cartasIntercambiadas = 0;
     int cartasTerritoriosOcupados = 0;
-    std::vector<Carta> cartasJugador = jugador.obtenerCartas();
-
+    std::vector<Carta> cartasJugador = jugador->obtenerCartas();
     // Obtener unidades por territorios
     unidades += territoriosOcupados / 3;
-
     // Obtener unidades por continentes
     for (int i = 0; i < continentes.size(); i++) {
         bool continenteOcupado = true;
         std::vector<Territorio> territoriosContinente = continentes[i].obtenerTerritorios();
         for (int j = 0; j < territoriosContinente.size(); j++) {
-            if (!territoriosContinente[j].ChekFicha(jugador.obtenerNombreJugador())) {
+            if (!territoriosContinente[j].ChekFicha(jugador->obtenerNombreJugador())) {
                 continenteOcupado = false;
                 break;
             }
@@ -437,7 +435,6 @@ void Risk::NuevasTropas(Jugador jugador) {
             continentesOcupados++;
         }
     }
-
     // Obtener unidades por cartas
     int gruposCartasIntercambiadas = 0;
     std::vector<int> gruposCartasIntercambiadasJugadores;
@@ -466,19 +463,13 @@ void Risk::NuevasTropas(Jugador jugador) {
         }
         unidades += unidadesExtra;
     }
-
     // Obtener unidades extra por cartas y territorios ocupados por el jugador
     for (int i = 0; i < cartasJugador.size(); i++) {
-        if (cartasJugador[i].obtenerTipoCarta() == "Ejercito" && buscarTerritorio(buscarContinenteTerritorio(cartasJugador[i].obtenerTerritorio()), cartasJugador[i].obtenerTerritorio())->ChekFicha(jugador.obtenerNombreJugador())) {
+        if (cartasJugador[i].obtenerTipoCarta() == "Ejercito" && buscarTerritorio(buscarContinenteTerritorio(cartasJugador[i].obtenerTerritorio()), cartasJugador[i].obtenerTerritorio())->ChekFicha(jugador->obtenerNombreJugador())) {
             cartasTerritoriosOcupados++;
         }
     }
     unidades += cartasTerritoriosOcupados * 2;
-
-    // Agregar unidades al jugador
-    for (int i = 0; i < unidades; i++) {
-        jugador.agregarFicha(Ficha(jugador.obtenerColor(), "Soldado"));
-    }
+    return unidades;
 }
-
 

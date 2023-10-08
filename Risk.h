@@ -40,7 +40,7 @@ public:
     int indiceTerritorio(int iContinente, std::string territorio);
     bool territoriosLibres();
 
-    void NuevasTropas(Jugador jugador) ;
+   int NuevasTropas(Jugador* jugador);
 
     std::string territoriosJugador();
     void agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio );
