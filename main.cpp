@@ -391,10 +391,10 @@ void fortificar(Risk* risk, bool inicializar){
     string territorio = "", continente= "";
     int qFichas =0;
 
-    cout<<"\n\t--**fortificar**--"<<endl;
+    cout<<"\n\t--**Ubicar Fichas disponibles**--"<<endl;
 
   do{
-    cout<<"\n  Turno de: "<<risk->getNameJugadorEnTurno()
+    cout<<"\n  Turno de Jugador: "<<risk->getNameJugadorEnTurno()
         <<"\n  Color: "<<risk->getColorJugadorEnTurno()
         <<"\n  Fichas disponibles: "<<risk->getFichasJugadorEnTurno()
         <<"\nTerritorios disponibles: \n"<<endl;
@@ -425,6 +425,7 @@ void fortificar(Risk* risk, bool inicializar){
 
     if(inicializar && risk->getFichasJugadorEnTurno()==0)
         risk->turnoJugado();
+        system("cls");
   }while(risk->getFichasJugadorEnTurno()!=0);
 
 }

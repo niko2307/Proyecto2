@@ -29,6 +29,7 @@ public:
     std::string infoTerritorios(std::string nameContinente);
     bool estadoTerritorio(std::string nameContinente, std::string nameTerritorio);
     void turnoJugado();
+    
     std::string getNameJugadorEnTurno();
     std::string getColorJugadorEnTurno();
     bool moverFichasJugador(int qFichas, std::string continente, std::string territorio);

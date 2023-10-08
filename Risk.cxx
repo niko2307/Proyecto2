@@ -140,6 +140,7 @@ void Risk::turnoJugado(){
 }
 
 
+
 //retorna el nombre de un continente disponible 
 std::string Risk::infoContinente(){
   std::string retorno ="";
