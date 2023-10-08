@@ -1,7 +1,8 @@
-#ifndef RISK_H
-#define RISK_H
+#ifndef __Risk__H__
+#define __Risk__H__
 
 #include <vector>
+#include <iostream>
 #include <string>
 #include "Jugador.h" 
 #include "Carta.h" 
@@ -48,7 +49,7 @@ public:
 
 
 
-private:
+protected:
     std::vector<Jugador> jugadores;
     std::vector<Carta> Cartas;
     std::vector<Continente> continentes;

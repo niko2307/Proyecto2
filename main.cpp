@@ -220,6 +220,7 @@ void mostrarAyudaComando(const string& comando) {
 }
 
 void mensajeBienvenida() {
+  system("cls");
     cout << "!Bienvenido a RISK?\nanimate a jugar :)\n";
 }
 
@@ -324,6 +325,7 @@ void inicializarJuego(Risk* risk){
     cantidadJugadores = stoi(ingresarComando());
   }while(cantidadJugadores<3 || cantidadJugadores>6);
 
+system("cls");
   for(int i=0; i<cantidadJugadores; i++){
     cout<<"Ingrese el nombre del jugador "<< i+1<<" : \n";
     nombreJug = ingresarComando();
@@ -334,9 +336,11 @@ void inicializarJuego(Risk* risk){
   
   cout<<risk->infoJug()<<endl;
 
-  cout<<"-** Reclamar territorio **-"<<endl;
+  system ("cls");
+
+  cout<<"\t -** Reclamar territorio **-"<<endl;
   do{
-    cout<<"\n  Turno de: "<<risk->getNameJugadorEnTurno()<<"\n  Color: "<<risk->getColorJugadorEnTurno()<<endl;
+    cout<<"\n  Turno de: "<<risk->getNameJugadorEnTurno()<<"\n  Color: "<<risk->getColorJugadorEnTurno()<<"\n  FichasDisponibles: "<<risk->getFichasJugadorEnTurno()<<endl;
   //iniciarlizar tablero 
     cout<<"\tContinentes disponibles:"<<endl;
     
@@ -379,7 +383,7 @@ void inicializarJuego(Risk* risk){
 
     cout<<risk->infoJug()<<endl;
     risk->turnoJugado();  
-    
+    system("cls");
   }while(risk->territoriosLibres());
 }
 

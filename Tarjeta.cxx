@@ -1,8 +1,12 @@
 #include "Carta.h"
 
-Carta::Carta( std::string& tipoCarta,  std::string& territorio,  std::string& ficha,  std::string& mision)
-    : tipoCarta(tipoCarta), territorio(territorio), ficha(ficha), mision(mision) {
-    // Constructor
+Carta::Carta(  std::string tipoCarta,  std::string territorio,  std::string ficha,  std::string mision){
+    this->tipoCarta = tipoCarta;
+    this->territorio = territorio;
+    this->ficha = ficha;
+    this->mision = mision;
+
+    
 }
 // get tipo carta
 std::string Carta::obtenerTipoCarta() {
