@@ -50,6 +50,7 @@ std::vector<Territorio*>& Jugador::getTerritorios() {
 
     }
   int Jugador::contarTerritorios() {
+    
     return territorios.size();
 }
 std::vector<Carta> Jugador::obtenerCartas() {

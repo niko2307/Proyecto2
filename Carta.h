@@ -23,6 +23,8 @@ private:
     std::string territorio;
     std::string ficha;
     std::string mision;
+    
+
 };
 
 #endif // CARTA_H

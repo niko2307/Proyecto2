@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include<algorithm>
+#include <iostream>
 #include "Ficha.h" 
 #include "Carta.h"
 #include "Territorio.h"

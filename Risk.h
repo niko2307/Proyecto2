@@ -41,6 +41,8 @@ public:
     bool territoriosLibres();
 
    int NuevasTropas(Jugador* jugador);
+    int getGrupo_de_Cartas();
+    void setGrupo_de_Cartas(int valor);
 
     std::string territoriosJugador();
     void agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio );
@@ -63,6 +65,7 @@ protected:
     bool Ganador;
     int turnoActual;
     int Totalturnos;
+    int Grupo_de_Cartas;
 };
 
 #endif // RISK_H

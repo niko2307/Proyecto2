@@ -399,19 +399,29 @@ Jugador* Risk::getJugador(std::string nombreJugador) {
 }
 
 
+// Getter
+int Risk::getGrupo_de_Cartas() {
+    return Grupo_de_Cartas;
+}
 
-
+// Setter
+void Risk::setGrupo_de_Cartas(int valor) {
+    Grupo_de_Cartas = valor;
+}
 
 
 int Risk::NuevasTropas(Jugador* jugador) {
-    int unidades = 0;
+    int nuevasUnidades = 1;
     int territoriosOcupados = jugador->contarTerritorios();
     int continentesOcupados = 0;
     int cartasIntercambiadas = 0;
     int cartasTerritoriosOcupados = 0;
     std::vector<Carta> cartasJugador = jugador->obtenerCartas();
+    int cantidadCartas = cartasJugador.size();
+
     // Obtener unidades por territorios
-    unidades += territoriosOcupados / 3;
+    nuevasUnidades += territoriosOcupados / 3;
+
     // Obtener unidades por continentes
     for (int i = 0; i < continentes.size(); i++) {
         bool continenteOcupado = true;
@@ -424,52 +434,66 @@ int Risk::NuevasTropas(Jugador* jugador) {
         }
         if (continenteOcupado) {
             if (continentes[i].obtenerNombre() == "America del Sur" || continentes[i].obtenerNombre() == "Australia") {
-                unidades += 2;
+                nuevasUnidades += 2;
             } else if (continentes[i].obtenerNombre() == "Africa") {
-                unidades += 3;
+                nuevasUnidades += 3;
             } else if (continentes[i].obtenerNombre() == "America del Norte" || continentes[i].obtenerNombre() == "Europa") {
-                unidades += 5;
+                nuevasUnidades += 5;
             } else if (continentes[i].obtenerNombre() == "Asia") {
-                unidades += 7;
+                nuevasUnidades += 7;
             }
             continentesOcupados++;
         }
     }
-    // Obtener unidades por cartas
-    int gruposCartasIntercambiadas = 0;
-    std::vector<int> gruposCartasIntercambiadasJugadores;
-    for (int i = 0; i < cartasJugador.size(); i++) {
-        if (cartasJugador[i].obtenerTipoCarta() == "Ejercito") {
-            cartasIntercambiadas++;
-        }
-    }
-    if (cartasIntercambiadas >= 3) {
-        gruposCartasIntercambiadas++;
-        cartasIntercambiadas -= 3;
-    }
-    for (int i = 0; i < cartasJugador.size(); i++) {
-        if (cartasJugador[i].obtenerTipoCarta() == "Comodin") {
-            cartasIntercambiadas++;
-        }
-    }
-    while (cartasIntercambiadas >= 3 && gruposCartasIntercambiadas < 6) {
-        gruposCartasIntercambiadas++;
-        cartasIntercambiadas -= 3;
-    }
-    if (gruposCartasIntercambiadas > 0) {
-        int unidadesExtra = 4;
-        for (int i = 1; i < gruposCartasIntercambiadas; i++) {
-            unidadesExtra += 2;
-        }
-        unidades += unidadesExtra;
-    }
-    // Obtener unidades extra por cartas y territorios ocupados por el jugador
-    for (int i = 0; i < cartasJugador.size(); i++) {
-        if (cartasJugador[i].obtenerTipoCarta() == "Ejercito" && buscarTerritorio(buscarContinenteTerritorio(cartasJugador[i].obtenerTerritorio()), cartasJugador[i].obtenerTerritorio())->ChekFicha(jugador->obtenerNombreJugador())) {
-            cartasTerritoriosOcupados++;
-        }
-    }
-    unidades += cartasTerritoriosOcupados * 2;
-    return unidades;
-}
 
+
+    // Obtener unidades por cartas
+    if (cantidadCartas >= 3) {
+        int infanteria = 0;
+        int caballeria = 0;
+        int artilleria = 0;
+        int comodin = 0;
+         std::vector<Carta> cartasUtilizadas; // Para almacenar las cartas utilizadas en los tríos
+   
+
+        for (int i = 0; i < cantidadCartas; i++) {
+            std::string tipoCarta = cartasJugador[i].obtenerTipoCarta();
+            if (tipoCarta == "Infantería") {
+                infanteria++;
+            } else if (tipoCarta == "Caballería") {
+                caballeria++;
+            } else if (tipoCarta == "Artillería") {
+                artilleria++;
+            } else if (tipoCarta == "Comodín") {
+                comodin++;
+            }
+          cartasUtilizadas.push_back(cartasJugador[i]);
+ 
+       
+        }
+        
+
+        //calcula la cantidad de cartas extra dependiendo del grupo de cartas en el que estemos 
+          int unidadesAdicionales = 4 + (Grupo_de_Cartas - 1) * 2;
+      if (Grupo_de_Cartas > 6) {
+          unidadesAdicionales += (Grupo_de_Cartas - 6) * 5;
+      }
+
+      //verifica si estan dentro de uno de los trios 
+
+        if (infanteria == 3 || caballeria == 3 || artilleria == 3) {
+            nuevasUnidades += unidadesAdicionales;
+        } else if (infanteria >= 1 && caballeria >= 1 && artilleria >= 1) {
+            nuevasUnidades += unidadesAdicionales;
+        } else if (infanteria >= 2 || caballeria >= 2 || artilleria >= 2) {
+            if (comodin >= 1) {
+                nuevasUnidades += unidadesAdicionales;
+            }
+        }
+
+        nuevasUnidades += cartasTerritoriosOcupados * 2;
+    }
+    
+
+    return nuevasUnidades;
+}
