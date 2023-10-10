@@ -405,7 +405,7 @@ void inicializarJuego(Risk* risk){
    crearArchivoBinario("guarda",jugadorInfo);
   }while(cantidadJugadores<3 || cantidadJugadores>6);
 
-   ;
+   
 
 system("cls");
   for(int i=0; i<cantidadJugadores; i++){
@@ -550,10 +550,11 @@ void turno (Risk* risk){
        int qtropas=risk->CantidadNuevasTropas(risk->getJugador(risk->getNameJugadorEnTurno())) ;
      std::cout<<"jugador "<<risk->getNameJugadorEnTurno()<<"\n cantidad de tropas disponibles : "<<qtropas<<std::endl;
      risk->AgregarTropas(risk->getJugador(risk->getNameJugadorEnTurno()),qtropas) ;
-      fortificar(risk, true);
+      fortificar(risk, false);
       atacar(risk);
       //risk->ubicarNuevasTropas(int qtropas );
-
+     fortificar(risk, true);
+   
 
     if(risk->getFichasJugadorEnTurno()>0){
 
@@ -589,7 +590,7 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
 
   //evalua si el territorio a atacar es colindante
         do{
-          cout<<"Territorios disponibles para atacar"<<endl;
+          cout<<"\t TERRITORIOS DISPONIBLES PARA ATACAR \n "<<endl;
           cout<<risk->territoriosColindantes(territorio);
 
            cout<<"retroceder = si quieres escoger otro pais\n"<<endl;
@@ -608,26 +609,16 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
     }while(continente=="" || !risk->territorioJugador(continente, territorio)||elegir=="retroceder");
     //evalua si el territorio seleccionado para atacar es colindante
     
-    do{
-
-
-
-        cout<<"Numero de fichas a mover: "<<endl;
-        qFichas = stoi(ingresarComando());
-    }while(qFichas>risk->getFichasJugadorEnTurno());
     
-
-    risk->moverFichasJugador(qFichas, continente, territorio);
-
-    if(Fase ==true)
-        risk->turnoJugado();
-
-        system("cls");
+   
 
   }while(Fase ==true);
 
 
+ if(Fase ==true)
+        risk->turnoJugado();
 
+        system("cls");
 
 
 
