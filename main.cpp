@@ -495,7 +495,7 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
 
   //evalua si el territorio a atacar es colindante
         do{
-          cout<<"Territorios disponibles para atacar"<<endl;
+          cout<<"\n Territorios disponibles para atacar"<<endl;
           cout<<risk->territoriosColindantes(territorio);
 
            cout<<"retroceder = si quieres escoger otro pais\n"<<endl;
@@ -510,10 +510,10 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
         if(continente=="" || !risk->territorioJugador(continente, territorio)){
             cout<<"\n-** Nombre de territorio no valido **-\n\n";
         }
-
+        
     }while(continente=="" || !risk->territorioJugador(continente, territorio)||elegir=="retroceder");
     //evalua si el territorio seleccionado para atacar es colindante
-    
+    /*
     do{
 
 
@@ -524,6 +524,15 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
     
 
     risk->moverFichasJugador(qFichas, continente, territorio);
+
+*/
+std::cout<<"Escoge"<<std::endl;
+std::cout<<"(1)deseas seguir atacando"<<std::endl;
+std::cout<<"(2)continuar siguiente fase "<<std::endl;
+
+std::string eleccion =ingresarComando();
+
+std::cout<<eleccion<<std::endl;
 
     if(Fase ==true)
         risk->turnoJugado();
