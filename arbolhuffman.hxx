@@ -83,7 +83,7 @@ NodoHuffman<T>* ArbolHuffman<T>::construirArbol(std::vector<std::pair<T, int>>& 
 
 
 template <class T>
-std::string ArbolHuffman<T>::codificar(std::string& texto) {
+std::string ArbolHuffman<T>::codificar( const std::string& texto) {
     std::string codigo;
 
     // Asegúrate de que el árbol Huffman esté construido antes de codificar

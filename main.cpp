@@ -1,9 +1,12 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include "Risk.h"
 #include "arbolhuffman.h"
 #include <map>
+#include <string>
+
 using namespace std;
 
 string ingresarComando();
@@ -11,7 +14,7 @@ void mensajeBienvenida();
 int identificarComando(string cadena);
 string separarEspacio(string cadena, bool parametro);
 bool qParametros(string respuesta);
-void crearArchivo( string& nombreArchivo, string& codigoCodificado) ;
+void crearArchivo(const string& nombreArchivo);
 void leerArchivo(const string& nombreArchivo);
 void mostrarAyudaComando(const string& comando);
 void infoInicializar(void);
@@ -27,12 +30,11 @@ void crearArchivoBinario(const string& nombreArchivo,const string& codigoCodific
 void inicializarJuego(Risk* risk);
 void fortificar(Risk* risk, bool inicializar);
 void turno (Risk* risk);
-
 void atacar(Risk* risk);
 
 
 
- 
+ ArbolHuffman<char> arbolHuffman;
 
 int main() {
   //instancia para la clase risk
@@ -53,7 +55,7 @@ int main() {
     string turnoAux;
     //indica si hay algún ganador
     int ganador = -1;
-     ArbolHuffman<char> arbolHuffman;
+    
 
     do {
         respuesta = ingresarComando();
@@ -64,7 +66,7 @@ int main() {
             case 1:
                 {
                     string nombreArchivo = separarEspacio(respuesta, true);
-                   std::string textoDecodificado = arbolHuffman.decodificar(nombreArchivo);
+                    std::string textoDecodificado = arbolHuffman.decodificar(nombreArchivo);
                     leerArchivo(textoDecodificado);
                 }
                 break;
@@ -109,25 +111,18 @@ int main() {
             case 5: 
                 {
                 string nombreArchivo = separarEspacio(respuesta, true);
-                //crearArchivo(nombreArchivo );
+                crearArchivo(nombreArchivo );
                    
                 }
                 break;
                 // guardar_comprimido <nombre_archivo>
             case 6: 
                 {
-                  string nombreArchivo = separarEspacio(respuesta, true);
-
-// Calcula las frecuencias y almacénalas en un vector de pares (carácter, frecuencia)
-vector<pair<char, int>> frecuencias = arbolHuffman.calcularFrecuencias(nombreArchivo);
-
-// Construye el árbol Huffman utilizando las frecuencias calculadas
-arbolHuffman.construirArbol(frecuencias);
-
-string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
-cout << "El código es " << codigoCodificado << endl;
-
-crearArchivoBinario(nombreArchivo, codigoCodificado);
+                string nombreArchivo = separarEspacio(respuesta, true);
+                 vector<pair<char, int>> frecuencias = arbolHuffman.calcularFrecuencias(nombreArchivo);
+                 arbolHuffman.construirArbol(frecuencias);
+                 string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
+                 crearArchivoBinario(nombreArchivo, codigoCodificado);
                   
                 }
                 break;
@@ -179,8 +174,8 @@ crearArchivoBinario(nombreArchivo, codigoCodificado);
 
 //permite crear un archivo
 
-void crearArchivo(const string& nombreArchivo, const string& codigoCodificado) {
-    ofstream archivo(nombreArchivo + "_codificado.txt"); // Agregamos "_codificado.txt" al nombre del archivo
+void crearArchivo(const string& nombreArchivo) {
+    ofstream archivo(nombreArchivo ); 
     if (archivo.is_open()) {
        
         archivo.close();
@@ -190,19 +185,21 @@ void crearArchivo(const string& nombreArchivo, const string& codigoCodificado) {
     }
 }
 
-void crearArchivoBinario(const string& nombreArchivo,const string& codigoCodificado) {
+void crearArchivoBinario(const string& nombreArchivo, const string& codigoCodificado, string&  cantidadJugadoresCodificados) {
     try {
-    std::ofstream archivo(nombreArchivo + "_codificado.bin", ios::binary);
-    if (archivo.is_open()) {
-        archivo.write(codigoCodificado.c_str(), codigoCodificado.size());
-        archivo.close();
-        cout << "La partida ha sido guardada correctamente en " << nombreArchivo << "_codificado.bin." << std::endl;
-    } else {
-        cout << "No se pudo abrir el archivo para escritura." << endl;
+        std::ofstream archivo(nombreArchivo + "_codificado.bin", ios::binary);
+        if (archivo.is_open()) {
+           archivo.write(cantidadJugadoresCodificados.c_str(), cantidadJugadoresCodificados.size());
+           archivo.write(codigoCodificado.c_str(), codigoCodificado.size());
+
+            archivo.close();
+            cout << "La partida ha sido guardada correctamente en " << nombreArchivo << "_codificado.bin." << std::endl;
+        } else {
+            cout << "No se pudo abrir el archivo para escritura." << endl;
+        }
+    } catch (const std::exception& e) {
+        cout << "Error al escribir en el archivo: " << e.what() << endl;
     }
-} catch (const std::exception& e) {
-    cout << "Error al escribir en el archivo: " << e.what() << endl;
-}
 }
 
 //permite leer la información de un archivo
@@ -372,7 +369,9 @@ void inicializarJuego(Risk* risk){
     cout<<"ingrese la cantidad de jugadores (3-6)"<<endl;
     cantidadJugadores = stoi(ingresarComando());
   }while(cantidadJugadores<3 || cantidadJugadores>6);
-
+ 
+    string cantidadJugadoresCodificada = arbolHuffman.codificar(to_string(cantidadJugadores));
+    crearArchivoBinario("partida_guardada", cantidadJugadoresCodificada);
 system("cls");
   for(int i=0; i<cantidadJugadores; i++){
     cout<<"Ingrese el nombre del jugador "<< i+1<<" : \n";
@@ -381,6 +380,7 @@ system("cls");
     risk->CrearJugador(nombreJug, cantidadJugadores);
   }
   //verificar que se hace correctamente la incersión de datos
+  
   
   cout<<risk->infoJug()<<endl;
 
@@ -530,7 +530,7 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
 
   //evalua si el territorio a atacar es colindante
         do{
-          cout<<"\n Territorios disponibles para atacar"<<endl;
+          cout<<"Territorios disponibles para atacar"<<endl;
           cout<<risk->territoriosColindantes(territorio);
 
            cout<<"retroceder = si quieres escoger otro pais\n"<<endl;
@@ -545,12 +545,12 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
         if(continente=="" || !risk->territorioJugador(continente, territorio)){
             cout<<"\n-** Nombre de territorio no valido **-\n\n";
         }
-        
+
     }while(continente=="" || !risk->territorioJugador(continente, territorio)||elegir=="retroceder");
     //evalua si el territorio seleccionado para atacar es colindante
     
     do{
-      
+
 
 
         cout<<"Numero de fichas a mover: "<<endl;
@@ -559,15 +559,6 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
     
 
     risk->moverFichasJugador(qFichas, continente, territorio);
-
-
-std::cout<<"Escoge"<<std::endl;
-std::cout<<"(1)deseas seguir atacando"<<std::endl;
-std::cout<<"(2)continuar siguiente fase "<<std::endl;
-
-std::string eleccion =ingresarComando();
-
-std::cout<<eleccion<<std::endl;
 
     if(Fase ==true)
         risk->turnoJugado();

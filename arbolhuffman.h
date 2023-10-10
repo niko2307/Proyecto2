@@ -16,7 +16,7 @@ public:
     void destruirArbol(NodoHuffman<T> *nodo);
    std::vector<std::pair<T, int>> calcularFrecuencias(const std::string& texto);
     NodoHuffman<T> *construirArbol(std::vector<std::pair<T, int>> &frecuencias);
-    std::string codificar( std::string& texto);
+    std::string codificar( const std::string& texto);
     std::string obtenerCodigoCaracter(char caracter);
     std::string decodificar(std::string &codigo);
     void recorridoPreorden(NodoHuffman<T> *nodoActual);
