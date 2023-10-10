@@ -2,6 +2,9 @@
 #include "Territorio.h"
 #include <iostream>
 #include <random>
+#include <vector>
+#include <queue>
+
 Risk::Risk() {
   Partida=false;
   Ganador=false;
@@ -462,8 +465,6 @@ void Risk::turnoJugado(){
 }
 
 
-
-
 //retorna el nombre de un continente disponible 
 std::string Risk::infoContinente(){
   std::string retorno ="";
@@ -683,15 +684,6 @@ bool Risk::esTurnoJugador(std::string nombreIngresado){
   return false;
 }
 
-void Risk::agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio ){
-for(int i =0; i<jugadores.size(); i++){
-    if(jugadores[i].obtenerNombreJugador()==nombreIngresado){
-      jugadores[turnoActual].setTerritorio(nuevoTerritorio);
-     
-    }
-  }
-}
-
 //busca los nombres de los jugadores y retorna true cuando el nombre del jugador existe
 //en la partida actual
 bool Risk::jugadorExiste(std::string nombreIngresado){
@@ -701,6 +693,7 @@ bool Risk::jugadorExiste(std::string nombreIngresado){
   }
   return false;
 }
+
 
 Territorio* Risk::buscarTerritorio(std::string nombreContinente, std::string nombreTerritorio) {
     for (Continente& continente : continentes) {
@@ -873,8 +866,6 @@ while (!cartasTemporales.empty()) {
     return nuevasUnidades;
 }
 
-
-
 std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
   std::string retorno = "";
   Territorio* territorio = nullptr;
@@ -902,3 +893,4 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
 
   return retorno;
 }
+

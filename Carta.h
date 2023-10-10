@@ -5,7 +5,7 @@
 
 class Carta {
 public:
-    Carta( std::string tipoCarta,  std::string territorio,  std::string ficha,  std::string mision);
+    Carta( std::string& tipoCarta,  std::string& territorio,  std::string &ficha,  std::string &mision);
     std::string obtenerTipoCarta();
     void establecerTipoCarta(std::string nuevoTipo);
 
