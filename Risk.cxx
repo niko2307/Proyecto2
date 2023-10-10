@@ -140,8 +140,6 @@ void Risk::turnoJugado(){
 }
 
 
-
-
 //retorna el nombre de un continente disponible 
 std::string Risk::infoContinente(){
   std::string retorno ="";
@@ -193,7 +191,7 @@ bool Risk::estadoTerritorio(std::string nameContinente, std::string nameTerritor
 //recibo el nombre de un jugador y lo guardo en el vector de jugadores
 void Risk::CrearJugador(std::string nombre, int qJugadores){
 
-  totint al = qUnidades(qJugadores);
+  int total = qUnidades(qJugadores);
   Jugador aux(nombre, colorJugador());
   Ficha batallon(colorJugador(), "infanteria");
   //agrega qUnidades de infanteria al jugador
@@ -360,15 +358,6 @@ bool Risk::esTurnoJugador(std::string nombreIngresado){
   return false;
 }
 
-void Risk::agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio ){
-for(int i =0; i<jugadores.size(); i++){
-    if(jugadores[i].obtenerNombreJugador()==nombreIngresado){
-      jugadores[turnoActual].setTerritorio(nuevoTerritorio);
-     
-    }
-  }
-}
-
 //busca los nombres de los jugadores y retorna true cuando el nombre del jugador existe
 //en la partida actual
 bool Risk::jugadorExiste(std::string nombreIngresado){
@@ -379,173 +368,3 @@ bool Risk::jugadorExiste(std::string nombreIngresado){
   return false;
 }
 
-Territorio* Risk::buscarTerritorio(std::string nombreContinente, std::string nombreTerritorio) {
-    for (Continente& continente : continentes) {
-        if (continente.obtenerNombre() == nombreContinente) {
-           return continente.buscarTerritorio(nombreTerritorio);
-       
-        }
-
-    }
-    return nullptr;
-}
-Jugador* Risk::getJugador(std::string nombreJugador) {
-    for (Jugador& jugador : jugadores) {
-        if (jugador.obtenerNombreJugador() == nombreJugador) {
-            return &jugador;
-        }
-    }
-    return NULL;
-}
-
-
-// Getter
-int Risk::getGrupo_de_Cartas() {
-    return Grupo_de_Cartas;
-}
-
-// Setter
-void Risk::setGrupo_de_Cartas(int valor) {
-    Grupo_de_Cartas = valor;
-}
-
-
-int Risk::NuevasTropas(Jugador* jugador) {
-    int nuevasUnidades = 1;
-    int territoriosOcupados = jugador->contarTerritorios();
-    int continentesOcupados = 0;
-    int cartasIntercambiadas = 0;
-    int cartasTerritoriosOcupados = 0;
-    std::vector<Carta> cartasJugador = jugador->obtenerCartas();
-    int cantidadCartas = cartasJugador.size();
-
-    // Obtener unidades por territorios
-    nuevasUnidades += territoriosOcupados / 3;
-
-    // Obtener unidades por continentes
-    for (int i = 0; i < continentes.size(); i++) {
-        bool continenteOcupado = true;
-        std::vector<Territorio> territoriosContinente = continentes[i].obtenerTerritorios();
-        for (int j = 0; j < territoriosContinente.size(); j++) {
-            if (!territoriosContinente[j].ChekFicha(jugador->obtenerNombreJugador())) {
-                continenteOcupado = false;
-                break;
-            }
-        }
-        if (continenteOcupado) {
-            if (continentes[i].obtenerNombre() == "America del Sur" || continentes[i].obtenerNombre() == "Australia") {
-                nuevasUnidades += 2;
-            } else if (continentes[i].obtenerNombre() == "Africa") {
-                nuevasUnidades += 3;
-            } else if (continentes[i].obtenerNombre() == "America del Norte" || continentes[i].obtenerNombre() == "Europa") {
-                nuevasUnidades += 5;
-            } else if (continentes[i].obtenerNombre() == "Asia") {
-                nuevasUnidades += 7;
-            }
-            continentesOcupados++;
-        }
-    }
-
-
-    // Obtener unidades por cartas
-    if (cantidadCartas >= 3) {
-        int infanteria = 0;
-        int caballeria = 0;
-        int artilleria = 0;
-        int comodin = 0;
-         std::vector<Carta> cartasUtilizadas; // Para almacenar las cartas utilizadas en los tríos
-   
-
-        for (int i = 0; i < cantidadCartas; i++) {
-            std::string tipoCarta = cartasJugador[i].obtenerTipoCarta();
-            if (tipoCarta == "Infantería") {
-                infanteria++;
-            } else if (tipoCarta == "Caballería") {
-                caballeria++;
-            } else if (tipoCarta == "Artillería") {
-                artilleria++;
-            } else if (tipoCarta == "Comodín") {
-                comodin++;
-            }
-          cartasUtilizadas.push_back(cartasJugador[i]);
- 
-        }
-        
-
-        //calcula la cantidad de cartas extra dependiendo del grupo de cartas en el que estemos 
-          int unidadesAdicionales = 4 + (Grupo_de_Cartas - 1) * 2;
-      if (Grupo_de_Cartas > 6) {
-          unidadesAdicionales += (Grupo_de_Cartas - 6) * 5;
-      }
-
-      // Verificar los tríos y eliminar las cartas utilizadas
-    std::queue<Carta> cartasUtilizadasQueue; // Cola para almacenar las cartas utilizadas en los tríos
-    if (infanteria >= 3 || caballeria >= 3 || artilleria >= 3) {
-        nuevasUnidades += unidadesAdicionales;
-        // Agregar las cartas utilizadas a la cola
-        for (int i = 0; i < cartasUtilizadas.size(); i++) {
-            cartasUtilizadasQueue.push(cartasUtilizadas[i]);
-        }
-    } else if ((infanteria >= 1 && caballeria >= 1 && artilleria >= 1) || (infanteria >= 2 || caballeria >= 2 || artilleria >= 2)) {
-        if (comodin >= 1) {
-            nuevasUnidades += unidadesAdicionales;
-            // Agregar las cartas utilizadas a la cola
-            for (int i = 0; i < cartasUtilizadas.size(); i++) {
-                cartasUtilizadasQueue.push(cartasUtilizadas[i]);
-            }
-        }
-    }
-
-
-    std::queue<Carta> cartasTemporales;
-
-// Guardar toda la información en el nuevo queue
-while (!cartasUtilizadasQueue.empty()) {
-    Carta cartaActual = cartasUtilizadasQueue.front();
-    cartasUtilizadasQueue.pop();
-    cartasTemporales.push(cartaActual);
-}
-
-    //hace la comprobacion de un territorio jugador con el territorio de la carta
-while (!cartasTemporales.empty()) {
-    Carta cartaActual = cartasTemporales.front();
-    cartasTemporales.pop();
-    bool territorioEnJugador = false;
-    const std::vector<Territorio*>& territoriosJugador = jugador->getTerritorios();
-    for (int j = 0; j < territoriosJugador.size(); j++) {
-        if (territoriosJugador[j]->getNombre() == cartaActual .obtenerTerritorio()) {
-            territorioEnJugador = true;
-            break;
-        }
-    }
-    if (territorioEnJugador) {
-        cartasTerritoriosOcupados++;
-    }
-}
-
-
-      //agrega las cartas extra dependiendo de las cartas utilizadas que pertenexcan a un territorio que el jugador posee
-        nuevasUnidades += cartasTerritoriosOcupados * 2;
-
-// Eliminar las cartas utilizadas del jugador
-    while (!cartasUtilizadasQueue.empty()) {
-         Carta cartaUtilizada = cartasUtilizadasQueue.front();
-        for (int i = 0; i < cartasJugador.size(); i++) {
-            if (cartasJugador[i].obtenerTerritorio() == cartaUtilizada.obtenerTerritorio() &&
-        cartasJugador[i].obtenerTerritorio() == cartaUtilizada.obtenerTerritorio()) {
-                cartasJugador.erase(cartasJugador.begin() + i);
-                cantidadCartas--;
-                break;
-            }
-        }
-        cartasUtilizadasQueue.pop();
-    }
-
-
-
-
-    }
-    
-
-    return nuevasUnidades;
-}
