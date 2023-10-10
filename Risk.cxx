@@ -469,7 +469,6 @@ int Risk::NuevasTropas(Jugador* jugador) {
             }
           cartasUtilizadas.push_back(cartasJugador[i]);
  
-       
         }
         
 
@@ -479,19 +478,72 @@ int Risk::NuevasTropas(Jugador* jugador) {
           unidadesAdicionales += (Grupo_de_Cartas - 6) * 5;
       }
 
-      //verifica si estan dentro de uno de los trios 
-
-        if (infanteria == 3 || caballeria == 3 || artilleria == 3) {
+      // Verificar los tríos y eliminar las cartas utilizadas
+    std::queue<Carta> cartasUtilizadasQueue; // Cola para almacenar las cartas utilizadas en los tríos
+    if (infanteria >= 3 || caballeria >= 3 || artilleria >= 3) {
+        nuevasUnidades += unidadesAdicionales;
+        // Agregar las cartas utilizadas a la cola
+        for (int i = 0; i < cartasUtilizadas.size(); i++) {
+            cartasUtilizadasQueue.push(cartasUtilizadas[i]);
+        }
+    } else if ((infanteria >= 1 && caballeria >= 1 && artilleria >= 1) || (infanteria >= 2 || caballeria >= 2 || artilleria >= 2)) {
+        if (comodin >= 1) {
             nuevasUnidades += unidadesAdicionales;
-        } else if (infanteria >= 1 && caballeria >= 1 && artilleria >= 1) {
-            nuevasUnidades += unidadesAdicionales;
-        } else if (infanteria >= 2 || caballeria >= 2 || artilleria >= 2) {
-            if (comodin >= 1) {
-                nuevasUnidades += unidadesAdicionales;
+            // Agregar las cartas utilizadas a la cola
+            for (int i = 0; i < cartasUtilizadas.size(); i++) {
+                cartasUtilizadasQueue.push(cartasUtilizadas[i]);
             }
         }
+    }
 
+
+    std::queue<Carta> cartasTemporales;
+
+// Guardar toda la información en el nuevo queue
+while (!cartasUtilizadasQueue.empty()) {
+    Carta cartaActual = cartasUtilizadasQueue.front();
+    cartasUtilizadasQueue.pop();
+    cartasTemporales.push(cartaActual);
+}
+
+    //hace la comprobacion de un territorio jugador con el territorio de la carta
+while (!cartasTemporales.empty()) {
+    Carta cartaActual = cartasTemporales.front();
+    cartasTemporales.pop();
+    bool territorioEnJugador = false;
+    const std::vector<Territorio*>& territoriosJugador = jugador->getTerritorios();
+    for (int j = 0; j < territoriosJugador.size(); j++) {
+        if (territoriosJugador[j]->getNombre() == cartaActual .obtenerTerritorio()) {
+            territorioEnJugador = true;
+            break;
+        }
+    }
+    if (territorioEnJugador) {
+        cartasTerritoriosOcupados++;
+    }
+}
+
+
+      //agrega las cartas extra dependiendo de las cartas utilizadas que pertenexcan a un territorio que el jugador posee
         nuevasUnidades += cartasTerritoriosOcupados * 2;
+
+// Eliminar las cartas utilizadas del jugador
+    while (!cartasUtilizadasQueue.empty()) {
+         Carta cartaUtilizada = cartasUtilizadasQueue.front();
+        for (int i = 0; i < cartasJugador.size(); i++) {
+            if (cartasJugador[i].obtenerTerritorio() == cartaUtilizada.obtenerTerritorio() &&
+        cartasJugador[i].obtenerTerritorio() == cartaUtilizada.obtenerTerritorio()) {
+                cartasJugador.erase(cartasJugador.begin() + i);
+                cantidadCartas--;
+                break;
+            }
+        }
+        cartasUtilizadasQueue.pop();
+    }
+
+
+
+
     }
     
 
