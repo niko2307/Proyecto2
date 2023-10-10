@@ -600,6 +600,11 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
             cout<<"\n-** Nombre de territorio Colindate no valido **-\n\n";
             Colindante= false;
         }
+          //revisa que el territorio seleciionado no pertenesca al mismo jugador
+          if(risk->territorioPerteneceAJugador(risk->buscarTerritorio(continente,territorio))->obtenerNombreJugador()==risk->getNameJugadorEnTurno()){
+            cout<<"\n-** Este territorio te pertenece **-\n\n";
+            Colindante= false;
+          }
         }while(Colindante==false|| !risk->buscarTerritorio(continente,territorio)->esColindante(risk->buscarTerritorio(continente,colindante)));
         std::cout<<"Hora de la batalla"<<std::endl;
         if(continente=="" || !risk->territorioJugador(continente, territorio)){
