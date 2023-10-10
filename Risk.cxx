@@ -127,7 +127,7 @@ void Risk::CrearTarjetas(std::string tipo, std::string territorio,  std::string 
     // Implementación para crear una carta de juego con los detalles proporcionados
 }
 //
-void Risk::AgregarTropas(Jugador jugador) {
+void Risk::AgregarTropas(Jugador* jugador) {
     
 }
 
@@ -193,7 +193,7 @@ bool Risk::estadoTerritorio(std::string nameContinente, std::string nameTerritor
 //recibo el nombre de un jugador y lo guardo en el vector de jugadores
 void Risk::CrearJugador(std::string nombre, int qJugadores){
 
-  totint al = qUnidades(qJugadores);
+  int total = qUnidades(qJugadores);
   Jugador aux(nombre, colorJugador());
   Ficha batallon(colorJugador(), "infanteria");
   //agrega qUnidades de infanteria al jugador
@@ -548,4 +548,19 @@ while (!cartasTemporales.empty()) {
     
 
     return nuevasUnidades;
+}
+
+
+void ubicarTropas(int qFichas, std::string continente, std::string territorio){
+
+
+
+
+
+
+
+
+
+
+
 }
