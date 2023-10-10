@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include "Risk.h"
+#include "arbolhuffman.h"
 
 using namespace std;
 
@@ -96,7 +97,9 @@ int main() {
                 // guardar <nombre_archivo>
             case 5: 
                 {
+                   ArbolHuffman<char> arbolHuffman;
                     string nombreArchivo = separarEspacio(respuesta, true);
+                    std::string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
                     crearArchivo(nombreArchivo);
                 }
                 break;
@@ -154,6 +157,8 @@ void crearArchivo(const string& nombreArchivo) {
     ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         cout << "La partida ha sido guardada correctamente.\n";
+       
+       
         archivo.close();
     } else {
         cout << "La partida no ha sido guardada correctamente";
