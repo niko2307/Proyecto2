@@ -913,6 +913,8 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
 
   return retorno;
 }
+
+
 /*
 void Risk::resultadoAtaque() {
     // Obtener el jugador atacante y el jugador defensor
