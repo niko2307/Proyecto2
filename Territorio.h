@@ -18,6 +18,9 @@ public:
     int GetQFichas();
     std::string getNombre();
     std::string getReclamado();
+
+    std::vector<Territorio*> getTerritoriosColindantes();
+    void setTerritoriosColindantes(Territorio* Territorio);
 private:
     std::string nombre;
     std::vector<Ficha> fichas;
@@ -25,6 +28,7 @@ private:
     int unidades;
     int id;
     std::string nombreContinente;
+    std::vector<Territorio*> TerritoriosColindantes;
 };
 
 #endif // TERRITORIO_H

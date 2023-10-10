@@ -17,12 +17,12 @@ public:
     //funciones para el juego
     void iniciarPartida();
     bool estadoPartida();
+    
     //crear
     void crearContinente();
     void CrearTarjetas( std::string tipo,  std::string territorio,  std::string ficha, std::string mision);
     void CrearJugador(std::string nombre, int qJugadores);
     void crearBatallon(int numeroJugadores);
-    
     
     
     bool moverFichasJugador(int qFichas, std::string continente, std::string territorio);

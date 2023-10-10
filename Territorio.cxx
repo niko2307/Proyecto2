@@ -41,4 +41,11 @@ std::string Territorio::getNombre(){
   return nombre;
 }
 
+std::vector<Territorio*> Territorio::getTerritoriosColindantes() {
+      return this->TerritoriosColindantes;
+    }
+
+void Territorio::setTerritoriosColindantes(Territorio* Territorio) {
+      TerritoriosColindantes.push_back(Territorio);
+    }
 

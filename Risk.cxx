@@ -45,73 +45,75 @@ void Risk::crearContinente() {
     //contienete de America del norte 
     Continente continente1 ("america del norte");
     
-    continente1.AddTerritorio("alaska");
-    continente1.AddTerritorio("alberta");
+    continente1.InicializarTerritorio("alaska");
+
+    continente1.InicializarTerritorio("alberta");
     /*
-    continente1.AddTerritorio("america central");
-    continente1.AddTerritorio("estados unidos orientales");
-    continente1.AddTerritorio("groenlandia");
-    continente1.AddTerritorio("territorio noroccidental");
-    continente1.AddTerritorio("ontario");
-    continente1.AddTerritorio("quebec");
-    continente1.AddTerritorio("estados unidos occidentales");
+    continente1.InicializarTerritorio("america central");
+    continente1.InicializarTerritorio("estados unidos orientales");
+    continente1.InicializarTerritorio("groenlandia");
+    continente1.InicializarTerritorio("territorio noroccidental");
+    continente1.InicializarTerritorio("ontario");
+    continente1.InicializarTerritorio("quebec");
+    continente1.InicializarTerritorio("estados unidos occidentales");
     */
 
   //Continente de europa 
    Continente continente2 ("europa");
-    continente2.AddTerritorio("gran bretana");
+
+    continente2.InicializarTerritorio("gran bretana");
     /*
-    continente2.AddTerritorio("islandia");
-    continente2.AddTerritorio("europa del norte");
-    continente2.AddTerritorio("escandinavia");
-    continente2.AddTerritorio("europa del sur");
-    continente2.AddTerritorio("ucrania");
-    continente2.AddTerritorio("europa occidental");
+    continente2.InicializarTerritorio("islandia");
+    continente2.InicializarTerritorio("europa del norte");
+    continente2.InicializarTerritorio("escandinavia");
+    continente2.InicializarTerritorio("europa del sur");
+    continente2.InicializarTerritorio("ucrania");
+    continente2.InicializarTerritorio("europa occidental");
     */
 
   //Continente de America del sur 
     Continente continente3 ("america del sur");
-    continente3.AddTerritorio("argentina");
+    continente3.InicializarTerritorio("argentina");
     /*
-    continente3.AddTerritorio("brasil");
-    continente3.AddTerritorio("colombia");
-    continente3.AddTerritorio("peru");
+    continente3.InicializarTerritorio("brasil");
+    continente3.InicializarTerritorio("colombia");
+    continente3.InicializarTerritorio("peru");
     */
 
   //continente de Africa 
     Continente continente4 ("africa");
-    continente4.AddTerritorio("congo");
+    continente4.InicializarTerritorio("congo");
     /*
-    continente4.AddTerritorio("africa oriental");
-    continente4.AddTerritorio("egipto");
-    continente4.AddTerritorio("madagascar");
-    continente4.AddTerritorio("africa del norte");
-    continente4.AddTerritorio("africa del sur");
+    continente4.InicializarTerritorio("africa oriental");
+    continente4.InicializarTerritorio("egipto");
+    continente4.InicializarTerritorio("madagascar");
+    continente4.InicializarTerritorio("africa del norte");
+    continente4.InicializarTerritorio("africa del sur");
     */
   //continete de Oceania
    Continente continente5 ("australia");
-    continente5.AddTerritorio("australia oriental");
+    continente5.InicializarTerritorio("australia oriental");
     /*
-    continente5.AddTerritorio("indonesia");
-    continente5.AddTerritorio("nueva guinea");
-    continente5.AddTerritorio("australia occidental");
+    continente5.InicializarTerritorio("indonesia");
+    continente5.InicializarTerritorio("nueva guinea");
+    continente5.InicializarTerritorio("australia occidental");
     */
 
     //continente de Asia 
     Continente continente6 ("asia");
-    continente6.AddTerritorio("afghanistan");
+    continente6.InicializarTerritorio("afghanistan");
     /*
-    continente6.AddTerritorio("china");
-    continente6.AddTerritorio("india");
-    continente6.AddTerritorio("irkutsk");
-    continente6.AddTerritorio("japon");
-    continente6.AddTerritorio("kamchatka");
-    continente6.AddTerritorio("medio oriente");
-    continente6.AddTerritorio("mongolia");
-    continente6.AddTerritorio("siam");
-    continente6.AddTerritorio("siberia");
-    continente6.AddTerritorio("ural");
-    continente6.AddTerritorio("yakutsk");
+    continente6.InicializarTerritorio("china");
+    continente6.InicializarTerritorio("india");
+    continente6.InicializarTerritorio("irkutsk");
+    continente6.InicializarTerritorio("japon");
+    continente6.InicializarTerritorio("kamchatka");
+    continente6.InicializarTerritorio("medio oriente");
+    continente6.InicializarTerritorio("mongolia");
+    continente6.InicializarTerritorio("siam");
+    continente6.InicializarTerritorio("siberia");
+    continente6.InicializarTerritorio("ural");
+    continente6.InicializarTerritorio("yakutsk");
     */
    // Agregar los continentes al tablero del juego
     continentes.push_back(continente1);

@@ -13,7 +13,7 @@ public:
     std::string obtenerNombre();
     void establecerNombre( std::string nuevoNombre);
     void ocuparTerritorio(Ficha ficha, int nTerritorio, std::string nombreJugador); 
-    void AddTerritorio( std::string nombre);
+    void InicializarTerritorio( std::string nombre);
     Territorio* buscarTerritorio(std::string nombreTerritorio) ;
     //void MoverFicha(int territorio1, int territorio2); 
     int cantidadTerritorios();

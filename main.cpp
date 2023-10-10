@@ -104,6 +104,7 @@ int main() {
                 {
                    string nombreArchivo = separarEspacio(respuesta, true);
                    std::string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
+                   std::cout<<"codifico: "<<codigoCodificado <<std::endl;
                    crearArchivo(codigoCodificado);
                    
                 }
@@ -456,6 +457,7 @@ void turno (Risk* risk){
      std::cout<<"jugador "<<risk->getNameJugadorEnTurno()<<"\n cantidad de tropas disponibles : "<<qtropas<<std::endl;
      risk->AgregarTropas(risk->getJugador(risk->getNameJugadorEnTurno()),qtropas) ;
       fortificar(risk, true);
+      atacar(risk);
       //risk->ubicarNuevasTropas(int qtropas );
 
 
@@ -478,7 +480,8 @@ void atacar(Risk* risk){
 
 
 
-  
+
+
 }
 
 
