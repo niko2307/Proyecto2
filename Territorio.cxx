@@ -46,6 +46,14 @@ std::vector<Territorio*> Territorio::getTerritoriosColindantes() {
     }
 
 void Territorio::setTerritoriosColindantes(Territorio* Territorio) {
-      TerritoriosColindantes.push_back(Territorio);
+      this->TerritoriosColindantes.push_back(Territorio);
     }
 
+bool Territorio::esColindante(Territorio* otroTerritorio) {
+    for (Territorio* colindante : TerritoriosColindantes) {
+        if (colindante->getNombre() == otroTerritorio->getNombre()) {
+            return true;
+        }
+    }
+    return false;
+}

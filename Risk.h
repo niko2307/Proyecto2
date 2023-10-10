@@ -50,6 +50,7 @@ public:
     std::string getNameJugadorEnTurno();
     std::string getColorJugadorEnTurno();
     std::string territoriosJugador();
+    std::string territoriosColindantes(std::string nombreTerritorio);
     
    
    //funciones de acceso a objetos-(GETTERS)
@@ -62,6 +63,7 @@ public:
     int getGrupo_de_Cartas();
     bool territorioJugador(std::string continente, std::string territorio);
     int getFichasJugadorEnTurno();
+    
 
    //FUNCIONES DE CONTROL DE JUEGO
     void turnoJugado();

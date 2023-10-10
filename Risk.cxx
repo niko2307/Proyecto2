@@ -88,6 +88,7 @@ void Risk::crearContinente() {
     continente4.InicializarTerritorio("egipto");
     continente4.InicializarTerritorio("madagascar");
     continente4.InicializarTerritorio("africa del norte");
+    s
     continente4.InicializarTerritorio("africa del sur");
     */
   //continete de Oceania
@@ -185,16 +186,18 @@ Territorio* siberia = risk->buscarTerritorio("asia", "siberia");
 Territorio* ural = risk->buscarTerritorio("asia", "ural");
 Territorio* yakutsk = risk->buscarTerritorio("asia", "yakutsk");
 Territorio* afghanistan = risk->buscarTerritorio("asia", "afghanistan");
-
+//cout<<"entre inicalizar"<<std::endl;
 
 // América del Norte
 alaska->setTerritoriosColindantes(alberta);
+alberta->setTerritoriosColindantes(alaska);
+/*
 alaska->setTerritoriosColindantes(territorioNoroccidental);
 alaska->setTerritoriosColindantes(kamchatka);
 
 alberta->setTerritoriosColindantes(territorioNoroccidental);
 alberta->setTerritoriosColindantes(estadosUnidosOccidentales);
-alberta->setTerritoriosColindantes(alaska);
+
 alberta->setTerritoriosColindantes(ontario);
 
 americaCentral->setTerritoriosColindantes(estadosUnidosOrientales);
@@ -434,6 +437,7 @@ nuevaGuinea->setTerritoriosColindantes(australiaOriental);
 australiaOccidental->setTerritoriosColindantes(nuevaGuinea);
 australiaOccidental->setTerritoriosColindantes(australiaOriental);
 australiaOccidental->setTerritoriosColindantes(indonesia);
+*/
 }
 
 void Risk::CrearTarjetas(std::string tipo, std::string territorio,  std::string ficha,  std::string mision) {
@@ -636,6 +640,7 @@ std::string Risk::territoriosJugador(){
   }
   return retorno;
 }
+
 
 //busca y regresa el nombre del contiente del territorio que ingresó el usuario
 //usada en reforzar para poder validar el continente al cual pertecene el territorio y usar
@@ -869,3 +874,31 @@ while (!cartasTemporales.empty()) {
 }
 
 
+
+std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
+  std::string retorno = "";
+  Territorio* territorio = nullptr;
+
+  // Buscar el territorio por su nombre
+  for (Continente& continente : continentes) {
+    territorio = continente.buscarTerritorio(nombreTerritorio);
+    if (territorio != nullptr) {
+      
+      std::cout<<"territorio"<<territorio->getNombre()<<std::endl;
+      break;
+    }
+  }
+
+  if (territorio != nullptr) {
+    std::cout<<"entre territoriosColindantes"<<territorio->getTerritoriosColindantes().size()<<std::endl;
+    int contador = 0;
+    for (int i = 0; i < territorio->getTerritoriosColindantes().size(); i++) {
+      std::cout<<"entre colindantes"<<std::endl;
+      Territorio* colindante = territorio->getTerritoriosColindantes()[i];
+      retorno += std::to_string(contador + 1) + ". " + colindante->getNombre() + " - F: " + std::to_string(colindante->ContarFichas(jugadores[turnoActual].obtenerNombreJugador())) + "\n";
+      contador++;
+    }
+  }
+
+  return retorno;
+}

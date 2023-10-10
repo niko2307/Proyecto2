@@ -18,6 +18,7 @@ public:
     int GetQFichas();
     std::string getNombre();
     std::string getReclamado();
+    bool esColindante(Territorio* otroTerritorio);
 
     std::vector<Territorio*> getTerritoriosColindantes();
     void setTerritoriosColindantes(Territorio* Territorio);

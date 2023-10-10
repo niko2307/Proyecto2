@@ -33,6 +33,7 @@ int main() {
   //instancia para la clase risk
   Risk risk;
   risk.crearContinente();
+ risk.InicializarTerritoriosColindantes(&risk);
     //guarda la cadena ingresada por el usuario
     string respuesta;
     //mensaje de bienvenida
@@ -476,6 +477,62 @@ void turno (Risk* risk){
 
 void atacar(Risk* risk){
 
+ string territorio = "", continente= "", colindante = "";
+    int qFichas =0;
+    bool Fase = true;
+    bool Colindante= true;
+    std::string elegir= "";
+std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
+ do{
+    cout<<"\n  Turno de Jugador: "<<risk->getNameJugadorEnTurno()
+        <<"\n  Color: "<<risk->getColorJugadorEnTurno()
+        <<"\nTerritorios disponibles: \n"<<endl;
+
+    cout<<risk->territoriosJugador();
+    //evalua si el territorio seleccionado te pertenece
+    do{
+        cout<<"Escoge el territorio atacante:\n";
+        territorio = ingresarComando();
+        continente = risk->buscarContinenteTerritorio(territorio);
+
+  //evalua si el territorio a atacar es colindante
+        do{
+          cout<<"Territorios disponibles para atacar"<<endl;
+          cout<<risk->territoriosColindantes(territorio);
+
+           cout<<"retroceder = si quieres escoger otro pais\n"<<endl;
+           cout<<"Escoge el territorio que quieres atacar:\n";   
+           colindante = ingresarComando();
+           if( !risk->buscarTerritorio(continente,territorio)->esColindante(risk->buscarTerritorio(continente,colindante))){
+            cout<<"\n-** Nombre de territorio Colindate no valido **-\n\n";
+            Colindante= false;
+        }
+        }while(Colindante==false|| !risk->buscarTerritorio(continente,territorio)->esColindante(risk->buscarTerritorio(continente,colindante)));
+        std::cout<<"Hora de la batalla"<<std::endl;
+        if(continente=="" || !risk->territorioJugador(continente, territorio)){
+            cout<<"\n-** Nombre de territorio no valido **-\n\n";
+        }
+
+    }while(continente=="" || !risk->territorioJugador(continente, territorio)||elegir=="retroceder");
+    //evalua si el territorio seleccionado para atacar es colindante
+    
+    do{
+
+
+
+        cout<<"Numero de fichas a mover: "<<endl;
+        qFichas = stoi(ingresarComando());
+    }while(qFichas>risk->getFichasJugadorEnTurno());
+    
+
+    risk->moverFichasJugador(qFichas, continente, territorio);
+
+    if(Fase ==true)
+        risk->turnoJugado();
+
+        system("cls");
+
+  }while(Fase ==true);
 
 
 
