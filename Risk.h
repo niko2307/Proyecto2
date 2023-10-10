@@ -17,35 +17,40 @@ public:
     //funciones para el juego
     void iniciarPartida();
     bool estadoPartida();
-    void asignarGanador();
+    //crear
     void crearContinente();
     void CrearTarjetas( std::string tipo,  std::string territorio,  std::string ficha, std::string mision);
-    void AgregarTropas(Jugador jugador);
     void CrearJugador(std::string nombre, int qJugadores);
     void crearBatallon(int numeroJugadores);
-    int qUnidades(int qJugadores);
+    
     int NuevasTropas(Jugador* jugador);
     bool moverFichasJugador(int qFichas, std::string continente, std::string territorio);
     bool territoriosLibres();
     void ubicarNuevasTropas(int qtropas);
-    void agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio );
-    
-    //setters
+       
+    //setters-Risk
     void setGrupo_de_Cartas(int valor);
+    void asignarGanador();
+    int qUnidades(int qJugadores);
+
+    //setters-Jugador
+    void agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio );
+    void AgregarTropas(Jugador jugador);
 
 
     //funciones de informacion
+
     std::string infoContinente();
     std::string infoJug();
     std::string infoTerritorios(std::string nameContinente);
+    std::string buscarContinenteTerritorio(std::string territorio);
     std::string colorJugador();
     std::string getNameJugadorEnTurno();
     std::string getColorJugadorEnTurno();
     std::string territoriosJugador();
-    int getFichasJugadorEnTurno();
-    std::string buscarContinenteTerritorio(std::string territorio);
+    
    
-   //funciones de acceso a objetos
+   //funciones de acceso a objetos-(GETTERS)
     Territorio* getTerritorio(std::string nombreContinente, std::string nombreTerritorio) ;
     bool estadoTerritorio(std::string nameContinente, std::string nameTerritorio);
     int indiceContinente(std::string continente);
@@ -54,6 +59,7 @@ public:
     Jugador* getJugador(std::string nombreJugador);
     int getGrupo_de_Cartas();
     bool territorioJugador(std::string continente, std::string territorio);
+    int getFichasJugadorEnTurno();
 
    //FUNCIONES DE CONTROL DE JUEGO
     void turnoJugado();
@@ -61,6 +67,8 @@ public:
     bool esTurnoJugador(std::string nombreIngresado);
     bool jugadorExiste(std::string nombreIngresado);
     void turnosEnCero();
+
+    //FUNCIONES EXTRA
     int LanzarDado();
 
 
