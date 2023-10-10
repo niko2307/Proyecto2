@@ -16,7 +16,9 @@ public:
     std::string codificar( std::string& texto);
     std::string obtenerCodigoCaracter(char caracter);
     std::string decodificar(std::string &codigo);
-    bool CompararFrecuencia( NodoHuffman<T>* lhs,  NodoHuffman<T>* rhs);
+    void recorridoPreorden(NodoHuffman<T> *nodoActual);
+    void recorridoPreorden();
+    bool CompararFrecuencia(NodoHuffman<T> *lhs, NodoHuffman<T> *rhs);
 };
 
 #include "arbolHuffman.hxx"

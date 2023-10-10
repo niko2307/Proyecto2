@@ -45,6 +45,7 @@ int main() {
     string turnoAux;
     //indica si hay algún ganador
     int ganador = -1;
+     ArbolHuffman<char> arbolHuffman;
 
     do {
         respuesta = ingresarComando();
@@ -95,12 +96,14 @@ int main() {
                 salir = true;
                 break;
                 // guardar <nombre_archivo>
+                 
             case 5: 
                 {
-                   ArbolHuffman<char> arbolHuffman;
-                    string nombreArchivo = separarEspacio(respuesta, true);
-                    std::string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
-                    crearArchivo(nombreArchivo);
+                   string nombreArchivo = separarEspacio(respuesta, true);
+                   std::string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
+                   std::string textoDecodificado = arbolHuffman.decodificar(codigoCodificado);
+                   crearArchivo(nombreArchivo);
+                   
                 }
                 break;
                 // guardar_comprimido <nombre_archivo>

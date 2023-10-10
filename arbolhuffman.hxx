@@ -60,8 +60,8 @@ std::string ArbolHuffman<T>::codificar( std::string& texto) {
         codigo += codigoCaracter;
     }
 
-    // Agregamos un mensaje de éxito
-    codigo += "\n¡Codificación exitosa!\n";
+    std::cout<<"se codifico"<<std::endl;
+  
 
     return codigo;
 }
@@ -97,3 +97,48 @@ template<class T>
 bool ArbolHuffman<T>:: CompararFrecuencia( NodoHuffman<T>* lhs,  NodoHuffman<T>* rhs) {
     return lhs->getFrecuencia() > rhs->getFrecuencia();
 }
+
+template<class T>
+std::string ArbolHuffman<T>::decodificar( std::string& codigo) {
+    std::string textoDecodificado;
+    NodoHuffman<T>* nodoActual = raiz;
+
+    for (char bit : codigo) {
+        if (bit == '0') {
+            nodoActual = nodoActual->getIzquierdo();
+        } else if (bit == '1') {
+            nodoActual = nodoActual->getDerecho();
+        }
+
+        if (nodoActual->esHoja()) {
+            textoDecodificado += nodoActual->getCaracter();
+            nodoActual = raiz; 
+        }
+        
+    }
+    std::cout<< "se descodifico"<<std::endl;
+  
+    return textoDecodificado;
+    
+}
+
+template<class T>
+void ArbolHuffman<T>::recorridoPreorden(NodoHuffman<T>* nodoActual) {
+    if (nodoActual) {
+        // Procesar el nodo actual (por ejemplo, imprimirlo)
+        std::cout << nodoActual->getCaracter() << " ";
+
+        // Recorrer el subárbol izquierdo
+        recorridoPreorden(nodoActual->getIzquierdo());
+
+        // Recorrer el subárbol derecho
+        recorridoPreorden(nodoActual->getDerecho());
+    }
+}
+
+// Función pública para iniciar el recorrido preorden desde la raíz
+template<class T>
+void ArbolHuffman<T>::recorridoPreorden() {
+    recorridoPreorden(raiz);
+}
+
