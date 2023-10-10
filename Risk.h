@@ -2,7 +2,7 @@
 #define RISK_H
 
 #include <vector>
-#include <queue>
+
 #include <string>
 #include "Jugador.h" 
 #include "Carta.h" 
