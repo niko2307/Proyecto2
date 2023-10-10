@@ -11,7 +11,7 @@ void mensajeBienvenida();
 int identificarComando(string cadena);
 string separarEspacio(string cadena, bool parametro);
 bool qParametros(string respuesta);
-void crearArchivo(const string& nombreArchivo);
+void crearArchivo( string& nombreArchivo, string& codigoCodificado) ;
 void leerArchivo(const string& nombreArchivo);
 void mostrarAyudaComando(const string& comando);
 void infoInicializar(void);
@@ -114,7 +114,7 @@ int main() {
                 {
                     string nombreArchivo = separarEspacio(respuesta, true);
                     string nombreArchivoComprimido = nombreArchivo + ".zip";
-                    crearArchivo(nombreArchivoComprimido);
+                   // crearArchivo(nombreArchivoComprimido);
                 }
                 break;
               //costo_conquista <territorio>
@@ -159,7 +159,7 @@ int main() {
 
 //permite crear un archivo
 
-void crearArchivo(const string& nombreArchivo, const string& codigoCodificado) {
+void crearArchivo( string& nombreArchivo, string& codigoCodificado) {
     ofstream archivo(nombreArchivo + "_codificado.txt"); // Agregamos "_codificado.txt" al nombre del archivo
     if (archivo.is_open()) {
         archivo << codigoCodificado; // Escribimos el código codificado en el archivo
