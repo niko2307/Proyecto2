@@ -442,7 +442,7 @@ void turno (Risk* risk){
        
        int qtropas=risk->NuevasTropas(risk->getJugador(risk->getNameJugadorEnTurno())) ;
      std::cout<<"jugador "<<risk->getNameJugadorEnTurno()<<"\n cantidad de tropas disponibles : "<<qtropas<<std::endl;
-
+    
 
 
     if(risk->getFichasJugadorEnTurno()>0){
