@@ -21,6 +21,7 @@ void infoGuardar(void);
 void infoGuardarComprimido(void);
 void infoCostoConquista(void);
 void infoConquistaMasBarata(void);
+void crearArchivoBinario(const string& nombreArchivo,const string& codigoCodificado);
 
 //entrega 2
 void inicializarJuego(Risk* risk);
@@ -104,8 +105,7 @@ int main() {
             case 5: 
                 {
                 string nombreArchivo = separarEspacio(respuesta, true);
-                std::string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
-                crearArchivo(nombreArchivo, codigoCodificado);
+                crearArchivo(nombreArchivo );
                    
                 }
                 break;
@@ -113,8 +113,9 @@ int main() {
             case 6: 
                 {
                     string nombreArchivo = separarEspacio(respuesta, true);
-                    string nombreArchivoComprimido = nombreArchivo + ".zip";
-                    crearArchivo(nombreArchivoComprimido);
+                    std::string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
+                   crearArchivoBinario(nombreArchivo, codigoCodificado);
+                  
                 }
                 break;
               //costo_conquista <territorio>
@@ -159,12 +160,23 @@ int main() {
 
 //permite crear un archivo
 
-void crearArchivo(const string& nombreArchivo, const string& codigoCodificado) {
-    ofstream archivo(nombreArchivo + "_codificado.txt"); // Agregamos "_codificado.txt" al nombre del archivo
+void crearArchivo(const string& nombreArchivo) {
+    ofstream archivo(nombreArchivo ); 
     if (archivo.is_open()) {
-        archivo << codigoCodificado; // Escribimos el código codificado en el archivo
+       
         archivo.close();
         cout << "La partida ha sido guardada correctamente en " << nombreArchivo << "_codificado.txt." << endl;
+    } else {
+        cout << "La partida no ha sido guardada correctamente." << endl;
+    }
+}
+
+void crearArchivoBinario(const string& nombreArchivo,const string& codigoCodificado) {
+    std::ofstream archivo(nombreArchivo + "_codificado.bin" ,  ios::binary); 
+    if (archivo.is_open()) {
+        
+        archivo.close();
+        cout << "La partida ha sido guardada correctamente en " << nombreArchivo << "_codificado.bin." << std::endl;
     } else {
         cout << "La partida no ha sido guardada correctamente." << endl;
     }
