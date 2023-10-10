@@ -915,15 +915,22 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
 }
 
 
-/*
-void Risk::resultadoAtaque() {
+
+void Risk::resultadoAtaque(std::string Territorioatacante, std::string TerritorioDefensor) {
+    bool continuar = true;
+
     // Obtener el jugador atacante y el jugador defensor
     Jugador* atacante = &jugadores[turnoActual];
-    Jugador* defensor = nullptr;
+    Territorio* territorioD = buscarTerritorio ("america del norte",TerritorioDefensor);
+    Jugador* defensor = territorioPerteneceAJugador(territorioD);
+  
+
+//para revisar que el jugador no se vaya a atacar a si mismo  
     for (Jugador& jugador : jugadores) {
-        if (jugador != *atacante) {
-            defensor = &jugador;
-            break;
+
+        if (jugador.obtenerNombreJugador() == atacante->obtenerNombreJugador()) {
+           continuar = false;
+           
         }
     }
 
@@ -937,26 +944,47 @@ void Risk::resultadoAtaque() {
         dadosDefensor.push_back(LanzarDado());
     }
 
-    // Ordenar los dados de mayor a menor
-    std::sort(dadosAtacante.begin(), dadosAtacante.end(), std::greater<int>());
-    std::sort(dadosDefensor.begin(), dadosDefensor.end(), std::greater<int>());
-
-    // Comparar los dados y determinar el resultado del ataque
-    int unidadesPerdidasAtacante = 0;
-    int unidadesPerdidasDefensor = 0;
-    for (int i = 0; i < std::min(dadosAtacante.size(), dadosDefensor.size()); i++) {
-        if (dadosAtacante[i] > dadosDefensor[i]) {
-            unidadesPerdidasDefensor++;
-        } else {
-            unidadesPerdidasAtacante++;
+ // Ordenar los dados de mayor a menor
+for (int i = 0; i < dadosAtacante.size() - 1; i++) {
+    for (int j = 0; j < dadosAtacante.size() - i - 1; j++) {
+        if (dadosAtacante[j] < dadosAtacante[j + 1]) {
+            std::swap(dadosAtacante[j], dadosAtacante[j + 1]);
         }
     }
+}
+
+for (int i = 0; i < dadosDefensor.size() - 1; i++) {
+    for (int j = 0; j < dadosDefensor.size() - i - 1; j++) {
+        if (dadosDefensor[j] < dadosDefensor[j + 1]) {
+            std::swap(dadosDefensor[j], dadosDefensor[j + 1]);
+        }
+    }
+}
+
+// Comparar los dados y determinar el resultado del ataque 
+int numDados = dadosAtacante.size() < dadosDefensor.size() ? dadosAtacante.size() : dadosDefensor.size();
+int unidadesPerdidasAtacante = 0;
+int unidadesPerdidasDefensor = 0;
+std::cout<<"numerod dados:"<<numDados<<std::endl;
+for (int i = 0; i < numDados; i++) {
+    if (dadosAtacante[i] >= dadosDefensor[i]) {
+        unidadesPerdidasDefensor++;
+    } else {
+        unidadesPerdidasAtacante++;
+    }
+}
 
     // Actualizar las unidades de ejército de cada jugador
-    atacante->restarUnidades(unidadesPerdidasAtacante);
-    defensor->restarUnidades(unidadesPerdidasDefensor);
+    atacante->restarUnidades(unidadesPerdidasAtacante,Territorioatacante);
+    defensor->restarUnidades(unidadesPerdidasDefensor,TerritorioDefensor);
+
+
+    
+
+
+
 }
-*/
+
 
 
 
