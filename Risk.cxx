@@ -750,7 +750,7 @@ int Risk::CantidadNuevasTropas(Jugador* jugador) {
         bool continenteOcupado = true;
         std::vector<Territorio> territoriosContinente = continentes[i].obtenerTerritorios();
         for (int j = 0; j < territoriosContinente.size(); j++) {
-            if (!territoriosContinente[j].ChekFicha(jugador->obtenerNombreJugador())) {
+            if (!territoriosContinente[j].ChekFicha(jugador->obtenerColor())) {
                 continenteOcupado = false;
                 break;
             }
@@ -890,12 +890,12 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
   }
 
   if (territorio != nullptr) {
-    std::cout<<"entre territoriosColindantes"<<territorio->getTerritoriosColindantes().size()<<std::endl;
-    int contador = 0;
+      int contador = 0;
     for (int i = 0; i < territorio->getTerritoriosColindantes().size(); i++) {
-      std::cout<<"entre colindantes"<<std::endl;
       Territorio* colindante = territorio->getTerritoriosColindantes()[i];
-      retorno += std::to_string(contador + 1) + ". " + colindante->getNombre() + " - F: " + std::to_string(colindante->ContarFichas(jugadores[turnoActual].obtenerNombreJugador())) + "\n";
+     int  Nu_FichasJugador = colindante->ContarFichas(jugadores[turnoActual].obtenerNombreJugador());
+     std::cout<<"numero de fichas jugador contrincancte"<<Nu_FichasJugador <<std::endl;
+      retorno += std::to_string(contador + 1) + ". " + colindante->getNombre() + " - F: " + std::to_string(Nu_FichasJugador) + "\n";
       contador++;
     }
   }

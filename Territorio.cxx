@@ -14,9 +14,14 @@ void Territorio::deleteFicha( std::string jugador) {
 }
 
 // mirar la ficha 
-bool Territorio::ChekFicha( std::string jugador) {
-    // Implementación para verificar si existe la ficha del jugador
-    return false; 
+bool Territorio::ChekFicha(std::string jugador) {
+    for (Ficha& ficha : fichas) {
+        if (ficha.obtenerColor() == jugador) {
+
+            return true;
+        }
+    }
+    return false;
 }
 // set de reclamado 
 void Territorio::setReclamar( std::string jugador) {
