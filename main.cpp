@@ -3,7 +3,7 @@
 #include <string>
 #include "Risk.h"
 #include "arbolhuffman.h"
-
+#include <map>
 using namespace std;
 
 string ingresarComando();
@@ -29,6 +29,10 @@ void fortificar(Risk* risk, bool inicializar);
 void turno (Risk* risk);
 
 void atacar(Risk* risk);
+
+
+
+ 
 
 int main() {
   //instancia para la clase risk
@@ -112,9 +116,18 @@ int main() {
                 // guardar_comprimido <nombre_archivo>
             case 6: 
                 {
-                    string nombreArchivo = separarEspacio(respuesta, true);
-                    std::string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
-                   crearArchivoBinario(nombreArchivo, codigoCodificado);
+                  string nombreArchivo = separarEspacio(respuesta, true);
+
+// Calcula las frecuencias y almacénalas en un vector de pares (carácter, frecuencia)
+vector<pair<char, int>> frecuencias = arbolHuffman.calcularFrecuencias(nombreArchivo);
+
+// Construye el árbol Huffman utilizando las frecuencias calculadas
+arbolHuffman.construirArbol(frecuencias);
+
+string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
+cout << "El código es " << codigoCodificado << endl;
+
+crearArchivoBinario(nombreArchivo, codigoCodificado);
                   
                 }
                 break;
@@ -158,6 +171,12 @@ int main() {
     return 0;
 }
 
+
+
+
+
+
+
 //permite crear un archivo
 
 void crearArchivo(const string& nombreArchivo) {
@@ -172,14 +191,18 @@ void crearArchivo(const string& nombreArchivo) {
 }
 
 void crearArchivoBinario(const string& nombreArchivo,const string& codigoCodificado) {
-    std::ofstream archivo(nombreArchivo + "_codificado.bin" ,  ios::binary); 
+    try {
+    std::ofstream archivo(nombreArchivo + "_codificado.bin", ios::binary);
     if (archivo.is_open()) {
-        
+        archivo.write(codigoCodificado.c_str(), codigoCodificado.size());
         archivo.close();
         cout << "La partida ha sido guardada correctamente en " << nombreArchivo << "_codificado.bin." << std::endl;
     } else {
-        cout << "La partida no ha sido guardada correctamente." << endl;
+        cout << "No se pudo abrir el archivo para escritura." << endl;
     }
+} catch (const std::exception& e) {
+    cout << "Error al escribir en el archivo: " << e.what() << endl;
+}
 }
 
 //permite leer la información de un archivo

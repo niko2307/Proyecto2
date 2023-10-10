@@ -2,25 +2,59 @@
 #include <queue>
 #include "arbolhuffman.h"
 #include <string>
+#include <iostream>
+#include <map>
+#include <algorithm>
+#include <unordered_map>
 
-
-
-template<class T>
+template <class T>
 ArbolHuffman<T>::ArbolHuffman() {
     raiz = nullptr;
 }
 
-template<class T>
+template <class T>
 ArbolHuffman<T>::~ArbolHuffman() {
-
+    destruirArbol(raiz);
 }
 
-template<class T>
- NodoHuffman<T>* ArbolHuffman<T>::construirArbol(std::vector<std::pair<T, int>>& frecuencias) {
-    // Creamos nodos iniciales para cada símbolo con sus frecuencias
-    std::priority_queue<NodoHuffman<T>*, std::vector<NodoHuffman<T>*>, decltype(&CompararFrecuencia)> colaPrioridad(&CompararFrecuencia);
+template <class T>
+void ArbolHuffman<T>::destruirArbol(NodoHuffman<T>* nodo) {
+    if (nodo) {
+        destruirArbol(nodo->getIzquierdo());
+        destruirArbol(nodo->getDerecho());
+        delete nodo;
+    }
+}
 
-    for (typename std::vector<std::pair<T, int>>::const_iterator it = frecuencias.begin(); it != frecuencias.end(); ++it) {
+template <class T>
+std::vector<std::pair<T, int>> ArbolHuffman<T>::calcularFrecuencias(const std::string& texto) {
+    // Declara un mapa para almacenar las frecuencias de los caracteres
+    std::map<T, int> frecuencias;
+
+    // Recorre el texto y cuenta las frecuencias de cada carácter
+    for (char c : texto) {
+        frecuencias[c]++;
+    }
+
+    // Convierte el mapa en un vector de pares (carácter, frecuencia)
+    std::vector<std::pair<T, int>> vectorFrecuencias;
+    for (typename std::map<T, int>::const_iterator it = frecuencias.begin(); it != frecuencias.end(); ++it) {
+        const std::pair<T, int>& par = *it;
+        vectorFrecuencias.push_back(std::make_pair(par.first, par.second));
+    }
+
+    return vectorFrecuencias;
+}
+
+template <class T>
+NodoHuffman<T>* ArbolHuffman<T>::construirArbol(std::vector<std::pair<T, int>>& vectorFrecuencias) {
+     typedef bool(*Comparador)(NodoHuffman<T>*, NodoHuffman<T>*);
+    Comparador comparador = [](NodoHuffman<T>* lhs, NodoHuffman<T>* rhs) {
+        return lhs->getFrecuencia() > rhs->getFrecuencia();
+    };
+    std::priority_queue<NodoHuffman<T>*, std::vector<NodoHuffman<T>*>, Comparador> colaPrioridad(comparador);
+
+    for (typename std::vector<std::pair<T, int>>::const_iterator it = vectorFrecuencias.begin(); it != vectorFrecuencias.end(); ++it) {
         const std::pair<T, int>& par = *it;
         NodoHuffman<T>* nodo = new NodoHuffman<T>(par.first, par.second);
         colaPrioridad.push(nodo);
@@ -43,13 +77,20 @@ template<class T>
 
     // El último nodo en la cola es la raíz del árbol de Huffman
     raiz = colaPrioridad.top();
+
+    return raiz; // Devuelve la raíz del árbol
 }
 
 
-
-template<class T>
-std::string ArbolHuffman<T>::codificar( std::string& texto) {
+template <class T>
+std::string ArbolHuffman<T>::codificar(std::string& texto) {
     std::string codigo;
+
+    // Asegúrate de que el árbol Huffman esté construido antes de codificar
+    if (!raiz) {
+        std::cout << "El árbol Huffman no está construido." << std::endl;
+        return codigo;
+    }
 
     // Recorre el texto caracter por caracter
     for (char caracter : texto) {
@@ -60,13 +101,12 @@ std::string ArbolHuffman<T>::codificar( std::string& texto) {
         codigo += codigoCaracter;
     }
 
-    std::cout<<"se codifico"<<std::endl;
-  
+    std::cout << "Se codificó" << std::endl;
 
     return codigo;
 }
 
-template<class T>
+template <class T>
 std::string ArbolHuffman<T>::obtenerCodigoCaracter(char caracter) {
     std::string codigo;
     NodoHuffman<T>* nodoActual = raiz;
@@ -80,26 +120,29 @@ std::string ArbolHuffman<T>::obtenerCodigoCaracter(char caracter) {
         // Si el bit actual es 0, nos movemos hacia el hijo izquierdo; si es 1, hacia el hijo derecho
         if (caracter & 1) {
             nodoActual = nodoActual->getDerecho();
+            codigo += '1'; // Agrega '1' al código
         } else {
             nodoActual = nodoActual->getIzquierdo();
+            codigo += '0'; // Agrega '0' al código
         }
 
         // Quitamos el bit procesado del caracter
         caracter >>= 1;
     }
 
+    // Invierte el código ya que lo estamos construyendo desde las hojas hacia la raíz
+    std::reverse(codigo.begin(), codigo.end());
+
     return codigo;
 }
 
-
-
-template<class T>
-bool ArbolHuffman<T>:: CompararFrecuencia( NodoHuffman<T>* lhs,  NodoHuffman<T>* rhs) {
+template <class T>
+bool ArbolHuffman<T>::CompararFrecuencia(NodoHuffman<T>* lhs, NodoHuffman<T>* rhs) {
     return lhs->getFrecuencia() > rhs->getFrecuencia();
 }
 
-template<class T>
-std::string ArbolHuffman<T>::decodificar( std::string& codigo) {
+template <class T>
+std::string ArbolHuffman<T>::decodificar(std::string& codigo) {
     std::string textoDecodificado;
     NodoHuffman<T>* nodoActual = raiz;
 
@@ -112,34 +155,11 @@ std::string ArbolHuffman<T>::decodificar( std::string& codigo) {
 
         if (nodoActual->esHoja()) {
             textoDecodificado += nodoActual->getCaracter();
-            nodoActual = raiz; 
+            nodoActual = raiz;
         }
-        
     }
-    std::cout<< "se descodifico"<<std::endl;
-  
+
+    std::cout << "Se descodificó" << std::endl;
+
     return textoDecodificado;
-    
 }
-
-template<class T>
-void ArbolHuffman<T>::recorridoPreorden(NodoHuffman<T>* nodoActual) {
-    if (nodoActual) {
-        // Procesar el nodo actual (por ejemplo, imprimirlo)
-        std::cout << nodoActual->getCaracter() << " ";
-
-        // Recorrer el subárbol izquierdo
-        recorridoPreorden(nodoActual->getIzquierdo());
-
-        // Recorrer el subárbol derecho
-        recorridoPreorden(nodoActual->getDerecho());
-    }
-}
-
-// Función pública para iniciar el recorrido preorden desde la raíz
-template<class T>
-void ArbolHuffman<T>::recorridoPreorden() {
-    recorridoPreorden(raiz);
-}
-
-
