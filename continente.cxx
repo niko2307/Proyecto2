@@ -53,7 +53,8 @@ bool Continente::territorioValido(std::string territorio){
 
 
 //adicionar al continente el territorio escogido por el usuario //// por eso se pasa por referencia 
-void Continente::AddTerritorio( std::string nombre) {
+void Continente::InicializarTerritorio( std::string nombre) {
+  
    Territorio territorio (nombre);
     territorios.push_back(territorio);
 }

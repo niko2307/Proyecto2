@@ -2,7 +2,7 @@
 #include "Continente.h"
 #include <iostream>
 Territorio::Territorio( std::string nuevoNombre){
-    nombre = nuevoNombre;
+    this->nombre = nuevoNombre;
 }
 //adicionar ficha 
 void Territorio::addFicha(Ficha ficha) {
@@ -41,4 +41,19 @@ std::string Territorio::getNombre(){
   return nombre;
 }
 
+std::vector<Territorio*> Territorio::getTerritoriosColindantes() {
+      return this->TerritoriosColindantes;
+    }
 
+void Territorio::setTerritoriosColindantes(Territorio* Territorio) {
+      this->TerritoriosColindantes.push_back(Territorio);
+    }
+
+bool Territorio::esColindante(Territorio* otroTerritorio) {
+    for (Territorio* colindante : TerritoriosColindantes) {
+        if (colindante->getNombre() == otroTerritorio->getNombre()) {
+            return true;
+        }
+    }
+    return false;
+}
