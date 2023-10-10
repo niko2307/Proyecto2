@@ -22,6 +22,8 @@ public:
 
     std::vector<Territorio*> getTerritoriosColindantes();
     void setTerritoriosColindantes(Territorio* Territorio);
+    void restarFichas(int cantidadEliminar);
+
 private:
     std::string nombre;
     std::vector<Ficha> fichas;

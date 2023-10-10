@@ -68,3 +68,11 @@ bool Territorio::esColindante(Territorio* otroTerritorio) {
     }
     return false;
 }
+
+void Territorio::restarFichas(int cantidadEliminar) {
+    int fichasEliminadas = 0;
+    for (int i = this->fichas.size() - 1; i >= 0 && fichasEliminadas < cantidadEliminar; i--) {
+        this->fichas.pop_back();
+        fichasEliminadas++;
+    }
+}

@@ -26,9 +26,10 @@ public:
     void agregarFicha(Ficha ficha); 
     void setTerritorio(Territorio* nuevoTerritorio);
     Ficha moverFicha();
+    void restarUnidades(int cantidadEliminar,std::string territorio);
     
-   
-   Jugador& obtenerJugador(int indice);
+//  
+  // Jugador& obtenerJugador(int indice);
    int contarTerritorios();
 
 

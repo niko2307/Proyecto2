@@ -56,3 +56,19 @@ std::vector<Territorio*>& Jugador::getTerritorios() {
 std::vector<Carta> Jugador::obtenerCartas() {
     return cartas;
 }
+
+void Jugador::restarUnidades(int cantidadEliminar,std::string Nterritorio) {
+    int fichasEliminadas = 0;
+    for (int i = fichas.size() - 1; i >= 0 && fichasEliminadas < cantidadEliminar; i--) {
+        fichas.pop_back();
+        fichasEliminadas++;
+    }
+
+  //elimina las fichas al territorio desde jugador
+  for (Territorio* territorio : this->territorios) {
+       
+if (territorio->getNombre() == Nterritorio) {
+          territorio->restarFichas( cantidadEliminar);
+        }
+}
+}

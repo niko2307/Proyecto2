@@ -11,7 +11,7 @@ void mensajeBienvenida();
 int identificarComando(string cadena);
 string separarEspacio(string cadena, bool parametro);
 bool qParametros(string respuesta);
-void crearArchivo(const string& nombreArchivo);
+void crearArchivo( string& nombreArchivo, string& codigoCodificado) ;
 void leerArchivo(const string& nombreArchivo);
 void mostrarAyudaComando(const string& comando);
 void infoInicializar(void);
@@ -109,7 +109,7 @@ int main() {
             case 5: 
                 {
                 string nombreArchivo = separarEspacio(respuesta, true);
-                crearArchivo(nombreArchivo );
+                //crearArchivo(nombreArchivo );
                    
                 }
                 break;
@@ -179,8 +179,8 @@ crearArchivoBinario(nombreArchivo, codigoCodificado);
 
 //permite crear un archivo
 
-void crearArchivo(const string& nombreArchivo) {
-    ofstream archivo(nombreArchivo ); 
+void crearArchivo(const string& nombreArchivo, const string& codigoCodificado) {
+    ofstream archivo(nombreArchivo + "_codificado.txt"); // Agregamos "_codificado.txt" al nombre del archivo
     if (archivo.is_open()) {
        
         archivo.close();
@@ -530,7 +530,7 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
 
   //evalua si el territorio a atacar es colindante
         do{
-          cout<<"Territorios disponibles para atacar"<<endl;
+          cout<<"\n Territorios disponibles para atacar"<<endl;
           cout<<risk->territoriosColindantes(territorio);
 
            cout<<"retroceder = si quieres escoger otro pais\n"<<endl;
@@ -545,12 +545,12 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
         if(continente=="" || !risk->territorioJugador(continente, territorio)){
             cout<<"\n-** Nombre de territorio no valido **-\n\n";
         }
-
+        
     }while(continente=="" || !risk->territorioJugador(continente, territorio)||elegir=="retroceder");
     //evalua si el territorio seleccionado para atacar es colindante
     
     do{
-
+      
 
 
         cout<<"Numero de fichas a mover: "<<endl;
@@ -559,6 +559,15 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
     
 
     risk->moverFichasJugador(qFichas, continente, territorio);
+
+
+std::cout<<"Escoge"<<std::endl;
+std::cout<<"(1)deseas seguir atacando"<<std::endl;
+std::cout<<"(2)continuar siguiente fase "<<std::endl;
+
+std::string eleccion =ingresarComando();
+
+std::cout<<eleccion<<std::endl;
 
     if(Fase ==true)
         risk->turnoJugado();
