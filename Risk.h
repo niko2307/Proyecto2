@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <queue>
 #include "Jugador.h" 
 #include "Carta.h" 
 #include "Continente.h" 
@@ -52,6 +53,7 @@ public:
     Territorio* buscarTerritorio(std::string nombreContinente, std::string nombreTerritorio);    bool estadoGanador();
     bool esTurnoJugador(std::string nombreIngresado);
     bool jugadorExiste(std::string nombreIngresado);
+    
     Jugador* getJugador(std::string nombreJugador);
     void turnosEnCero();
 
