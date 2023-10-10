@@ -913,9 +913,48 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
 
   return retorno;
 }
+/*
+void Risk::resultadoAtaque() {
+    // Obtener el jugador atacante y el jugador defensor
+    Jugador* atacante = &jugadores[turnoActual];
+    Jugador* defensor = nullptr;
+    for (Jugador& jugador : jugadores) {
+        if (jugador != *atacante) {
+            defensor = &jugador;
+            break;
+        }
+    }
 
+    // Lanzar los dados para el atacante y el defensor
+    std::vector<int> dadosAtacante;
+    std::vector<int> dadosDefensor;
+    for (int i = 0; i < 3; i++) {
+        dadosAtacante.push_back(LanzarDado());
+    }
+    for (int i = 0; i < 2; i++) {
+        dadosDefensor.push_back(LanzarDado());
+    }
 
+    // Ordenar los dados de mayor a menor
+    std::sort(dadosAtacante.begin(), dadosAtacante.end(), std::greater<int>());
+    std::sort(dadosDefensor.begin(), dadosDefensor.end(), std::greater<int>());
 
+    // Comparar los dados y determinar el resultado del ataque
+    int unidadesPerdidasAtacante = 0;
+    int unidadesPerdidasDefensor = 0;
+    for (int i = 0; i < std::min(dadosAtacante.size(), dadosDefensor.size()); i++) {
+        if (dadosAtacante[i] > dadosDefensor[i]) {
+            unidadesPerdidasDefensor++;
+        } else {
+            unidadesPerdidasAtacante++;
+        }
+    }
+
+    // Actualizar las unidades de ejército de cada jugador
+    atacante->restarUnidades(unidadesPerdidasAtacante);
+    defensor->restarUnidades(unidadesPerdidasDefensor);
+}
+*/
 
 
 

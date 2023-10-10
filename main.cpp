@@ -525,9 +525,9 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
         
     }while(continente=="" || !risk->territorioJugador(continente, territorio)||elegir=="retroceder");
     //evalua si el territorio seleccionado para atacar es colindante
-    /*
+    
     do{
-
+      
 
 
         cout<<"Numero de fichas a mover: "<<endl;
@@ -537,7 +537,7 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
 
     risk->moverFichasJugador(qFichas, continente, territorio);
 
-*/
+
 std::cout<<"Escoge"<<std::endl;
 std::cout<<"(1)deseas seguir atacando"<<std::endl;
 std::cout<<"(2)continuar siguiente fase "<<std::endl;
