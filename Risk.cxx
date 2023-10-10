@@ -4,6 +4,7 @@
 #include <random>
 #include <vector>
 #include <queue>
+#include <string>
 
 Risk::Risk() {
   Partida=false;
@@ -893,4 +894,12 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
 
   return retorno;
 }
+
+void Risk::agregarTerritorioaJugador(std::string nombreJugador, Territorio* territorio) {
+    // Implementación de la función aquí
+}
+
+
+
+
 

@@ -59,7 +59,7 @@ int main() {
             case 1:
                 {
                     string nombreArchivo = separarEspacio(respuesta, true);
-                    std::string textoDecodificado = arbolHuffman.decodificar(nombreArchivo);
+                   std::string textoDecodificado = arbolHuffman.decodificar(nombreArchivo);
                     leerArchivo(textoDecodificado);
                 }
                 break;
@@ -103,10 +103,9 @@ int main() {
                  
             case 5: 
                 {
-                   string nombreArchivo = separarEspacio(respuesta, true);
-                   std::string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
-                   std::cout<<"codifico: "<<codigoCodificado <<std::endl;
-                   crearArchivo(codigoCodificado);
+                string nombreArchivo = separarEspacio(respuesta, true);
+                std::string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
+                crearArchivo(codigoCodificado);
                    
                 }
                 break;
@@ -160,15 +159,15 @@ int main() {
 
 //permite crear un archivo
 
-void crearArchivo(const string& nombreArchivo) {
-    ofstream archivo(nombreArchivo);
+void crearArchivo(const string& codigoCodificado) {
+    ofstream archivo( codigoCodificado);
     if (archivo.is_open()) {
-        cout << "La partida ha sido guardada correctamente.\n";
-       
-       
+
+        cout << "La partida ha sido guardada correctamente "<<endl;
         archivo.close();
+
     } else {
-        cout << "La partida no ha sido guardada correctamente";
+        cout << "La partida no ha sido guardada correctamente.\n";
     }
 }
 
