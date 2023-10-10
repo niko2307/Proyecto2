@@ -23,7 +23,8 @@ public:
     void CrearJugador(std::string nombre, int qJugadores);
     void crearBatallon(int numeroJugadores);
     
-    int NuevasTropas(Jugador* jugador);
+    
+    
     bool moverFichasJugador(int qFichas, std::string continente, std::string territorio);
     bool territoriosLibres();
     void ubicarNuevasTropas(int qtropas);
@@ -35,7 +36,8 @@ public:
 
     //setters-Jugador
     void agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio );
-    void AgregarTropas(Jugador jugador);
+    void AgregarTropas(Jugador* jugador, int total);
+    int CantidadNuevasTropas(Jugador* jugador);
 
 
     //funciones de informacion
@@ -67,6 +69,7 @@ public:
     bool esTurnoJugador(std::string nombreIngresado);
     bool jugadorExiste(std::string nombreIngresado);
     void turnosEnCero();
+
 
     //FUNCIONES EXTRA
     int LanzarDado();

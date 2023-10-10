@@ -127,8 +127,13 @@ void Risk::CrearTarjetas(std::string tipo, std::string territorio,  std::string 
     // Implementación para crear una carta de juego con los detalles proporcionados
 }
 //
-void Risk::AgregarTropas(Jugador* jugador) {
-    
+void Risk::AgregarTropas(Jugador* jugador, int total) {
+    Ficha batallon(colorJugador(), "infanteria");
+    while(total!=0){
+    jugador->agregarFicha(batallon);
+    total--;
+  }
+
 }
 
 //aumenta la cantiad de turnos realizados, para poder avanzar al siguiente turno
@@ -410,8 +415,8 @@ void Risk::setGrupo_de_Cartas(int valor) {
 }
 
 
-int Risk::NuevasTropas(Jugador* jugador) {
-    int nuevasUnidades = 1;
+int Risk::CantidadNuevasTropas(Jugador* jugador) {
+    int nuevasUnidades = 10;
     int territoriosOcupados = jugador->contarTerritorios();
     int continentesOcupados = 0;
     int cartasIntercambiadas = 0;

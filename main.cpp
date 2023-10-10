@@ -27,6 +27,8 @@ void inicializarJuego(Risk* risk);
 void fortificar(Risk* risk, bool inicializar);
 void turno (Risk* risk);
 
+void atacar(Risk* risk);
+
 int main() {
   //instancia para la clase risk
   Risk risk;
@@ -402,6 +404,7 @@ system("cls");
 }
 
 void fortificar(Risk* risk, bool inicializar){
+
     string territorio = "", continente= "";
     int qFichas =0;
 
@@ -440,6 +443,7 @@ void fortificar(Risk* risk, bool inicializar){
     if(inicializar && risk->getFichasJugadorEnTurno()==0)
         risk->turnoJugado();
         system("cls");
+
   }while(risk->getFichasJugadorEnTurno()!=0);
 
 }
@@ -448,8 +452,10 @@ void fortificar(Risk* risk, bool inicializar){
 void turno (Risk* risk){
   //std::vector<Territorio*> territoriosJ =risk->getJugador(risk->getNameJugadorEnTurno())->getTerritorios();
        
-       int qtropas=risk->NuevasTropas(risk->getJugador(risk->getNameJugadorEnTurno())) ;
+       int qtropas=risk->CantidadNuevasTropas(risk->getJugador(risk->getNameJugadorEnTurno())) ;
      std::cout<<"jugador "<<risk->getNameJugadorEnTurno()<<"\n cantidad de tropas disponibles : "<<qtropas<<std::endl;
+     risk->AgregarTropas(risk->getJugador(risk->getNameJugadorEnTurno()),qtropas) ;
+      fortificar(risk, true);
       //risk->ubicarNuevasTropas(int qtropas );
 
 
@@ -461,6 +467,18 @@ void turno (Risk* risk){
 
 
     risk->turnoJugado();
+}
+
+
+
+void atacar(Risk* risk){
+
+
+
+
+
+
+  
 }
 
 
