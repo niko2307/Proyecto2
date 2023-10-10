@@ -193,7 +193,7 @@ bool Risk::estadoTerritorio(std::string nameContinente, std::string nameTerritor
 //recibo el nombre de un jugador y lo guardo en el vector de jugadores
 void Risk::CrearJugador(std::string nombre, int qJugadores){
 
-  int total = qUnidades(qJugadores);
+  totint al = qUnidades(qJugadores);
   Jugador aux(nombre, colorJugador());
   Ficha batallon(colorJugador(), "infanteria");
   //agrega qUnidades de infanteria al jugador
