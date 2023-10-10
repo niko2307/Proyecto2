@@ -895,7 +895,6 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
     territorio = continente.buscarTerritorio(nombreTerritorio);
     if (territorio != nullptr) {
       
-      std::cout<<"territorio"<<territorio->getNombre()<<std::endl;
       break;
     }
   }
@@ -905,9 +904,11 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
     for (int i = 0; i < territorio->getTerritoriosColindantes().size(); i++) {
       Territorio* colindante = territorio->getTerritoriosColindantes()[i];
       int Nu_FichasJugador = colindante->ContarFichas(territorioPerteneceAJugador(colindante)->obtenerColor());
-      std::cout<<"numero de fichas jugador contrincancte"<<Nu_FichasJugador <<territorioPerteneceAJugador(colindante)->obtenerNombreJugador()<<std::endl;
+     // std::cout<<"numero de fichas jugador contrincancte"<<Nu_FichasJugador <<territorioPerteneceAJugador(colindante)->obtenerNombreJugador()<<std::endl;
+     if(territorioPerteneceAJugador(territorio)->obtenerNombreJugador()!=territorioPerteneceAJugador(colindante)->obtenerNombreJugador()){
       retorno += std::to_string(contador + 1) + ". " + colindante->getNombre() + " - FichasContrincante: " + std::to_string(Nu_FichasJugador) + "\n";
       contador++;
+     }
     }
   }
 
@@ -977,7 +978,6 @@ for (int i = 0; i < numDados; i++) {
     // Actualizar las unidades de ejército de cada jugador
     atacante->restarUnidades(unidadesPerdidasAtacante,Territorioatacante);
     defensor->restarUnidades(unidadesPerdidasDefensor,TerritorioDefensor);
-
 
     
 
