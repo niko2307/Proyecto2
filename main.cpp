@@ -11,7 +11,7 @@ void mensajeBienvenida();
 int identificarComando(string cadena);
 string separarEspacio(string cadena, bool parametro);
 bool qParametros(string respuesta);
-void crearArchivo( string& nombreArchivo) ;
+void crearArchivo( string& nombreArchivo, string& codigoCodificado) ;
 void leerArchivo(const string& nombreArchivo);
 void mostrarAyudaComando(const string& comando);
 void infoInicializar(void);
@@ -105,7 +105,7 @@ int main() {
             case 5: 
                 {
                 string nombreArchivo = separarEspacio(respuesta, true);
-                crearArchivo(nombreArchivo );
+                //crearArchivo(nombreArchivo );
                    
                 }
                 break;
