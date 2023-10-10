@@ -59,7 +59,7 @@ public:
     bool esTurnoJugador(std::string nombreIngresado);
     bool jugadorExiste(std::string nombreIngresado);
     void turnosEnCero();
-    Jugador* territorioPerteneceAJugador(Territorio* territorio);
+    Jugador* Risk::territorioPerteneceAJugador(Territorio* territorio);
 
     // Funciones extras
     int LanzarDado();
