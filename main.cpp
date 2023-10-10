@@ -57,7 +57,7 @@ int main() {
                 {
                     string nombreArchivo = separarEspacio(respuesta, true);
                     std::string textoDecodificado = arbolHuffman.decodificar(nombreArchivo);
-                    leerArchivo(nombreArchivo);
+                    leerArchivo(textoDecodificado);
                 }
                 break;
             //inicializar
@@ -102,8 +102,7 @@ int main() {
                 {
                    string nombreArchivo = separarEspacio(respuesta, true);
                    std::string codigoCodificado = arbolHuffman.codificar(nombreArchivo);
-                   
-                   crearArchivo(nombreArchivo);
+                   crearArchivo(codigoCodificado);
                    
                 }
                 break;
