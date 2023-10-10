@@ -11,7 +11,7 @@ class Continente {
 public:
     Continente(std::string nNombre);
     std::string obtenerNombre();
-    void establecerNombre( std::string nuevoNombre);
+    //void establecerNombre( std::string nuevoNombre);
     void ocuparTerritorio(Ficha ficha, int nTerritorio, std::string nombreJugador); 
     void InicializarTerritorio( std::string nombre);
     Territorio* buscarTerritorio(std::string nombreTerritorio) ;

@@ -18,6 +18,7 @@ bool Territorio::ChekFicha(std::string jugador) {
     for (Ficha& ficha : fichas) {
         if (ficha.obtenerColor() == jugador) {
 
+            std::cout<<"la ficha pertenece al color del jugador"<<jugador<<"=="<<ficha.obtenerColor()<<std::endl;
             return true;
         }
     }
@@ -33,9 +34,14 @@ std::string Territorio::getReclamado() {
 }
 
 // contar las fichas 
-int Territorio::ContarFichas( std::string jugador) {
-    // Implementación para contar las fichas del jugador
-    return 0; 
+int Territorio::ContarFichas(std::string jugador) {
+    int contador = 0;
+    for ( Ficha& ficha : fichas) {
+        if (ficha.obtenerColor() == jugador) {
+            contador++;
+        }
+    }
+    return contador;
 }
 // get de cantidad de fichas 
 int Territorio::GetQFichas() {

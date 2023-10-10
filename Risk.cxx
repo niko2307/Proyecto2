@@ -455,6 +455,14 @@ void Risk::AgregarTropas(Jugador* jugador, int total) {
   }
 
 }
+void Risk::agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio ){
+for(int i =0; i<jugadores.size(); i++){
+    if(jugadores[i].obtenerNombreJugador()==nombreIngresado){
+      jugadores[turnoActual].setTerritorio(nuevoTerritorio);
+     
+    }
+  }
+}
 
 //aumenta la cantiad de turnos realizados, para poder avanzar al siguiente turno
 //esta funcion reliza el avanzar en los jugadores mostradondo el nombre del jugador 
@@ -640,6 +648,17 @@ std::string Risk::territoriosJugador(){
     }
   }
   return retorno;
+}
+
+Jugador* Risk::territorioPerteneceAJugador(Territorio* territorio) {
+    for (Jugador& jugador : jugadores) {
+        for (Territorio* t : jugador.getTerritorios()) {
+            if (t == territorio) {
+                return &jugador;
+            }
+        }
+    }
+    return nullptr;
 }
 
 
@@ -884,9 +903,9 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
       int contador = 0;
     for (int i = 0; i < territorio->getTerritoriosColindantes().size(); i++) {
       Territorio* colindante = territorio->getTerritoriosColindantes()[i];
-     int  Nu_FichasJugador = colindante->ContarFichas(jugadores[turnoActual].obtenerNombreJugador());
-     std::cout<<"numero de fichas jugador contrincancte"<<Nu_FichasJugador <<std::endl;
-      retorno += std::to_string(contador + 1) + ". " + colindante->getNombre() + " - F: " + std::to_string(Nu_FichasJugador) + "\n";
+      int Nu_FichasJugador = colindante->ContarFichas(territorioPerteneceAJugador(colindante)->obtenerColor());
+      std::cout<<"numero de fichas jugador contrincancte"<<Nu_FichasJugador <<territorioPerteneceAJugador(colindante)->obtenerNombreJugador()<<std::endl;
+      retorno += std::to_string(contador + 1) + ". " + colindante->getNombre() + " - FichasContrincante: " + std::to_string(Nu_FichasJugador) + "\n";
       contador++;
     }
   }
