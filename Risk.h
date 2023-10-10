@@ -17,7 +17,6 @@ public:
     //funciones para el juego
     void iniciarPartida();
     bool estadoPartida();
-    
     //crear
     void crearContinente();
     void CrearTarjetas( std::string tipo,  std::string territorio,  std::string ficha, std::string mision);
@@ -27,12 +26,13 @@ public:
     
     bool moverFichasJugador(int qFichas, std::string continente, std::string territorio);
     bool territoriosLibres();
-    void ubicarNuevasTropas(int qtropas);
+   
        
     //setters-Risk
     void setGrupo_de_Cartas(int valor);
     void asignarGanador();
     int qUnidades(int qJugadores);
+    void InicializarTerritoriosColindantes(Risk* risk);
 
     //setters-Jugador
     void agregarTerritorioaJugador(std::string nombreIngresado,Territorio* nuevoTerritorio );
@@ -80,7 +80,7 @@ public:
 protected:
     std::vector<Jugador> jugadores;
     std::vector<Carta> Cartas;
-    std::vector<Continente> continentes;
+    std::vector<Continente> continentes ;
     bool Partida;
     bool Ganador;
     int turnoActual;

@@ -123,6 +123,317 @@ void Risk::crearContinente() {
     continentes.push_back(continente5);
     continentes.push_back(continente6);
   
+
+}
+void Risk::InicializarTerritoriosColindantes(Risk* risk){
+ 
+// Continente de América del Norte
+Territorio* americaCentral = risk->buscarTerritorio("america del norte", "america central");
+Territorio* estadosUnidosOrientales = risk->buscarTerritorio("america del norte", "estados unidos orientales");
+Territorio* groenlandia = risk->buscarTerritorio("america del norte", "groenlandia");
+Territorio* territorioNoroccidental = risk->buscarTerritorio("america del norte", "territorio noroccidental");
+Territorio* ontario = risk->buscarTerritorio("america del norte", "ontario");
+Territorio* quebec = risk->buscarTerritorio("america del norte", "quebec");
+Territorio* estadosUnidosOccidentales = risk->buscarTerritorio("america del norte", "estados unidos occidentales");
+Territorio* alaska = risk->buscarTerritorio("america del norte", "alaska");
+Territorio* alberta = risk->buscarTerritorio("america del norte", "alberta");
+
+
+// Continente de Europa
+Territorio* islandia = risk->buscarTerritorio("europa", "islandia");
+Territorio* europaDelNorte = risk->buscarTerritorio("europa", "europa del norte");
+Territorio* escandinavia = risk->buscarTerritorio("europa", "escandinavia");
+Territorio* europaDelSur = risk->buscarTerritorio("europa", "europa del sur");
+Territorio* ucrania = risk->buscarTerritorio("europa", "ucrania");
+Territorio* europaOccidental = risk->buscarTerritorio("europa", "europa occidental");
+Territorio* granBretana = risk->buscarTerritorio("europa", "gran bretana");
+
+
+
+// Continente de América del Sur
+Territorio* brasil = risk->buscarTerritorio("america del sur", "brasil");
+Territorio* colombia = risk->buscarTerritorio("america del sur", "colombia");
+Territorio* peru = risk->buscarTerritorio("america del sur", "peru");
+Territorio* argentina = risk->buscarTerritorio("america del sur", "argentina");
+
+
+// Continente de África
+Territorio* africaOriental = risk->buscarTerritorio("africa", "africa oriental");
+Territorio* egipto = risk->buscarTerritorio("africa", "egipto");
+Territorio* madagascar = risk->buscarTerritorio("africa", "madagascar");
+Territorio* africaDelNorte = risk->buscarTerritorio("africa", "africa del norte");
+Territorio* africaDelSur = risk->buscarTerritorio("africa", "africa del sur");
+Territorio* congo = risk->buscarTerritorio("africa", "congo");
+
+
+// Continente de Oceanía
+Territorio* indonesia = risk->buscarTerritorio("oceania", "indonesia");
+Territorio* nuevaGuinea = risk->buscarTerritorio("oceania", "nueva guinea");
+Territorio* australiaOccidental = risk->buscarTerritorio("oceania", "australia occidental");
+Territorio* australiaOriental = risk->buscarTerritorio("australia", "australia oriental");
+
+// Continente de Asia
+Territorio* china = risk->buscarTerritorio("asia", "china");
+Territorio* india = risk->buscarTerritorio("asia", "india");
+Territorio* irkutsk = risk->buscarTerritorio("asia", "irkutsk");
+Territorio* japon = risk->buscarTerritorio("asia", "japon");
+Territorio* kamchatka = risk->buscarTerritorio("asia", "kamchatka");
+Territorio* medioOriente = risk->buscarTerritorio("asia", "medio oriente");
+Territorio* mongolia = risk->buscarTerritorio("asia", "mongolia");
+Territorio* siam = risk->buscarTerritorio("asia", "siam");
+Territorio* siberia = risk->buscarTerritorio("asia", "siberia");
+Territorio* ural = risk->buscarTerritorio("asia", "ural");
+Territorio* yakutsk = risk->buscarTerritorio("asia", "yakutsk");
+Territorio* afghanistan = risk->buscarTerritorio("asia", "afghanistan");
+
+
+// América del Norte
+alaska->setTerritoriosColindantes(alberta);
+alaska->setTerritoriosColindantes(territorioNoroccidental);
+alaska->setTerritoriosColindantes(kamchatka);
+
+alberta->setTerritoriosColindantes(territorioNoroccidental);
+alberta->setTerritoriosColindantes(estadosUnidosOccidentales);
+alberta->setTerritoriosColindantes(alaska);
+alberta->setTerritoriosColindantes(ontario);
+
+americaCentral->setTerritoriosColindantes(estadosUnidosOrientales);
+americaCentral->setTerritoriosColindantes(estadosUnidosOccidentales);
+americaCentral->setTerritoriosColindantes(ontario);
+
+estadosUnidosOrientales->setTerritoriosColindantes(ontario);
+estadosUnidosOrientales->setTerritoriosColindantes(quebec);
+estadosUnidosOrientales->setTerritoriosColindantes(americaCentral);
+
+groenlandia->setTerritoriosColindantes(quebec);
+groenlandia->setTerritoriosColindantes(territorioNoroccidental);
+groenlandia->setTerritoriosColindantes(ontario);
+groenlandia->setTerritoriosColindantes(islandia);
+
+territorioNoroccidental->setTerritoriosColindantes(alaska);
+territorioNoroccidental->setTerritoriosColindantes(alberta);
+territorioNoroccidental->setTerritoriosColindantes(ontario);
+territorioNoroccidental->setTerritoriosColindantes(groenlandia);
+
+ontario->setTerritoriosColindantes(alberta);
+ontario->setTerritoriosColindantes(quebec);
+ontario->setTerritoriosColindantes(groenlandia);
+ontario->setTerritoriosColindantes(estadosUnidosOccidentales);
+ontario->setTerritoriosColindantes(estadosUnidosOrientales);
+ontario->setTerritoriosColindantes(territorioNoroccidental);
+
+quebec->setTerritoriosColindantes(ontario);
+quebec->setTerritoriosColindantes(estadosUnidosOrientales);
+quebec->setTerritoriosColindantes(groenlandia);
+
+estadosUnidosOccidentales->setTerritoriosColindantes(alberta);
+estadosUnidosOccidentales->setTerritoriosColindantes(ontario);
+estadosUnidosOccidentales->setTerritoriosColindantes(estadosUnidosOrientales);
+
+// Europa
+granBretana->setTerritoriosColindantes(islandia);
+granBretana->setTerritoriosColindantes(escandinavia);
+granBretana->setTerritoriosColindantes(europaDelNorte);
+granBretana->setTerritoriosColindantes(europaOccidental);
+
+islandia->setTerritoriosColindantes(groenlandia);
+islandia->setTerritoriosColindantes(escandinavia);
+islandia->setTerritoriosColindantes(granBretana);
+
+europaDelNorte->setTerritoriosColindantes(europaDelSur);
+europaDelNorte->setTerritoriosColindantes(ucrania);
+europaDelNorte->setTerritoriosColindantes(escandinavia);
+europaDelNorte->setTerritoriosColindantes(europaOccidental);
+europaDelNorte->setTerritoriosColindantes(granBretana);
+
+escandinavia->setTerritoriosColindantes(ucrania);
+escandinavia->setTerritoriosColindantes(europaDelNorte);
+escandinavia->setTerritoriosColindantes(granBretana);
+escandinavia->setTerritoriosColindantes(islandia);
+
+europaDelSur->setTerritoriosColindantes(europaDelNorte);
+europaDelSur->setTerritoriosColindantes(ucrania);
+europaDelSur->setTerritoriosColindantes(europaOccidental);
+europaDelSur->setTerritoriosColindantes(medioOriente);
+europaDelSur->setTerritoriosColindantes(egipto);
+europaDelSur->setTerritoriosColindantes(africaDelNorte);
+
+ucrania->setTerritoriosColindantes(ural);
+ucrania->setTerritoriosColindantes(afghanistan);
+ucrania->setTerritoriosColindantes(medioOriente);
+ucrania->setTerritoriosColindantes(escandinavia);
+ucrania->setTerritoriosColindantes(europaDelNorte);
+ucrania->setTerritoriosColindantes(europaDelSur);
+
+europaOccidental->setTerritoriosColindantes(europaDelSur);
+europaOccidental->setTerritoriosColindantes(europaDelNorte);
+europaOccidental->setTerritoriosColindantes(granBretana);
+europaOccidental->setTerritoriosColindantes(africaDelNorte);
+
+// América del Sur
+brasil->setTerritoriosColindantes(africaDelNorte);
+brasil->setTerritoriosColindantes(argentina);
+brasil->setTerritoriosColindantes(colombia);
+brasil->setTerritoriosColindantes(congo);
+
+colombia->setTerritoriosColindantes(americaCentral);
+colombia->setTerritoriosColindantes(brasil);
+colombia->setTerritoriosColindantes(peru);
+
+peru->setTerritoriosColindantes(colombia);
+peru->setTerritoriosColindantes(brasil);
+peru->setTerritoriosColindantes(argentina);
+
+argentina->setTerritoriosColindantes(brasil);
+argentina->setTerritoriosColindantes(peru);
+
+// África
+africaOriental->setTerritoriosColindantes(egipto);
+africaOriental->setTerritoriosColindantes(africaDelNorte);
+africaOriental->setTerritoriosColindantes(congo);
+africaOriental->setTerritoriosColindantes(africaDelSur);
+africaOriental->setTerritoriosColindantes(madagascar);
+africaOriental->setTerritoriosColindantes(medioOriente);
+
+egipto->setTerritoriosColindantes(europaDelSur);
+egipto->setTerritoriosColindantes(medioOriente);
+egipto->setTerritoriosColindantes(africaOriental);
+egipto->setTerritoriosColindantes(africaDelNorte);
+
+madagascar->setTerritoriosColindantes(africaOriental);
+madagascar->setTerritoriosColindantes(africaDelSur);
+
+africaDelNorte->setTerritoriosColindantes(egipto);
+africaDelNorte->setTerritoriosColindantes(africaOriental);
+africaDelNorte->setTerritoriosColindantes(europaOccidental);
+africaDelNorte->setTerritoriosColindantes(brasil);
+africaDelNorte->setTerritoriosColindantes(congo);
+
+africaDelSur->setTerritoriosColindantes(congo);
+africaDelSur->setTerritoriosColindantes(madagascar);
+africaDelSur->setTerritoriosColindantes(africaOriental);
+
+congo->setTerritoriosColindantes(africaOriental);
+congo->setTerritoriosColindantes(africaDelNorte);
+congo->setTerritoriosColindantes(africaDelSur);
+
+// Oceanía
+indonesia->setTerritoriosColindantes(siam);
+indonesia->setTerritoriosColindantes(nuevaGuinea);
+indonesia->setTerritoriosColindantes(australiaOccidental);
+
+nuevaGuinea->setTerritoriosColindantes(indonesia);
+nuevaGuinea->setTerritoriosColindantes(australiaOccidental);
+nuevaGuinea->setTerritoriosColindantes(australiaOriental);
+
+australiaOccidental->setTerritoriosColindantes(nuevaGuinea);
+australiaOccidental->setTerritoriosColindantes(australiaOriental);
+australiaOccidental->setTerritoriosColindantes(indonesia);
+
+australiaOriental->setTerritoriosColindantes(australiaOccidental);
+australiaOriental->setTerritoriosColindantes(nuevaGuinea);
+
+// Continente de Asia
+china->setTerritoriosColindantes(ural);
+china->setTerritoriosColindantes(siberia);
+china->setTerritoriosColindantes(mongolia);
+china->setTerritoriosColindantes(india);
+china->setTerritoriosColindantes(siam);
+china->setTerritoriosColindantes(afghanistan);
+
+india->setTerritoriosColindantes(china);
+india->setTerritoriosColindantes(siam);
+india->setTerritoriosColindantes(afghanistan);
+india->setTerritoriosColindantes(medioOriente);
+
+irkutsk->setTerritoriosColindantes(siberia);
+irkutsk->setTerritoriosColindantes(mongolia);
+irkutsk->setTerritoriosColindantes(yakutsk);
+irkutsk->setTerritoriosColindantes(kamchatka);
+
+japon->setTerritoriosColindantes(mongolia);
+japon->setTerritoriosColindantes(irkutsk);
+japon->setTerritoriosColindantes(kamchatka);
+
+kamchatka->setTerritoriosColindantes(yakutsk);
+kamchatka->setTerritoriosColindantes(irkutsk);
+kamchatka->setTerritoriosColindantes(mongolia);
+kamchatka->setTerritoriosColindantes(japon);
+kamchatka->setTerritoriosColindantes(alaska);
+
+medioOriente->setTerritoriosColindantes(ucrania);
+medioOriente->setTerritoriosColindantes(afghanistan);
+medioOriente->setTerritoriosColindantes(egipto);
+medioOriente->setTerritoriosColindantes(africaOriental);
+medioOriente->setTerritoriosColindantes(europaDelSur);
+medioOriente->setTerritoriosColindantes(india);
+
+mongolia->setTerritoriosColindantes(japon);
+mongolia->setTerritoriosColindantes(kamchatka);
+mongolia->setTerritoriosColindantes(irkutsk);
+mongolia->setTerritoriosColindantes(siberia);
+mongolia->setTerritoriosColindantes(china);
+
+siam->setTerritoriosColindantes(china);
+siam->setTerritoriosColindantes(india);
+siam->setTerritoriosColindantes(indonesia);
+
+siberia->setTerritoriosColindantes(irkutsk);
+siberia->setTerritoriosColindantes(mongolia);
+siberia->setTerritoriosColindantes(china);
+siberia->setTerritoriosColindantes(ural);
+siberia->setTerritoriosColindantes(yakutsk);
+
+ural->setTerritoriosColindantes(siberia);
+ural->setTerritoriosColindantes(china);
+ural->setTerritoriosColindantes(afghanistan);
+ural->setTerritoriosColindantes(ucrania);
+
+yakutsk->setTerritoriosColindantes(kamchatka);
+yakutsk->setTerritoriosColindantes(irkutsk);
+yakutsk->setTerritoriosColindantes(siberia);
+
+// Continente de África
+congo->setTerritoriosColindantes(africaOriental);
+congo->setTerritoriosColindantes(africaDelNorte);
+congo->setTerritoriosColindantes(africaDelSur);
+
+africaOriental->setTerritoriosColindantes(egipto);
+africaOriental->setTerritoriosColindantes(africaDelNorte);
+africaOriental->setTerritoriosColindantes(congo);
+africaOriental->setTerritoriosColindantes(africaDelSur);
+africaOriental->setTerritoriosColindantes(madagascar);
+africaOriental->setTerritoriosColindantes(medioOriente);
+
+egipto->setTerritoriosColindantes(europaDelSur);
+egipto->setTerritoriosColindantes(medioOriente);
+egipto->setTerritoriosColindantes(africaOriental);
+egipto->setTerritoriosColindantes(africaDelNorte);
+
+madagascar->setTerritoriosColindantes(africaOriental);
+madagascar->setTerritoriosColindantes(africaDelSur);
+
+africaDelNorte->setTerritoriosColindantes(egipto);
+africaDelNorte->setTerritoriosColindantes(africaOriental);
+africaDelNorte->setTerritoriosColindantes(europaOccidental);
+africaDelNorte->setTerritoriosColindantes(brasil);
+africaDelNorte->setTerritoriosColindantes(congo);
+
+africaDelSur->setTerritoriosColindantes(congo);
+africaDelSur->setTerritoriosColindantes(madagascar);
+africaDelSur->setTerritoriosColindantes(africaOriental);
+
+// Continente de Oceanía
+australiaOriental->setTerritoriosColindantes(nuevaGuinea);
+australiaOriental->setTerritoriosColindantes(australiaOccidental);
+
+nuevaGuinea->setTerritoriosColindantes(indonesia);
+nuevaGuinea->setTerritoriosColindantes(australiaOccidental);
+nuevaGuinea->setTerritoriosColindantes(australiaOriental);
+
+australiaOccidental->setTerritoriosColindantes(nuevaGuinea);
+australiaOccidental->setTerritoriosColindantes(australiaOriental);
+australiaOccidental->setTerritoriosColindantes(indonesia);
 }
 
 void Risk::CrearTarjetas(std::string tipo, std::string territorio,  std::string ficha,  std::string mision) {
@@ -558,16 +869,3 @@ while (!cartasTemporales.empty()) {
 }
 
 
-void ubicarTropas(int qFichas, std::string continente, std::string territorio){
-
-
-
-
-
-
-
-
-
-
-
-}

@@ -331,6 +331,7 @@ void inicializarJuego(Risk* risk){
   bool continenteValido=true, territorioValido = true;
   //cambio el estado de la partida a true
   risk->iniciarPartida();
+  
   //pide la cantidad de jugadores
   //hasta que esté entre 3 y 6
   do{

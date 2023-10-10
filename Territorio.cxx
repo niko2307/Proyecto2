@@ -2,7 +2,7 @@
 #include "Continente.h"
 #include <iostream>
 Territorio::Territorio( std::string nuevoNombre){
-    nombre = nuevoNombre;
+    this->nombre = nuevoNombre;
 }
 //adicionar ficha 
 void Territorio::addFicha(Ficha ficha) {
