@@ -34,10 +34,10 @@ std::string Territorio::getReclamado() {
 }
 
 // contar las fichas 
-int Territorio::ContarFichas(std::string jugador) {
+int Territorio::ContarFichas(std::string Colorjugador) {
     int contador = 0;
     for ( Ficha& ficha : fichas) {
-        if (ficha.obtenerColor() == jugador) {
+        if (ficha.obtenerColor() == Colorjugador) {
             contador++;
         }
     }
@@ -75,4 +75,14 @@ void Territorio::restarFichas(int cantidadEliminar) {
         this->fichas.pop_back();
         fichasEliminadas++;
     }
+}
+
+Ficha Territorio::obtenerFicha(std::string jugador) {
+    for (Ficha& ficha : fichas) {
+        if (ficha.obtenerColor() == jugador) {
+            return ficha;
+        }
+    }
+    // Si no se encuentra la ficha, se devuelve una ficha vacía
+    return Ficha("", "");
 }
