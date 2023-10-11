@@ -19,6 +19,7 @@ public:
     std::string getNombre();
     std::string getReclamado();
     bool esColindante(Territorio* otroTerritorio);
+    Ficha obtenerFicha(std::string jugador);
 
     std::vector<Territorio*> getTerritoriosColindantes();
     void setTerritoriosColindantes(Territorio* Territorio);

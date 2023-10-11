@@ -43,6 +43,7 @@ void crearArchivoBinario(const string& nombreArchivo,const   InformacionJugador&
 //entrega 2
 void inicializarJuego(Risk* risk);
 void fortificar(Risk* risk, bool inicializar);
+void fortificar(Risk* risk);
 void turno (Risk* risk);
 void atacar(Risk* risk);
 
@@ -553,7 +554,7 @@ void turno (Risk* risk){
       fortificar(risk, false);
       atacar(risk);
       //risk->ubicarNuevasTropas(int qtropas );
-     //fortificar(risk);
+     fortificar(risk);
    
 
    
@@ -627,6 +628,7 @@ if(colindante !="retroceder"){
             cout<<"\n-** Nombre de territorio no valido **-\n\n";
         }
           risk->resultadoAtaque(territorio,colindante);
+          system("cls");
           std::cout<<"Quieres seguir combatiendo con este pais:"<<std::endl;
           std::cout<<"SI \nNO"<<std::endl;
           combatir = ingresarComando();
@@ -637,7 +639,7 @@ if(colindante !="retroceder"){
 
     }while(continente=="" || !risk->territorioJugador(continente, territorio)||elegir=="retroceder");
     //evalua si el territorio seleccionado para atacar es colindante
-    
+    system("cls");
     std::cout<<"Quieres pasar de fase:"<<std::endl;
           std::cout<<"SI \nNO"<<std::endl;
         Fase=ingresarComando();
@@ -651,6 +653,8 @@ if(colindante !="retroceder"){
 }
 
 void fortificar(Risk* risk){
+
+  std::cout<<"FORTIFICAR"<<std::endl;
 
  // Obtener el jugador en turno risk->getNameJugadorEnTurno()
     Jugador* jugadorEnTurno = risk->getJugador(risk->getNameJugadorEnTurno());
@@ -706,8 +710,13 @@ void fortificar(Risk* risk){
             // Mover las fichas del territorio de origen al territorio de destino
             for (int i = 0; i < cantidadFichas; i++) {
                 Ficha ficha = territorioOrigen->obtenerFicha(jugadorEnTurno->obtenerNombreJugador());
+                if(ficha.obtenerColor()!=""){
                 territorioDestino->addFicha(ficha);
+                }
+                
+                
             }
+            territorioOrigen->restarFichas(cantidadFichas);
 
             // Mostrar mensaje de éxito
             std::cout << "Se han movido " << cantidadFichas << " fichas del territorio " << nombreTerritorioOrigen << " al territorio " << nombreTerritorioDestino << "." << std::endl;

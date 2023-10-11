@@ -18,6 +18,7 @@ public:
     void crearContinente();
     void CrearTarjetas(std::string tipo, std::string territorio, std::string ficha, std::string mision);
     std::string resultadoAtaque(std::string Territorioatacante, std::string TerritorioDefensor);
+   
     //void AgregarTropas(Jugador jugador);
     void CrearJugador(std::string nombre, int qJugadores);
     std::string colorJugador();
