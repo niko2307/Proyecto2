@@ -553,7 +553,7 @@ void turno (Risk* risk){
       fortificar(risk, false);
       atacar(risk);
       //risk->ubicarNuevasTropas(int qtropas );
-     fortificar(risk);
+     //fortificar(risk);
    
 
    
@@ -654,34 +654,55 @@ void fortificar(Risk* risk){
 
  // Obtener el jugador en turno risk->getNameJugadorEnTurno()
     Jugador* jugadorEnTurno = risk->getJugador(risk->getNameJugadorEnTurno());
+    string nombreTerritorioOrigen = "", continenteOrigen= "",nombreTerritorioDestino= "",continenteDestino= "";
 
-    // Mostrar los territorios del jugador en turno
-    std::cout << "Territorios del jugador " << jugadorEnTurno->obtenerNombreJugador() << ":" << std::endl;
-    for (Territorio* territorio : jugadorEnTurno->getTerritorios()) {
-        std::cout << territorio->getNombre() << std::endl;
-    }
+     cout<<risk->territoriosJugador();
 
-    // Solicitar el nombre del territorio de origen y destino
-    std::string nombreTerritorioOrigen;
-    std::string nombreTerritorioDestino;
-    std::cout << "Ingrese el nombre del territorio de origen: ";
-    std::cin >> nombreTerritorioOrigen;
-    std::cout << "Ingrese el nombre del territorio de destino: ";
-    std::cin >> nombreTerritorioDestino;
+// Solicitar el nombre del territorio de origen y destino
+  
+    do{
+        cout<<"Ingrese el nombre del territorio de origen:\n";
+         nombreTerritorioOrigen = ingresarComando();
+        continenteOrigen = risk->buscarContinenteTerritorio(nombreTerritorioOrigen);
+
+        cout<<"continente: "<<continenteOrigen<<endl;
+        
+        if(continenteOrigen=="" || !risk->territorioJugador(continenteOrigen, nombreTerritorioOrigen)){
+            cout<<"\n-** Nombre de territorio no valido **-\n\n";
+        }
+
+    }while(continenteOrigen=="" || !risk->territorioJugador(continenteOrigen, nombreTerritorioOrigen));
+
+    do{
+        cout<<"Nombre territorio:\n";
+        nombreTerritorioDestino = ingresarComando();
+        continenteDestino = risk->buscarContinenteTerritorio(nombreTerritorioDestino);
+
+        cout<<"continente: "<<continenteDestino<<endl;
+        
+        if(continenteDestino=="" || !risk->territorioJugador(continenteDestino, nombreTerritorioDestino)){
+            cout<<"\n-** Nombre de territorio no valido **-\n\n";
+        }
+
+    }while(continenteDestino=="" || !risk->territorioJugador(continenteDestino, nombreTerritorioDestino));
+
+    
+   
 
     // Buscar los territorios de origen y destino
-    Territorio* territorioOrigen = risk->buscarTerritorio(nombreTerritorioOrigen);
-    Territorio* territorioDestino = risk->buscarTerritorio(nombreTerritorioDestino);
+    Territorio* territorioOrigen = risk->buscarTerritorio(continenteOrigen,nombreTerritorioOrigen);
+    Territorio* territorioDestino = risk->buscarTerritorio(continenteDestino,nombreTerritorioDestino);
 
     // Verificar si los territorios pertenecen al mismo jugador
-    if (territorioOrigen && territorioDestino && territorioOrigen->getReclamado() == jugadorEnTurno->obtenerNombreJugador() && territorioDestino->getReclamado() == jugadorEnTurno->obtenerNombreJugador()) {
+    if ( risk->territorioPerteneceAJugador(territorioOrigen)->obtenerNombreJugador() == risk->territorioPerteneceAJugador(territorioDestino)->obtenerNombreJugador()) {
         // Solicitar la cantidad de fichas a mover
         int cantidadFichas;
         std::cout << "Ingrese la cantidad de fichas a mover: ";
         std::cin >> cantidadFichas;
 
         // Verificar si el territorio de origen tiene suficientes fichas
-        if (territorioOrigen->ContarFichas(jugadorEnTurno->obtenerNombreJugador()) >= cantidadFichas) {
+        if (territorioOrigen->ContarFichas(jugadorEnTurno->obtenerColor()) >= cantidadFichas) {
+            
             // Mover las fichas del territorio de origen al territorio de destino
             for (int i = 0; i < cantidadFichas; i++) {
                 Ficha ficha = territorioOrigen->obtenerFicha(jugadorEnTurno->obtenerNombreJugador());

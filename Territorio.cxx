@@ -34,10 +34,10 @@ std::string Territorio::getReclamado() {
 }
 
 // contar las fichas 
-int Territorio::ContarFichas(std::string jugador) {
+int Territorio::ContarFichas(std::string Colorjugador) {
     int contador = 0;
     for ( Ficha& ficha : fichas) {
-        if (ficha.obtenerColor() == jugador) {
+        if (ficha.obtenerColor() == Colorjugador) {
             contador++;
         }
     }
