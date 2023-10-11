@@ -6,6 +6,7 @@
 #include "arbolhuffman.h"
 #include <map>
 #include <string>
+#include <bitset>
 
 using namespace std;
 
@@ -23,6 +24,18 @@ struct InformacionJugador {
     vector<string> identificadoresTarjetas;
 };
 
+struct  infodos
+{
+  int cantidadjug;
+  vector<string> color;
+  int fichas;
+  vector<string> territorios;
+  vector<string> nombrejug;
+  string jugadort;
+
+};
+
+//hikas
 string ingresarComando();
 void mensajeBienvenida();
 int identificarComando(string cadena);
@@ -49,7 +62,7 @@ void atacar(Risk* risk);
 
 string nombreArchivo;
 
-
+ infodos inf;
  InformacionJugador jugadorInfo;
  ArbolHuffman<char> arbolHuffman;
 
@@ -83,9 +96,8 @@ int main() {
             //inicializar con archivo
             case 1:
                 {
-                    string nombreArchivo = separarEspacio(respuesta, true);
-                    std::string textoDecodificado = arbolHuffman.decodificar(nombreArchivo);
-                    leerArchivo(textoDecodificado);
+                    nombreArchivo = separarEspacio(respuesta, true);
+                    leerArchivo(nombreArchivo);
                 }
                 break;
             //inicializar
@@ -141,7 +153,7 @@ int main() {
                   vector<pair<char, int>> frecuencias = arbolHuffman.calcularFrecuencias(nombreArchivo);
                   arbolHuffman.construirArbol(frecuencias);
                   jugadorInfo.nombre = arbolHuffman.codificar(nombreArchivo);
-                  crearArchivoBinario(nombreArchivo, jugadorInfo);
+                  crearArchivoBinario("guarda", jugadorInfo);
 
                   
                 }
@@ -197,9 +209,20 @@ int main() {
 void crearArchivo(const string& nombreArchivo) {
     ofstream archivo(nombreArchivo ); 
     if (archivo.is_open()) {
-       
+        archivo<<"cantidad de jugadores"<< " "<<inf.cantidadjug;
+        archivo << "\n";
+        for ( std::string& cantnombre : inf.nombrejug){
+        archivo<<"nombre jugadores"<< " "<<cantnombre<< '\n';
+        }
+        archivo << "\n";
+        for ( std::string& cantcoloir : inf.color)
+        archivo<<"color"<<cantcoloir<< " " << '\n';
+        archivo << "\n";
+        for ( std::string& cantipaices : inf.territorios) {
+                  archivo <<"territorios"<< " " <<cantipaices  << '\n';
+         }
         archivo.close();
-        cout << "La partida ha sido guardada correctamente en " << nombreArchivo << "_codificado.txt." << endl;
+        cout << "La partida ha sido guardada correctamente en " << nombreArchivo  << endl;
     } else {
         cout << "La partida no ha sido guardada correctamente." << endl;
     }
@@ -236,18 +259,55 @@ void crearArchivoBinario(const string& nombreArchivo, const  InformacionJugador&
 
 //permite leer la información de un archivo
 
-void leerArchivo(const string& nombreArchivo) {
-    ifstream archivo(nombreArchivo);
-    if (archivo.is_open()) {
-        cout << "Contenido del archivo \"" << nombreArchivo << "\":\n";
-        string linea;
-        while (getline(archivo, linea)) {
-            cout << linea << endl;
-        }
-        archivo.close();
-    } else {
-        cout << "\"" << nombreArchivo << "\"" <<" no contiene información válida para inicializar el juego.\n";
+void leerArchivo(const string &nombreArchivo)
+{
+  cout << "Ingrese que tipo de archivo desea leer: \n"
+       << "1. Archivo de texto\n"
+       << "2. Archivo binario\n";
+  int opcion;
+  cin >> opcion;
+  ifstream archivo(nombreArchivo, ios::binary);
+  if (archivo)
+  {
+    archivo.seekg(0, archivo.end);
+    int length = archivo.tellg();
+    archivo.seekg(0, archivo.beg);
+
+    char *buffer = new char[length];
+    archivo.read(buffer, length);
+
+    if (opcion == 2)
+    {
+      string binaryContent;
+      for (int i = 0; i < length; i++)
+      {
+        binaryContent += bitset<8>(buffer[i]).to_string();  
+       
+      }
+      string decoded = arbolHuffman.decodificar(binaryContent);
+      cout << decoded << endl;
     }
+    else if (opcion == 1)
+    {
+      for (int i = 0; i < length; i++)
+      {
+        cout << buffer[i];
+      }
+    }
+    else
+    {
+      cerr << "Error: no se encontro el archivo\n";
+    }
+    cout << endl;
+
+    delete[] buffer;
+    archivo.close();
+  }
+  else
+  {
+    cout << "Error: could not open file " << nombreArchivo << endl;
+  }
+  
 }
 
 string separarEspacio(string cadena, bool parametro) {
@@ -404,6 +464,7 @@ void inicializarJuego(Risk* risk){
    arbolHuffman.construirArbol(frecuencias);
    jugadorInfo.jugadores=arbolHuffman.codificar(to_string(cantidadJugadores));
    crearArchivoBinario("guarda",jugadorInfo);
+   inf.cantidadjug=cantidadJugadores;
   }while(cantidadJugadores<3 || cantidadJugadores>6);
 
    
@@ -412,7 +473,7 @@ system("cls");
   for(int i=0; i<cantidadJugadores; i++){
     cout<<"Ingrese el nombre del jugador "<< i+1<<" : \n";
     nombreJug = ingresarComando();
-  
+    inf.nombrejug.push_back(nombreJug);
    vector<pair<char, int>> frecuenciaNombre = arbolHuffman.calcularFrecuencias(nombreJug);
     arbolHuffman.construirArbol(frecuenciaNombre);
     jugadorInfo.nombrejug = arbolHuffman.codificar(nombreJug);
@@ -477,6 +538,10 @@ system("cls");
     cout<<risk->infoJug()<<endl;
     risk->turnoJugado();  
     system("cls");
+    inf.color.push_back(risk->getColorJugadorEnTurno());
+    inf.fichas=risk->getFichasJugadorEnTurno();
+    inf.territorios.push_back(territorio);
+
     vector<pair<char, int>> frecuenciasTerritorio = arbolHuffman.calcularFrecuencias(territorio);
    vector<pair<char, int>> frecuenciasColor = arbolHuffman.calcularFrecuencias(risk->getColorJugadorEnTurno());
    vector<pair<char, int>> frecuenciasNombreJugador = arbolHuffman.calcularFrecuencias(risk->getColorJugadorEnTurno());
@@ -560,20 +625,11 @@ void turno (Risk* risk){
       Ganador=risk->estadoGanador();
 
     risk->turnoJugado();
-
-
-
-
-
-
        }while(Ganador==true);
 
       std::cout<<"SE ACABO EL JUEGO"<<std::endl;
 
 }
-
-
-
 void atacar(Risk* risk){
 
  string territorio = "", continente= "", colindante = "",combatir = " ",Fase= " ";
@@ -698,10 +754,6 @@ system("cls");
         }
 
     }while(continenteDestino=="" || !risk->territorioJugador(continenteDestino, nombreTerritorioDestino));
-
-    
-   
-
     // Buscar los territorios de origen y destino
     Territorio* territorioOrigen = risk->buscarTerritorio(continenteOrigen,nombreTerritorioOrigen);
     Territorio* territorioDestino = risk->buscarTerritorio(continenteDestino,nombreTerritorioDestino);
@@ -722,8 +774,6 @@ system("cls");
                 if(ficha.obtenerColor()!=""){
                 territorioDestino->addFicha(ficha);
                 }
-                
-                
             }
             territorioOrigen->restarFichas(cantidadFichas);
 
@@ -735,11 +785,6 @@ system("cls");
     } else {
         std::cout << "Los territorios no pertenecen al mismo jugador." << std::endl;
     }
-
-
-
-
-
 
 }
 
