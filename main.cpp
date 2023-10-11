@@ -570,9 +570,8 @@ void turno (Risk* risk){
 
 void atacar(Risk* risk){
 
- string territorio = "", continente= "", colindante = "",combatir = "";
+ string territorio = "", continente= "", colindante = "",combatir = " ",Fase= " ";
     int qFichas =0;
-    bool Fase = true;
     bool Colindante= true;
     std::string elegir= "";
 std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
@@ -609,7 +608,7 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
            if(colindante =="retroceder"){
             break;
            }
-           std::cout<<"sigo"<<std::endl;
+           
            if( !risk->buscarTerritorio(continente,territorio)->esColindante(risk->buscarTerritorio(continente,colindante))){
             cout<<"\n-** Nombre de territorio Colindate no valido **-\n\n";
             Colindante= false;
@@ -631,28 +630,24 @@ if(colindante !="retroceder"){
         if(continente=="" || !risk->territorioJugador(continente, territorio)){
             cout<<"\n-** Nombre de territorio no valido **-\n\n";
         }
-        risk->resultadoAtaque(territorio,colindante);
-          std::cout<<"Quieres seguir combatiendo?"<<std::endl;
+          risk->resultadoAtaque(territorio,colindante);
+          std::cout<<"Quieres seguir combatiendo con este pais:"<<std::endl;
           std::cout<<"SI \nNO"<<std::endl;
           combatir = ingresarComando();
-
-        }while(combatir =="NO");
+          
+        }while(combatir == "SI");
        
     }
 
     }while(continente=="" || !risk->territorioJugador(continente, territorio)||elegir=="retroceder");
     //evalua si el territorio seleccionado para atacar es colindante
     
-    
-   
+    std::cout<<"Quieres pasar de fase:"<<std::endl;
+          std::cout<<"SI \nNO"<<std::endl;
+        Fase=ingresarComando();
+  
 
-  }while(Fase ==true);
-
-
- if(Fase ==true)
-        risk->turnoJugado();
-
-        system("cls");
+  }while(Fase =="NO");
 
 
 

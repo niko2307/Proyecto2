@@ -917,7 +917,8 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
 
 
 
-void Risk::resultadoAtaque(std::string Territorioatacante, std::string TerritorioDefensor) {
+std::string Risk::resultadoAtaque(std::string Territorioatacante, std::string TerritorioDefensor) {
+    std::string resultados=" ";
     bool continuar = true;
 
     // Obtener el jugador atacante y el jugador defensor
@@ -982,7 +983,7 @@ for (int i = 0; i < numDados; i++) {
     
 
 
-
+return resultados;
 }
 
 
