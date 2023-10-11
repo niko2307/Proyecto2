@@ -14,10 +14,11 @@ public:
     Risk();
     void iniciarPartida();
     bool estadoPartida();
-    void asignarGanador();
+    bool asignarGanador();
     void crearContinente();
     void CrearTarjetas(std::string tipo, std::string territorio, std::string ficha, std::string mision);
-    void resultadoAtaque(std::string Territorioatacante, std::string TerritorioDefensor);
+    std::string resultadoAtaque(std::string Territorioatacante, std::string TerritorioDefensor);
+   
     //void AgregarTropas(Jugador jugador);
     void CrearJugador(std::string nombre, int qJugadores);
     std::string colorJugador();
@@ -71,6 +72,7 @@ private:
     std::vector<Continente> continentes;
     bool Partida;
     bool Ganador;
+    std::string Nganador;
     int turnoActual;
     int Totalturnos;
     int Grupo_de_Cartas;

@@ -99,6 +99,7 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "list": "cpp",
-    "ctime": "cpp"
+    "ctime": "cpp",
+    "map": "cpp"
   }
 }

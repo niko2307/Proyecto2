@@ -30,10 +30,20 @@ bool Risk::estadoPartida(){
   return Partida;
 }
 
-void Risk::asignarGanador() {
-    // Implementación para asignar un ganador y terminar la partida
-}
 
+bool Risk::asignarGanador() {
+    // Verificar si hay un jugador que ha conquistado todos los territorios
+    for (Jugador& jugador : jugadores) {
+        if (jugador.contarTerritorios() == 42) {
+            // Asignar el ganador y terminar la partida
+            this->Ganador = true;
+            this->Nganador = jugador.obtenerNombreJugador();
+            asignarGanador();
+            return true;
+        }
+    }
+    return false;
+}
 bool Risk::estadoGanador(){
   return Ganador;
 }
@@ -895,7 +905,6 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
     territorio = continente.buscarTerritorio(nombreTerritorio);
     if (territorio != nullptr) {
       
-      std::cout<<"territorio"<<territorio->getNombre()<<std::endl;
       break;
     }
   }
@@ -905,9 +914,11 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
     for (int i = 0; i < territorio->getTerritoriosColindantes().size(); i++) {
       Territorio* colindante = territorio->getTerritoriosColindantes()[i];
       int Nu_FichasJugador = colindante->ContarFichas(territorioPerteneceAJugador(colindante)->obtenerColor());
-      std::cout<<"numero de fichas jugador contrincancte"<<Nu_FichasJugador <<territorioPerteneceAJugador(colindante)->obtenerNombreJugador()<<std::endl;
+     // std::cout<<"numero de fichas jugador contrincancte"<<Nu_FichasJugador <<territorioPerteneceAJugador(colindante)->obtenerNombreJugador()<<std::endl;
+     if(territorioPerteneceAJugador(territorio)->obtenerNombreJugador()!=territorioPerteneceAJugador(colindante)->obtenerNombreJugador()){
       retorno += std::to_string(contador + 1) + ". " + colindante->getNombre() + " - FichasContrincante: " + std::to_string(Nu_FichasJugador) + "\n";
       contador++;
+     }
     }
   }
 
@@ -916,7 +927,8 @@ std::string Risk::territoriosColindantes(std::string nombreTerritorio) {
 
 
 
-void Risk::resultadoAtaque(std::string Territorioatacante, std::string TerritorioDefensor) {
+std::string Risk::resultadoAtaque(std::string Territorioatacante, std::string TerritorioDefensor) {
+    std::string resultados=" ";
     bool continuar = true;
 
     // Obtener el jugador atacante y el jugador defensor
@@ -965,7 +977,7 @@ for (int i = 0; i < dadosDefensor.size() - 1; i++) {
 int numDados = dadosAtacante.size() < dadosDefensor.size() ? dadosAtacante.size() : dadosDefensor.size();
 int unidadesPerdidasAtacante = 0;
 int unidadesPerdidasDefensor = 0;
-std::cout<<"numerod dados:"<<numDados<<std::endl;
+
 for (int i = 0; i < numDados; i++) {
     if (dadosAtacante[i] >= dadosDefensor[i]) {
         unidadesPerdidasDefensor++;
@@ -977,14 +989,25 @@ for (int i = 0; i < numDados; i++) {
     // Actualizar las unidades de ejército de cada jugador
     atacante->restarUnidades(unidadesPerdidasAtacante,Territorioatacante);
     defensor->restarUnidades(unidadesPerdidasDefensor,TerritorioDefensor);
-
-
-    
-
-
-
-}
-
-
+      // Si el territorio defensor queda vacío, el atacante puede reclamarlo
+    if (territorioD->ContarFichas(defensor->obtenerColor()) == 0) {
+        territorioD->setReclamar(atacante->obtenerNombreJugador());
+        atacante->setTerritorio(territorioD);
+        defensor->eliminarTerritorio(territorioD);
+  
+   }
+    // Mostrar quién ganó el ataque
+    std::cout << "Resultado del ataque: ";
+    if (unidadesPerdidasAtacante > unidadesPerdidasDefensor) {
+        std::cout << atacante->obtenerNombreJugador() << " ganó el ataque." << std::endl;
+    }
+    else if (unidadesPerdidasAtacante < unidadesPerdidasDefensor) {
+        std::cout << defensor->obtenerNombreJugador() << " ganó el ataque." << std::endl;
+    }
+    else {
+        std::cout << "El ataque fue un empate." << std::endl;
+    }
+    return resultados;
+} 
 
 
