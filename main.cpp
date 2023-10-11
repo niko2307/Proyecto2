@@ -35,7 +35,7 @@ struct  infodos
 
 };
 
-//hikas
+
 string ingresarComando();
 void mensajeBienvenida();
 int identificarComando(string cadena);

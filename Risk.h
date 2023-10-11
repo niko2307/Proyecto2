@@ -2,6 +2,7 @@
 #define _RISK_H
 
 #include <vector>
+#include <queue>
 #include <string>
 #include "Jugador.h"
 #include "Carta.h"
@@ -14,11 +15,10 @@ public:
     Risk();
     void iniciarPartida();
     bool estadoPartida();
-    void asignarGanador();
+    bool asignarGanador();
     void crearContinente();
-    void CrearTarjetas(std::string tipo, std::string territorio, std::string ficha, std::string mision);
+    void CrearCartasJuego();
     std::string resultadoAtaque(std::string Territorioatacante, std::string TerritorioDefensor);
-   
     //void AgregarTropas(Jugador jugador);
     void CrearJugador(std::string nombre, int qJugadores);
     std::string colorJugador();
@@ -68,10 +68,11 @@ public:
 
 private:
     std::vector<Jugador> jugadores;
-    std::vector<Carta> Cartas;
+    std::queue<Carta> Cartas;
     std::vector<Continente> continentes;
     bool Partida;
     bool Ganador;
+    std::string Nganador;
     int turnoActual;
     int Totalturnos;
     int Grupo_de_Cartas;

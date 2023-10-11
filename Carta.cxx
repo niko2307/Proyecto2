@@ -1,13 +1,13 @@
 #include "Carta.h"
+#include <String>
 
- Carta::Carta( std::string& tipoCarta,  std::string& territorio,  std::string& ficha,  std::string& mision) {
-   this-> tipoCarta =tipoCarta;
-   this->territorio =territorio;
-   this->ficha =ficha;
-   this-> mision =mision;
+ Carta::Carta(std::string tipoCarta, std::string territorio) {
+    this->tipoCarta = tipoCarta;
+    this->territorio = territorio;
+    this->ficha = "";  // Valor predeterminado para ficha temporalmente
+    this->mision = "";  // Valor predeterminado para mision temporalmente
+ }
 
-   
-}
 // get tipo carta
 std::string Carta::obtenerTipoCarta() {
     return tipoCarta;

@@ -27,7 +27,7 @@ public:
     void setTerritorio(Territorio* nuevoTerritorio);
     Ficha moverFicha();
     void restarUnidades(int cantidadEliminar,std::string territorio);
-    
+    void eliminarTerritorio(Territorio* territorio);
 //  
   // Jugador& obtenerJugador(int indice);
    int contarTerritorios();
@@ -35,7 +35,7 @@ public:
 
    private:
     std::string color;
-    std::vector<Carta> cartas;
+    std::vector<Carta> cartasJugador;
     std::vector<Ficha> fichas;
     std::vector<Territorio *>territorios;
     std::string nombreJugador;

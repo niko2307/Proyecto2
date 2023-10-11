@@ -14,10 +14,6 @@ std::string Jugador::obtenerNombreJugador() {
     return nombreJugador;
 }
 
-// agregar la targeta 
-void Jugador::agregarCarta(Carta carta ) {
-    cartas.push_back(carta);
-}
 // get de obtener la tarjeta 
 //std::vector<Carta> Jugador::obtenerTarjeta() {
 //    return tarjeta;
@@ -54,7 +50,7 @@ std::vector<Territorio*>& Jugador::getTerritorios() {
     return territorios.size();
 }
 std::vector<Carta> Jugador::obtenerCartas() {
-    return cartas;
+    return cartasJugador;
 }
 
 void Jugador::restarUnidades(int cantidadEliminar,std::string Nterritorio) {
@@ -70,5 +66,17 @@ void Jugador::restarUnidades(int cantidadEliminar,std::string Nterritorio) {
 if (territorio->getNombre() == Nterritorio) {
           territorio->restarFichas( cantidadEliminar);
         }
+    }
 }
+
+void Jugador::agregarCarta(Carta carta){
+    this->cartasJugador.push_back(carta);
+}
+
+void Jugador::eliminarTerritorio(Territorio* territorio) {
+    // Buscar y eliminar el territorio del vector de territorios del jugador
+    auto it = std::find(territorios.begin(), territorios.end(), territorio);
+    if (it != territorios.end()) {
+        territorios.erase(it);
+    }
 }

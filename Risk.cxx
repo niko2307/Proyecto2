@@ -5,6 +5,8 @@
 #include <vector>
 #include <queue>
 #include <string>
+#include <algorithm>
+
 
 Risk::Risk() {
   Partida=false;
@@ -30,10 +32,20 @@ bool Risk::estadoPartida(){
   return Partida;
 }
 
-void Risk:: asignarGanador() {
-    // Implementación para asignar un ganador y terminar la partida
-}
 
+bool Risk::asignarGanador() {
+    // Verificar si hay un jugador que ha conquistado todos los territorios
+    for (Jugador& jugador : jugadores) {
+        if (jugador.contarTerritorios() == 42) {
+            // Asignar el ganador y terminar la partida
+            this->Ganador = true;
+            this->Nganador = jugador.obtenerNombreJugador();
+            asignarGanador();
+            return true;
+        }
+    }
+    return false;
+}
 bool Risk::estadoGanador(){
   return Ganador;
 }
@@ -444,10 +456,118 @@ australiaOccidental->setTerritoriosColindantes(indonesia);
 */
 }
 
-void Risk::CrearTarjetas(std::string tipo, std::string territorio,  std::string ficha,  std::string mision) {
-    // Implementación para crear una carta de juego con los detalles proporcionados
+void Risk::CrearCartasJuego() {
+    std::vector<Carta> VecCartasTemp; //vector temporal que guardara todas las cartas para luego ingresarlas
+    // a la cola
+
+    // Creacion de todas las cartas del juego
+    // Cartas para América del Norte
+    Carta carta1("infanteria", "americaCentral");
+    Carta carta2("caballeria", "estadosUnidosOrientales");
+    Carta carta3("artilleria", "groenlandia");
+    Carta carta4("infanteria", "territorioNoroccidental");
+    Carta carta5("caballeria", "ontario");
+    Carta carta6("artilleria", "quebec");
+    Carta carta7("infanteria", "estadosUnidosOccidentales");
+    Carta carta8("caballeria", "alaska");
+    Carta carta9("artilleria", "alberta");
+
+    // Cartas para Europa
+    Carta carta10("infanteria", "islandia");
+    Carta carta11("caballeria", "europaDelNorte");
+    Carta carta12("artilleria", "escandinavia");
+    Carta carta13("infanteria", "europaDelSur");
+    Carta carta14("caballeria", "ucrania");
+    Carta carta15("artilleria", "europaOccidental");
+    Carta carta16("infanteria", "granBretana");
+
+    // Cartas para América del Sur
+    Carta carta17("infanteria", "brasil");
+    Carta carta18("caballeria", "colombia");
+    Carta carta19("artilleria", "peru");
+    Carta carta20("infanteria", "argentina");
+
+    // Cartas para África
+    Carta carta21("infanteria", "africaOriental");
+    Carta carta22("caballeria", "egipto");
+    Carta carta23("artilleria", "madagascar");
+    Carta carta24("infanteria", "africaDelNorte");
+    Carta carta25("caballeria", "africaDelSur");
+    Carta carta26("artilleria", "congo");
+
+    // Cartas para Oceanía
+    Carta carta27("infanteria", "indonesia");
+    Carta carta28("caballeria", "nuevaGuinea");
+    Carta carta29("artilleria", "australiaOccidental");
+    Carta carta30("infanteria", "australiaOriental");
+
+    // Cartas para Asia
+    Carta carta31("infanteria", "china");
+    Carta carta32("caballeria", "india");
+    Carta carta33("artilleria", "irkutsk");
+    Carta carta34("infanteria", "japon");
+    Carta carta35("caballeria", "kamchatka");
+    Carta carta36("artilleria", "medioOriente");
+    Carta carta37("infanteria", "mongolia");
+    Carta carta38("caballeria", "siam");
+    Carta carta39("artilleria", "siberia");
+    Carta carta40("infanteria", "ural");
+    Carta carta41("caballeria", "yakutsk");
+    Carta carta42("artilleria", "afghanistan");
+
+// Agregar todas las cartas al vector
+    VecCartasTemp.push_back(carta1);
+    VecCartasTemp.push_back(carta2);
+    VecCartasTemp.push_back(carta3);
+    VecCartasTemp.push_back(carta4);
+    VecCartasTemp.push_back(carta5);
+    VecCartasTemp.push_back(carta6);
+    VecCartasTemp.push_back(carta7);
+    VecCartasTemp.push_back(carta8);
+    VecCartasTemp.push_back(carta9);
+    VecCartasTemp.push_back(carta10);
+    VecCartasTemp.push_back(carta11);
+    VecCartasTemp.push_back(carta12);
+    VecCartasTemp.push_back(carta13);
+    VecCartasTemp.push_back(carta14);
+    VecCartasTemp.push_back(carta15);
+    VecCartasTemp.push_back(carta16);
+    VecCartasTemp.push_back(carta17);
+    VecCartasTemp.push_back(carta18);
+    VecCartasTemp.push_back(carta19);
+    VecCartasTemp.push_back(carta20);
+    VecCartasTemp.push_back(carta21);
+    VecCartasTemp.push_back(carta22);
+    VecCartasTemp.push_back(carta23);
+    VecCartasTemp.push_back(carta24);
+    VecCartasTemp.push_back(carta25);
+    VecCartasTemp.push_back(carta26);
+    VecCartasTemp.push_back(carta27);
+    VecCartasTemp.push_back(carta28);
+    VecCartasTemp.push_back(carta29);
+    VecCartasTemp.push_back(carta30);
+    VecCartasTemp.push_back(carta31);
+    VecCartasTemp.push_back(carta32);
+    VecCartasTemp.push_back(carta33);
+    VecCartasTemp.push_back(carta34);
+    VecCartasTemp.push_back(carta35);
+    VecCartasTemp.push_back(carta36);
+    VecCartasTemp.push_back(carta37);
+    VecCartasTemp.push_back(carta38);
+    VecCartasTemp.push_back(carta39);
+    VecCartasTemp.push_back(carta40);
+    VecCartasTemp.push_back(carta41);
+    VecCartasTemp.push_back(carta42);
+//  el vector tiene todas las cartas , sin embargo la idea es que el jugador agarre una carta
+// aleatoria entonces se barajara la lista con la funcion shuffle.
+    std::shuffle(VecCartasTemp.begin(), VecCartasTemp.end(), std::default_random_engine());
+    // se pasa la lista revuelta a una cola para que los jugadores puedan sacar de a 1 carta facilmente
+    // Pasar las cartas desde el vector a la cola
+        for (Carta& carta : VecCartasTemp) {
+          this->Cartas.push(carta);
+        }
 }
-//
+
 void Risk::AgregarTropas(Jugador* jugador, int total) {
     Ficha batallon(colorJugador(), "infanteria");
     while(total!=0){
@@ -469,6 +589,8 @@ for(int i =0; i<jugadores.size(); i++){
 //esta funcion reliza el avanzar en los jugadores mostradondo el nombre del jugador 
 
 void Risk::turnoJugado(){
+  this->getJugador(this->getNameJugadorEnTurno())->agregarCarta(this->Cartas.front());
+  this->Cartas.pop();
   Totalturnos+=1;
   turnoActual=Totalturnos%jugadores.size();
 }
@@ -967,7 +1089,7 @@ for (int i = 0; i < dadosDefensor.size() - 1; i++) {
 int numDados = dadosAtacante.size() < dadosDefensor.size() ? dadosAtacante.size() : dadosDefensor.size();
 int unidadesPerdidasAtacante = 0;
 int unidadesPerdidasDefensor = 0;
-std::cout<<"numerod dados:"<<numDados<<std::endl;
+
 for (int i = 0; i < numDados; i++) {
     if (dadosAtacante[i] >= dadosDefensor[i]) {
         unidadesPerdidasDefensor++;
@@ -979,13 +1101,25 @@ for (int i = 0; i < numDados; i++) {
     // Actualizar las unidades de ejército de cada jugador
     atacante->restarUnidades(unidadesPerdidasAtacante,Territorioatacante);
     defensor->restarUnidades(unidadesPerdidasDefensor,TerritorioDefensor);
-
-    
-
-
-return resultados;
-}
-
-
+      // Si el territorio defensor queda vacío, el atacante puede reclamarlo
+    if (territorioD->ContarFichas(defensor->obtenerColor()) == 0) {
+        territorioD->setReclamar(atacante->obtenerNombreJugador());
+        atacante->setTerritorio(territorioD);
+        defensor->eliminarTerritorio(territorioD);
+  
+   }
+    // Mostrar quién ganó el ataque
+    std::cout << "Resultado del ataque: ";
+    if (unidadesPerdidasAtacante > unidadesPerdidasDefensor) {
+        std::cout << atacante->obtenerNombreJugador() << " ganó el ataque." << std::endl;
+    }
+    else if (unidadesPerdidasAtacante < unidadesPerdidasDefensor) {
+        std::cout << defensor->obtenerNombreJugador() << " ganó el ataque." << std::endl;
+    }
+    else {
+        std::cout << "El ataque fue un empate." << std::endl;
+    }
+    return resultados;
+} 
 
 
