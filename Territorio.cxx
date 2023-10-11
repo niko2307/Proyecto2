@@ -25,9 +25,7 @@ bool Territorio::ChekFicha(std::string jugador) {
     return false;
 }
 // set de reclamado 
-void Territorio::setReclamar( std::string jugador) {
-    reclamado = jugador;
-}
+
 
 std::string Territorio::getReclamado() {
     return reclamado;
