@@ -72,3 +72,11 @@ if (territorio->getNombre() == Nterritorio) {
 void Jugador::agregarCarta(Carta carta){
     this->cartasJugador.push_back(carta);
 }
+
+void Jugador::eliminarTerritorio(Territorio* territorio) {
+    // Buscar y eliminar el territorio del vector de territorios del jugador
+    auto it = std::find(territorios.begin(), territorios.end(), territorio);
+    if (it != territorios.end()) {
+        territorios.erase(it);
+    }
+}

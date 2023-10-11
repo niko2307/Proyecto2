@@ -15,7 +15,7 @@ public:
     Risk();
     void iniciarPartida();
     bool estadoPartida();
-    void asignarGanador();
+    bool asignarGanador();
     void crearContinente();
     void CrearCartasJuego();
     std::string resultadoAtaque(std::string Territorioatacante, std::string TerritorioDefensor);
@@ -72,6 +72,7 @@ private:
     std::vector<Continente> continentes;
     bool Partida;
     bool Ganador;
+    std::string Nganador;
     int turnoActual;
     int Totalturnos;
     int Grupo_de_Cartas;
