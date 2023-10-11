@@ -14,10 +14,6 @@ std::string Jugador::obtenerNombreJugador() {
     return nombreJugador;
 }
 
-// agregar la tarjeta
-void Jugador::agregarCarta(Carta carta ) {
-    cartasJugador.push_back(carta);
-}
 // get de obtener la tarjeta 
 //std::vector<Carta> Jugador::obtenerTarjeta() {
 //    return tarjeta;
@@ -70,7 +66,11 @@ void Jugador::restarUnidades(int cantidadEliminar,std::string Nterritorio) {
 if (territorio->getNombre() == Nterritorio) {
           territorio->restarFichas( cantidadEliminar);
         }
+    }
 }
+
+void Jugador::agregarCarta(Carta carta){
+    this->cartasJugador.push_back(carta);
 }
 
 void Jugador::eliminarTerritorio(Territorio* territorio) {
