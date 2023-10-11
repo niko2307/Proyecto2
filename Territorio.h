@@ -13,7 +13,7 @@ public:
     void deleteFicha( std::string jugador);
     //Ficha GetFicha( std::string jugador);
     bool ChekFicha( std::string jugador);
-    void setReclamar( std::string jugador);
+    
     int ContarFichas( std::string Colorjugador);
     int GetQFichas();
     std::string getNombre();
@@ -24,6 +24,7 @@ public:
     std::vector<Territorio*> getTerritoriosColindantes();
     void setTerritoriosColindantes(Territorio* Territorio);
     void restarFichas(int cantidadEliminar);
+    void setReclamar(std::string jugador);
 
 private:
     std::string nombre;

@@ -7,6 +7,7 @@
 #include <map>
 #include <string>
 
+
 using namespace std;
 
 struct InformacionJugador {
@@ -39,7 +40,7 @@ void infoGuardarComprimido(void);
 void infoCostoConquista(void);
 void infoConquistaMasBarata(void);
 void crearArchivoBinario(const string& nombreArchivo,const   InformacionJugador& jugadorInfo);
-
+void crearArchivo(const string& nombreArchivo, const string& contenidoGuardar);
 //entrega 2
 void inicializarJuego(Risk* risk);
 void fortificar(Risk* risk, bool inicializar);
@@ -49,14 +50,14 @@ void atacar(Risk* risk);
 
 string nombreArchivo;
 
-
  InformacionJugador jugadorInfo;
  ArbolHuffman<char> arbolHuffman;
-
+ Risk risk;
+  
 int main() {
   
   //instancia para la clase risk
-  Risk risk;
+  
   risk.crearContinente();
   risk.CrearCartasJuego();
   risk.InicializarTerritoriosColindantes(&risk);
@@ -138,11 +139,11 @@ int main() {
             case 6: 
                 {
                   
-                   nombreArchivo = separarEspacio(respuesta, true);
+                  nombreArchivo = separarEspacio(respuesta, true);
                   vector<pair<char, int>> frecuencias = arbolHuffman.calcularFrecuencias(nombreArchivo);
                   arbolHuffman.construirArbol(frecuencias);
                   jugadorInfo.nombre = arbolHuffman.codificar(nombreArchivo);
-                  crearArchivoBinario(nombreArchivo, jugadorInfo);
+                  crearArchivoBinario("guardar", jugadorInfo);
 
                   
                 }
@@ -189,22 +190,32 @@ int main() {
 
 
 
+void crearArchivo(const string& nombreArchivo) {
+ 
+    ofstream archivo(nombreArchivo );  
+    if (archivo.is_open()) {
+      archivo<< "canti jugadores"<< risk.estadoPartida();
+      archivo << "\n";
+      archivo<< "nombre del jugador en turno "<<risk.getNameJugadorEnTurno();
+      archivo << "\n";
+      archivo<<"color del jugador "<<risk.getColorJugadorEnTurno();
+      archivo << "\n";
+      archivo<<"fichas"<<risk.getFichasJugadorEnTurno();
+      archivo << "\n";
+      archivo<<"territorios"<<risk.territoriosJugador();
+      archivo.close();
+      cout << "La partida ha sido guardada correctamente en " << nombreArchivo  << endl;
+    } else {
+        cout << "La partida no ha sido guardada correctamente." << endl;
+    }
+}
 
 
 
 
 //permite crear un archivo
 
-void crearArchivo(const string& nombreArchivo) {
-    ofstream archivo(nombreArchivo ); 
-    if (archivo.is_open()) {
-       
-        archivo.close();
-        cout << "La partida ha sido guardada correctamente en " << nombreArchivo << "_codificado.txt." << endl;
-    } else {
-        cout << "La partida no ha sido guardada correctamente." << endl;
-    }
-}
+
 
 void crearArchivoBinario(const string& nombreArchivo, const  InformacionJugador& jugadorInfo) {
     try {
@@ -404,7 +415,7 @@ void inicializarJuego(Risk* risk){
     vector<pair<char, int>> frecuencias = arbolHuffman.calcularFrecuencias(to_string(cantidadJugadores));
    arbolHuffman.construirArbol(frecuencias);
    jugadorInfo.jugadores=arbolHuffman.codificar(to_string(cantidadJugadores));
-   crearArchivoBinario("guarda",jugadorInfo);
+   crearArchivoBinario("guardar",jugadorInfo);
   }while(cantidadJugadores<3 || cantidadJugadores>6);
 
    
@@ -418,7 +429,7 @@ system("cls");
     arbolHuffman.construirArbol(frecuenciaNombre);
     jugadorInfo.nombrejug = arbolHuffman.codificar(nombreJug);
     risk->CrearJugador(nombreJug, cantidadJugadores);
-    crearArchivoBinario("guarda", jugadorInfo);
+    crearArchivoBinario("guardar", jugadorInfo);
   }
  
   cout<<risk->infoJug()<<endl;
@@ -490,13 +501,13 @@ arbolHuffman.construirArbol(frecuenciasFichas);
 
     jugadorInfo;
     jugadorInfo.territorios .push_back(arbolHuffman.codificar(territorio));
-    crearArchivoBinario("guarda", jugadorInfo);
+    crearArchivoBinario("guardar", jugadorInfo);
     jugadorInfo.jugadort = arbolHuffman.codificar(risk->getNameJugadorEnTurno());
-    crearArchivoBinario("guarda", jugadorInfo);
+    crearArchivoBinario("guardar", jugadorInfo);
     jugadorInfo.color = arbolHuffman.codificar(risk->getColorJugadorEnTurno());
-    crearArchivoBinario("guarda", jugadorInfo);
+    crearArchivoBinario("guardar", jugadorInfo);
     jugadorInfo.cantidadPaises = arbolHuffman.codificar(to_string (risk->getFichasJugadorEnTurno()));
-    crearArchivoBinario("guarda", jugadorInfo);
+    crearArchivoBinario("guardar", jugadorInfo);
   }while(risk->territoriosLibres());
 }
 
@@ -541,14 +552,16 @@ void fortificar(Risk* risk, bool inicializar){
         risk->turnoJugado();
         system("cls");
 
+
   }while(risk->getFichasJugadorEnTurno()!=0);
 
 }
 
 
 void turno (Risk* risk){
+  bool Ganador = false;
   //std::vector<Territorio*> territoriosJ =risk->getJugador(risk->getNameJugadorEnTurno())->getTerritorios();
-       //do{
+       do{
        int qtropas=risk->CantidadNuevasTropas(risk->getJugador(risk->getNameJugadorEnTurno())) ;
      std::cout<<"jugador "<<risk->getNameJugadorEnTurno()<<"\n cantidad de tropas disponibles : "<<qtropas<<std::endl;
      risk->AgregarTropas(risk->getJugador(risk->getNameJugadorEnTurno()),qtropas) ;
@@ -557,15 +570,19 @@ void turno (Risk* risk){
       //risk->ubicarNuevasTropas(int qtropas );
      fortificar(risk);
    
-      std::cout<<"ACABO TU TURNO"<<std::endl;
+    
+      Ganador=risk->estadoGanador();
 
     risk->turnoJugado();
 
 
 
 
-    
-     //  }
+
+
+       }while(Ganador==true);
+
+      std::cout<<"SE ACABO EL JUEGO"<<std::endl;
 
 }
 

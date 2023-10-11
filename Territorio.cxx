@@ -25,9 +25,7 @@ bool Territorio::ChekFicha(std::string jugador) {
     return false;
 }
 // set de reclamado 
-void Territorio::setReclamar( std::string jugador) {
-    reclamado = jugador;
-}
+
 
 std::string Territorio::getReclamado() {
     return reclamado;
@@ -85,4 +83,7 @@ Ficha Territorio::obtenerFicha(std::string jugador) {
     }
     // Si no se encuentra la ficha, se devuelve una ficha vacía
     return Ficha("", "");
+}
+void Territorio::setReclamar(std::string jugador) {
+    reclamado = jugador;
 }
