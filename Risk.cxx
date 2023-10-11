@@ -30,7 +30,7 @@ bool Risk::estadoPartida(){
   return Partida;
 }
 
-void Risk::asignarGanador() {
+void Risk:: asignarGanador() {
     // Implementación para asignar un ganador y terminar la partida
 }
 
