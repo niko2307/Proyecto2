@@ -570,7 +570,7 @@ void turno (Risk* risk){
 
 void atacar(Risk* risk){
 
- string territorio = "", continente= "", colindante = "";
+ string territorio = "", continente= "", colindante = "",combatir = "";
     int qFichas =0;
     bool Fase = true;
     bool Colindante= true;
@@ -606,10 +606,21 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
             Colindante= false;
           }
         }while(Colindante==false|| !risk->buscarTerritorio(continente,territorio)->esColindante(risk->buscarTerritorio(continente,colindante)));
+        
+
+        //realiza el lanzamiento de dados y perdida de fichas
+        do{
+        
         std::cout<<"Hora de la batalla"<<std::endl;
         if(continente=="" || !risk->territorioJugador(continente, territorio)){
             cout<<"\n-** Nombre de territorio no valido **-\n\n";
         }
+       // risk->resultadoAtaque();
+          std::cout<<"Quieres seguir combatiendo?"<<std::endl;
+          std::cout<<"SI \nNO"<<std::endl;
+
+
+        }while(combatir =="NO");
 
     }while(continente=="" || !risk->territorioJugador(continente, territorio)||elegir=="retroceder");
     //evalua si el territorio seleccionado para atacar es colindante
