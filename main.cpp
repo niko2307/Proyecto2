@@ -557,6 +557,7 @@ void turno (Risk* risk){
       //risk->ubicarNuevasTropas(int qtropas );
      fortificar(risk);
    
+    
       Ganador=risk->estadoGanador();
 
     risk->turnoJugado();
