@@ -547,7 +547,7 @@ void fortificar(Risk* risk, bool inicializar){
 
 void turno (Risk* risk){
   //std::vector<Territorio*> territoriosJ =risk->getJugador(risk->getNameJugadorEnTurno())->getTerritorios();
-       
+       //do{
        int qtropas=risk->CantidadNuevasTropas(risk->getJugador(risk->getNameJugadorEnTurno())) ;
      std::cout<<"jugador "<<risk->getNameJugadorEnTurno()<<"\n cantidad de tropas disponibles : "<<qtropas<<std::endl;
      risk->AgregarTropas(risk->getJugador(risk->getNameJugadorEnTurno()),qtropas) ;
@@ -556,11 +556,16 @@ void turno (Risk* risk){
       //risk->ubicarNuevasTropas(int qtropas );
      fortificar(risk);
    
-
-   
-
+      std::cout<<"ACABO TU TURNO"<<std::endl;
 
     risk->turnoJugado();
+
+
+
+
+    
+     //  }
+
 }
 
 
