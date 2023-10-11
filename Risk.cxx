@@ -977,7 +977,7 @@ for (int i = 0; i < dadosDefensor.size() - 1; i++) {
 int numDados = dadosAtacante.size() < dadosDefensor.size() ? dadosAtacante.size() : dadosDefensor.size();
 int unidadesPerdidasAtacante = 0;
 int unidadesPerdidasDefensor = 0;
-std::cout<<"numerod dados:"<<numDados<<std::endl;
+
 for (int i = 0; i < numDados; i++) {
     if (dadosAtacante[i] >= dadosDefensor[i]) {
         unidadesPerdidasDefensor++;
@@ -989,13 +989,25 @@ for (int i = 0; i < numDados; i++) {
     // Actualizar las unidades de ejército de cada jugador
     atacante->restarUnidades(unidadesPerdidasAtacante,Territorioatacante);
     defensor->restarUnidades(unidadesPerdidasDefensor,TerritorioDefensor);
-
-    
-
-
-return resultados;
-}
-
-
+      // Si el territorio defensor queda vacío, el atacante puede reclamarlo
+    if (territorioD->ContarFichas(defensor->obtenerColor()) == 0) {
+        territorioD->setReclamar(atacante->obtenerNombreJugador());
+        atacante->setTerritorio(territorioD);
+        defensor->eliminarTerritorio(territorioD);
+  
+   }
+    // Mostrar quién ganó el ataque
+    std::cout << "Resultado del ataque: ";
+    if (unidadesPerdidasAtacante > unidadesPerdidasDefensor) {
+        std::cout << atacante->obtenerNombreJugador() << " ganó el ataque." << std::endl;
+    }
+    else if (unidadesPerdidasAtacante < unidadesPerdidasDefensor) {
+        std::cout << defensor->obtenerNombreJugador() << " ganó el ataque." << std::endl;
+    }
+    else {
+        std::cout << "El ataque fue un empate." << std::endl;
+    }
+    return resultados;
+} 
 
 
