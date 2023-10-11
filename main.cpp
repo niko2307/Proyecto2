@@ -553,14 +553,10 @@ void turno (Risk* risk){
       fortificar(risk, false);
       atacar(risk);
       //risk->ubicarNuevasTropas(int qtropas );
-     fortificar(risk, true);
+     fortificar(risk);
    
 
-    if(risk->getFichasJugadorEnTurno()>0){
-
-         // fortificar(risk, false);
-    }else
-        cout <<" ¡No se puede fortificar!\n  ¡Fichas insuficientes!";
+   
 
 
     risk->turnoJugado();
@@ -648,6 +644,60 @@ if(colindante !="retroceder"){
   
 
   }while(Fase =="NO");
+
+
+
+
+}
+
+void fortificar(Risk* risk){
+
+ // Obtener el jugador en turno risk->getNameJugadorEnTurno()
+    Jugador* jugadorEnTurno = risk->getJugador(risk->getNameJugadorEnTurno());
+
+    // Mostrar los territorios del jugador en turno
+    std::cout << "Territorios del jugador " << jugadorEnTurno->obtenerNombreJugador() << ":" << std::endl;
+    for (Territorio* territorio : jugadorEnTurno->getTerritorios()) {
+        std::cout << territorio->getNombre() << std::endl;
+    }
+
+    // Solicitar el nombre del territorio de origen y destino
+    std::string nombreTerritorioOrigen;
+    std::string nombreTerritorioDestino;
+    std::cout << "Ingrese el nombre del territorio de origen: ";
+    std::cin >> nombreTerritorioOrigen;
+    std::cout << "Ingrese el nombre del territorio de destino: ";
+    std::cin >> nombreTerritorioDestino;
+
+    // Buscar los territorios de origen y destino
+    Territorio* territorioOrigen = risk->buscarTerritorio(nombreTerritorioOrigen);
+    Territorio* territorioDestino = risk->buscarTerritorio(nombreTerritorioDestino);
+
+    // Verificar si los territorios pertenecen al mismo jugador
+    if (territorioOrigen && territorioDestino && territorioOrigen->getReclamado() == jugadorEnTurno->obtenerNombreJugador() && territorioDestino->getReclamado() == jugadorEnTurno->obtenerNombreJugador()) {
+        // Solicitar la cantidad de fichas a mover
+        int cantidadFichas;
+        std::cout << "Ingrese la cantidad de fichas a mover: ";
+        std::cin >> cantidadFichas;
+
+        // Verificar si el territorio de origen tiene suficientes fichas
+        if (territorioOrigen->ContarFichas(jugadorEnTurno->obtenerNombreJugador()) >= cantidadFichas) {
+            // Mover las fichas del territorio de origen al territorio de destino
+            for (int i = 0; i < cantidadFichas; i++) {
+                Ficha ficha = territorioOrigen->obtenerFicha(jugadorEnTurno->obtenerNombreJugador());
+                territorioDestino->addFicha(ficha);
+            }
+
+            // Mostrar mensaje de éxito
+            std::cout << "Se han movido " << cantidadFichas << " fichas del territorio " << nombreTerritorioOrigen << " al territorio " << nombreTerritorioDestino << "." << std::endl;
+        } else {
+            std::cout << "El territorio de origen no tiene suficientes fichas." << std::endl;
+        }
+    } else {
+        std::cout << "Los territorios no pertenecen al mismo jugador." << std::endl;
+    }
+
+
 
 
 
