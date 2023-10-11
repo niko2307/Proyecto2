@@ -57,7 +57,8 @@ int main() {
   //instancia para la clase risk
   Risk risk;
   risk.crearContinente();
- risk.InicializarTerritoriosColindantes(&risk);
+  risk.CrearCartasJuego();
+  risk.InicializarTerritoriosColindantes(&risk);
     //guarda la cadena ingresada por el usuario
     string respuesta;
     //mensaje de bienvenida

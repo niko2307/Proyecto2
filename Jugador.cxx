@@ -14,9 +14,9 @@ std::string Jugador::obtenerNombreJugador() {
     return nombreJugador;
 }
 
-// agregar la targeta 
+// agregar la tarjeta
 void Jugador::agregarCarta(Carta carta ) {
-    cartas.push_back(carta);
+    cartasJugador.push_back(carta);
 }
 // get de obtener la tarjeta 
 //std::vector<Carta> Jugador::obtenerTarjeta() {
@@ -54,7 +54,7 @@ std::vector<Territorio*>& Jugador::getTerritorios() {
     return territorios.size();
 }
 std::vector<Carta> Jugador::obtenerCartas() {
-    return cartas;
+    return cartasJugador;
 }
 
 void Jugador::restarUnidades(int cantidadEliminar,std::string Nterritorio) {

@@ -35,7 +35,7 @@ public:
 
    private:
     std::string color;
-    std::vector<Carta> cartas;
+    std::vector<Carta> cartasJugador;
     std::vector<Ficha> fichas;
     std::vector<Territorio *>territorios;
     std::string nombreJugador;
