@@ -584,43 +584,61 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
     cout<<risk->territoriosJugador();
     //evalua si el territorio seleccionado te pertenece
     do{
-        cout<<"Escoge el territorio atacante:\n";
+
+      do{
+        cout<<"Territorio atacante:\n";
         territorio = ingresarComando();
         continente = risk->buscarContinenteTerritorio(territorio);
 
+        //cout<<"continente: "<<continente<<endl;
+        
+        if(continente=="" || !risk->territorioJugador(continente, territorio)){
+            cout<<"\n-** Nombre de territorio no valido **-\n\n";
+        }
+
+    }while(continente=="" || !risk->territorioJugador(continente, territorio));
+
   //evalua si el territorio a atacar es colindante
         do{
-          cout<<"\t TERRITORIOS DISPONIBLES PARA ATACAR \n "<<endl;
+          cout<<"\t \n TERRITORIOS DISPONIBLES PARA ATACAR \n "<<endl;
           cout<<risk->territoriosColindantes(territorio);
 
            cout<<"retroceder = si quieres escoger otro pais\n"<<endl;
            cout<<"Escoge el territorio que quieres atacar:\n";   
            colindante = ingresarComando();
+           if(colindante =="retroceder"){
+            break;
+           }
+           std::cout<<"sigo"<<std::endl;
            if( !risk->buscarTerritorio(continente,territorio)->esColindante(risk->buscarTerritorio(continente,colindante))){
             cout<<"\n-** Nombre de territorio Colindate no valido **-\n\n";
             Colindante= false;
         }
           //revisa que el territorio seleciionado no pertenesca al mismo jugador
-          if(risk->territorioPerteneceAJugador(risk->buscarTerritorio(continente,territorio))->obtenerNombreJugador()==risk->getNameJugadorEnTurno()){
+          if(risk->territorioPerteneceAJugador(risk->buscarTerritorio(continente,colindante))->obtenerNombreJugador()==risk->getNameJugadorEnTurno()){
             cout<<"\n-** Este territorio te pertenece **-\n\n";
             Colindante= false;
           }
+           
         }while(Colindante==false|| !risk->buscarTerritorio(continente,territorio)->esColindante(risk->buscarTerritorio(continente,colindante)));
         
-
+if(colindante !="retroceder"){
+  
         //realiza el lanzamiento de dados y perdida de fichas
         do{
         
-        std::cout<<"Hora de la batalla"<<std::endl;
+        cout<<"\t \n HORA DE LA BATALLA \n "<<endl;
         if(continente=="" || !risk->territorioJugador(continente, territorio)){
             cout<<"\n-** Nombre de territorio no valido **-\n\n";
         }
         risk->resultadoAtaque(territorio,colindante);
           std::cout<<"Quieres seguir combatiendo?"<<std::endl;
           std::cout<<"SI \nNO"<<std::endl;
-
+          combatir = ingresarComando();
 
         }while(combatir =="NO");
+       
+    }
 
     }while(continente=="" || !risk->territorioJugador(continente, territorio)||elegir=="retroceder");
     //evalua si el territorio seleccionado para atacar es colindante
