@@ -615,7 +615,7 @@ std::cout<<" \t RONDA DE ATAQUES \n"<<std::endl;
         if(continente=="" || !risk->territorioJugador(continente, territorio)){
             cout<<"\n-** Nombre de territorio no valido **-\n\n";
         }
-       // risk->resultadoAtaque();
+        risk->resultadoAtaque(territorio,colindante);
           std::cout<<"Quieres seguir combatiendo?"<<std::endl;
           std::cout<<"SI \nNO"<<std::endl;
 
