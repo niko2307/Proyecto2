@@ -548,7 +548,7 @@ void fortificar(Risk* risk, bool inicializar){
 
 void turno (Risk* risk){
   //std::vector<Territorio*> territoriosJ =risk->getJugador(risk->getNameJugadorEnTurno())->getTerritorios();
-       
+       //do{
        int qtropas=risk->CantidadNuevasTropas(risk->getJugador(risk->getNameJugadorEnTurno())) ;
      std::cout<<"jugador "<<risk->getNameJugadorEnTurno()<<"\n cantidad de tropas disponibles : "<<qtropas<<std::endl;
      risk->AgregarTropas(risk->getJugador(risk->getNameJugadorEnTurno()),qtropas) ;
@@ -557,11 +557,16 @@ void turno (Risk* risk){
       //risk->ubicarNuevasTropas(int qtropas );
      fortificar(risk);
    
-
-   
-
+      std::cout<<"ACABO TU TURNO"<<std::endl;
 
     risk->turnoJugado();
+
+
+
+
+    
+     //  }
+
 }
 
 
@@ -654,7 +659,7 @@ if(colindante !="retroceder"){
 }
 
 void fortificar(Risk* risk){
-
+system("cls");
   std::cout<<"FORTIFICAR"<<std::endl;
 
  // Obtener el jugador en turno risk->getNameJugadorEnTurno()
@@ -670,7 +675,7 @@ void fortificar(Risk* risk){
          nombreTerritorioOrigen = ingresarComando();
         continenteOrigen = risk->buscarContinenteTerritorio(nombreTerritorioOrigen);
 
-        cout<<"continente: "<<continenteOrigen<<endl;
+       
         
         if(continenteOrigen=="" || !risk->territorioJugador(continenteOrigen, nombreTerritorioOrigen)){
             cout<<"\n-** Nombre de territorio no valido **-\n\n";
@@ -679,11 +684,11 @@ void fortificar(Risk* risk){
     }while(continenteOrigen=="" || !risk->territorioJugador(continenteOrigen, nombreTerritorioOrigen));
 
     do{
-        cout<<"Nombre territorio:\n";
+        cout<<"\nIngrese el nombre del territorio de Destino:\n";
         nombreTerritorioDestino = ingresarComando();
         continenteDestino = risk->buscarContinenteTerritorio(nombreTerritorioDestino);
 
-        cout<<"continente: "<<continenteDestino<<endl;
+      
         
         if(continenteDestino=="" || !risk->territorioJugador(continenteDestino, nombreTerritorioDestino)){
             cout<<"\n-** Nombre de territorio no valido **-\n\n";
@@ -703,7 +708,7 @@ void fortificar(Risk* risk){
         // Solicitar la cantidad de fichas a mover
         int cantidadFichas;
         std::cout << "Ingrese la cantidad de fichas a mover: ";
-        std::cin >> cantidadFichas;
+        cantidadFichas=stoi(ingresarComando());
 
         // Verificar si el territorio de origen tiene suficientes fichas
         if (territorioOrigen->ContarFichas(jugadorEnTurno->obtenerColor()) >= cantidadFichas) {
