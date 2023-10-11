@@ -30,10 +30,20 @@ bool Risk::estadoPartida(){
   return Partida;
 }
 
-void Risk:: asignarGanador() {
-    // Implementación para asignar un ganador y terminar la partida
-}
 
+bool Risk::asignarGanador() {
+    // Verificar si hay un jugador que ha conquistado todos los territorios
+    for (Jugador& jugador : jugadores) {
+        if (jugador.contarTerritorios() == 42) {
+            // Asignar el ganador y terminar la partida
+            this->Ganador = true;
+            this->Nganador = jugador.obtenerNombreJugador();
+            asignarGanador();
+            return true;
+        }
+    }
+    return false;
+}
 bool Risk::estadoGanador(){
   return Ganador;
 }
