@@ -579,6 +579,8 @@ for(int i =0; i<jugadores.size(); i++){
 //esta funcion reliza el avanzar en los jugadores mostradondo el nombre del jugador 
 
 void Risk::turnoJugado(){
+  this->getJugador(this->getNameJugadorEnTurno())->agregarCarta(this->Cartas.front());
+  this->Cartas.pop();
   Totalturnos+=1;
   turnoActual=Totalturnos%jugadores.size();
 }
@@ -1090,7 +1092,6 @@ for (int i = 0; i < numDados; i++) {
     atacante->restarUnidades(unidadesPerdidasAtacante,Territorioatacante);
     defensor->restarUnidades(unidadesPerdidasDefensor,TerritorioDefensor);
 
-    
 
 
 return resultados;

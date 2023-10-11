@@ -572,7 +572,7 @@ void turno (Risk* risk){
 
 
 void atacar(Risk* risk){
-
+    bool conquistado = false;
  string territorio = "", continente= "", colindante = "",combatir = " ",Fase= " ";
     int qFichas =0;
     bool Colindante= true;
