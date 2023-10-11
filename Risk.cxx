@@ -463,6 +463,7 @@ void Risk::CrearCartasJuego() {
     // Creacion de todas las cartas del juego
     // Cartas para América del Norte
     Carta carta1("infanteria", "americaCentral");
+    /*
     Carta carta2("caballeria", "estadosUnidosOrientales");
     Carta carta3("artilleria", "groenlandia");
     Carta carta4("infanteria", "territorioNoroccidental");
@@ -514,9 +515,10 @@ void Risk::CrearCartasJuego() {
     Carta carta40("infanteria", "ural");
     Carta carta41("caballeria", "yakutsk");
     Carta carta42("artilleria", "afghanistan");
-
+*/
 // Agregar todas las cartas al vector
     VecCartasTemp.push_back(carta1);
+    /*
     VecCartasTemp.push_back(carta2);
     VecCartasTemp.push_back(carta3);
     VecCartasTemp.push_back(carta4);
@@ -558,6 +560,7 @@ void Risk::CrearCartasJuego() {
     VecCartasTemp.push_back(carta40);
     VecCartasTemp.push_back(carta41);
     VecCartasTemp.push_back(carta42);
+    */
 //  el vector tiene todas las cartas , sin embargo la idea es que el jugador agarre una carta
 // aleatoria entonces se barajara la lista con la funcion shuffle.
     std::shuffle(VecCartasTemp.begin(), VecCartasTemp.end(), std::default_random_engine());
